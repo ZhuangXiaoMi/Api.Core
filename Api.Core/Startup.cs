@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Api.Core.Helper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,14 @@ namespace Api.Core
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Env { get; }
         private const string ApiName = "Core API";
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -28,8 +31,30 @@ namespace Api.Core
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            #region Startup.cs读取appsettings.json
+            // 1.按节点访问，Startup类在构造函数已经注入Configuration(访问appsettings.json)，其它地方需要自己注入
+            var AllowedHosts = Configuration["AllowedHosts"];
+            var SqlServerConnection = Configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
+            var OracleConnection = Configuration["AppSettings:Oracle:ConnectionString"];
+            var OracleConnection1 = AppSettingsHelper.GetElement(new string[] { "AppSettings", "Oracle", "ConnectionString" });
+            var OracleConnection2 = AppSettingsHelper.GetElement("AppSettings", "Oracle", "ConnectionString");
+
+            // 2.按对象访问
+            var rootPath = Env.ContentRootPath;//D:\MySource\Api.Core\Api.Core
+            //添加指定json文件，对应\Controllers\ValuesController.cs，Get()
+            var builder = new ConfigurationBuilder()
+               .SetBasePath(rootPath)
+               .AddJsonFile("mysettings.json", optional: true, reloadOnChange: true)
+               .AddEnvironmentVariables();
+            var MyConfiguration = builder.Build();
+
+            services.AddOptions();//注入IOptions<T>
+            //services.Configure<AppSettingsConfig>(MyConfiguration.GetSection("AppSettings"));//指定节点
+            services.Configure<AppSettingsJson>(MyConfiguration);//整个文件
+            #endregion Startup.cs读取appsettings.json
+
             #region Swagger UI Service(NuGet："Swashbuckle.AspNetCore")
-            var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
+            var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;//D:\MySource\Api.Core\Api.Core\bin\Debug\netcoreapp2.2
             services.AddSwaggerGen(c =>
             {
                 //"v1"上下一致

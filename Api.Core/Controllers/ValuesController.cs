@@ -1,6 +1,8 @@
 ﻿using Api.Core.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +13,14 @@ namespace Api.Core.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private static IConfiguration _configuration;//按节点访问
+        private static IOptions<AppSettingsJson> _setting;//按对象访问
+        public ValuesController(IConfiguration configuration, IOptions<AppSettingsJson> setting)
+        {
+            _configuration = configuration;//读取appsettings.json
+            _setting = setting;//读取mysettings.json
+        }
+
         /// <summary>
         /// 登录接口：获取 Access_Token，然后 Authorize
         /// </summary>
@@ -66,9 +76,14 @@ namespace Api.Core.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public ActionResult<IEnumerable<string>> Get()
         {
+            //_configuration读取appsettings.json
+            var AllowedHosts = _configuration["AllowedHosts"];
+            var SqlServerConnection = _configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
+            var MySqlServerConnection = _setting.Value.AppSettings.SqlServer.ConnectionString;//读取mysettings.json
+
             return new string[] { "value1", "value2" };
         }
 

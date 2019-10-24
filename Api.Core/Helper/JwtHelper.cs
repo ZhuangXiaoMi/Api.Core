@@ -19,9 +19,9 @@ namespace Api.Core.Helper
         {
             var dateTime = DateTime.UtcNow;
 
-            string iss = Appsettings.app(new string[] { "Audience", "Issuer" });
-            string aud = Appsettings.app(new string[] { "Audience", "Audience" });
-            string secret = Appsettings.app(new string[] { "Audience", "Secret" });
+            string iss = AppSettingsHelper.GetElement(new string[] { "Audience", "Issuer" });
+            string aud = AppSettingsHelper.GetElement(new string[] { "Audience", "Audience" });
+            string secret = AppSettingsHelper.GetElement(new string[] { "Audience", "Secret" });
 
             //var claims = new Claim[] //old
             var claims = new List<Claim>
