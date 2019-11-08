@@ -24,5 +24,12 @@ namespace Test.Repository
             _dbContext.CreateEntityByDBT("D:\\DbFirst\\", "Entity");
             Assert.Pass();
         }
+
+        [Test]
+        public void CreateDBTByEntity()
+        {
+            _dbContext.CreateDBTByEntity(false);
+            Assert.Pass();
+        }
     }
 }
