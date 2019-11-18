@@ -19,10 +19,10 @@ namespace Entity.SysManage
         public int Id { get; set; }
 
         /// <summary>
-        /// 模块Id
+        /// 菜单Id
         /// </summary>
-        [Display(Name = "模块Id")]
-        public int ModuleId { get; set; }
+        [Display(Name = "菜单Id")]
+        public int MenuId { get; set; }
 
         /// <summary>
         /// 模块表单编码
@@ -56,13 +56,6 @@ namespace Entity.SysManage
         /// </summary>
         [Display(Name = "备注")]
         public string Remark { get; set; }
-
-        /// <summary>
-        /// 是否启用：0：否；1：是；
-        /// </summary>
-        [Column(TypeName = "bit")]
-        [Display(Name = "是否启用", Description = "0：否；1：是；")]
-        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// 是否删除：0：否；1：是；

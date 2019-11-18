@@ -12,10 +12,10 @@ namespace Entity.SysManage
     {
         #region 原始字段
         /// <summary>
-        /// 用户Id
+        /// 主键Id
         /// </summary>
         [Key]
-        [Display(Name = "用户Id")]
+        [Display(Name = "主键Id")]
         public int Id { get; set; }
         //public int UserId { get; set; }
 
@@ -161,12 +161,6 @@ namespace Entity.SysManage
         /// </summary>
         [Display(Name = "部门Id")]
         public int DeptId { get; set; }
-
-        /// <summary>
-        /// 角色Id
-        /// </summary>
-        [Display(Name = "角色Id")]
-        public int RoleId { get; set; }
 
         /// <summary>
         /// 岗位Id

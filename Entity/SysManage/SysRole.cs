@@ -51,10 +51,16 @@ namespace Entity.SysManage
         public int DataScope { get; set; }
 
         /// <summary>
-        /// 所属机构
+        /// 所属机构Id
         /// </summary>
-        [Display(Name = "所属机构")]
+        [Display(Name = "所属机构Id")]
         public int DeptId { get; set; }
+
+        /// <summary>
+        /// 角色组Id
+        /// </summary>
+        [Display(Name = "角色组Id")]
+        public int GrpRoleId { get; set; }
 
         /// <summary>
         /// 是否允许编辑：0：否；1：是；

@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entity.SysManage
 {
     [Serializable]
-    [Table("Sys_Area")]
-    [Display(Name = "地区表")]
-    public partial class SysArea : ABTEntity<SysArea>, ICreateEntity, IModifyEntity, IDeleteEntity
+    [Table("Sys_Element")]
+    [Display(Name = "页面元素表")]
+    public partial class SysElement : ABTEntity<SysElement>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>
@@ -17,52 +17,33 @@ namespace Entity.SysManage
         [Key]
         [Display(Name = "主键Id")]
         public int Id { get; set; }
-        //public int AreaId { get; set; }
+        //public int ElemId { get; set; }
 
         /// <summary>
-        /// 上级地区Id
+        /// 菜单Id
         /// </summary>
-        [Display(Name = "上级地区Id")]
-        public int ParentId { get; set; }
+        [Display(Name = "菜单Id")]
+        public int MenuId { get; set; }
 
         /// <summary>
-        /// 行政区划代码
-        /// </summary>
-        [StringLength(9, ErrorMessage = "少于{0}位数")]
-        [RegularExpression(@"[1-9]\d{8}(?!\d)", ErrorMessage = "异常值")]
-        [Display(Name = "行政区划代码")]
-        public string AdministrativeDivision { get; set; }
-
-        /// <summary>
-        /// 邮政编码
+        /// 元素编码
         /// </summary>
         [Required(ErrorMessage = "必填")]
-        [StringLength(6, ErrorMessage = "少于{0}位数")]
-        [RegularExpression(@"[1-9]\d{5}(?!\d)", ErrorMessage = "异常值")]
-        [DataType(DataType.PostalCode)]
-        [Display(Name = "邮政编码")]
-        public string AreaCode { get; set; }
+        [Display(Name = "元素编码")]
+        public string ElemCode { get; set; }
 
         /// <summary>
-        /// 地区名称
+        /// 元素名称
         /// </summary>
         [Required(ErrorMessage = "必填")]
-        [Display(Name = "地区名称")]
-        public string AreaName { get; set; }
+        [Display(Name = "元素名称")]
+        public string ElemName { get; set; }
 
         /// <summary>
-        /// 简称
+        /// 位置
         /// </summary>
-        [Display(Name = "简称")]
-        public string SimpleName { get; set; }
-
-        /// <summary>
-        /// 行政区划级别：0：国家；1：省级；2：地级；3：县级；4：乡级；
-        /// </summary>
-        [Required(ErrorMessage = "必填")]
-        [Range(0, 4, ErrorMessage = "异常值")]
-        [Display(Name = "行政区划级别", Description = "0：国家；1：省级；2：地级；3：县级；4：乡级；")]
-        public int Level { get; set; }
+        [Display(Name = "位置")]
+        public string Location { get; set; }
 
         /// <summary>
         /// 排序
@@ -82,13 +63,6 @@ namespace Entity.SysManage
         /// </summary>
         [Display(Name = "备注")]
         public string Remark { get; set; }
-
-        /// <summary>
-        /// 是否启用：0：否；1：是；
-        /// </summary>
-        [Column(TypeName = "bit")]
-        [Display(Name = "是否启用", Description = "0：否；1：是；")]
-        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// 是否删除：0：否；1：是；

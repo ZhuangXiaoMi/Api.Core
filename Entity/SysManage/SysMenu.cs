@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entity.SysManage
 {
     [Serializable]
-    [Table("Sys_Module")]
-    [Display(Name = "模块表")]
-    public partial class SysModule : ABTEntity<SysModule>, ICreateEntity, IModifyEntity, IDeleteEntity
+    [Table("Sys_Menu")]
+    [Display(Name = "菜单表")]
+    public partial class SysMenu : ABTEntity<SysMenu>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>
@@ -17,38 +17,32 @@ namespace Entity.SysManage
         [Key]
         [Display(Name = "主键Id")]
         public int Id { get; set; }
-        //public int ModuleId { get; set; }
+        //public int MenuId { get; set; }
 
         /// <summary>
-        /// 上级模块Id
+        /// 上级菜单Id
         /// </summary>
-        [Display(Name = "上级模块Id")]
+        [Display(Name = "上级菜单Id")]
         public int ParentId { get; set; }
 
         /// <summary>
-        /// 模块编码
+        /// 菜单编码
         /// </summary>
         [Required(ErrorMessage = "必填")]
-        [Display(Name = "模块编码")]
-        public string ModuleCode { get; set; }
+        [Display(Name = "菜单编码")]
+        public string MenuCode { get; set; }
 
         /// <summary>
-        /// 模块名称
+        /// 菜单名称
         /// </summary>
         [Required(ErrorMessage = "必填")]
-        [Display(Name = "模块名称")]
-        public string ModuleName { get; set; }
+        [Display(Name = "菜单名称")]
+        public string MenuName { get; set; }
 
         /// <summary>
-        /// 权限标识
+        /// 菜单层次
         /// </summary>
-        [Display(Name = "权限标识")]
-        public string Permission { get; set; }
-
-        /// <summary>
-        /// 模块层次
-        /// </summary>
-        [Display(Name = "模块层次")]
+        [Display(Name = "菜单层次")]
         public int Level { get; set; }
 
         /// <summary>
@@ -84,33 +78,6 @@ namespace Entity.SysManage
         [Column(TypeName = "bit")]
         [Display(Name = "是否展开", Description = "0：否；1：是；")]
         public bool IsExpand { get; set; }
-
-        /// <summary>
-        /// 是否公共：0：否；1：是；
-        /// </summary>
-        [Column(TypeName = "bit")]
-        [Display(Name = "是否公共", Description = "0：否；1：是；")]
-        public bool IsPublic { get; set; }
-
-        /// <summary>
-        /// 是否允许编辑：0：否；1：是；
-        /// </summary>
-        [Column(TypeName = "bit")]
-        [Display(Name = "是否允许编辑", Description = "0：否；1：是；")]
-        public bool IsAllowEdit { get; set; }
-
-        /// <summary>
-        /// 是否允许删除：0：否；1：是；
-        /// </summary>
-        [Column(TypeName = "bit")]
-        [Display(Name = "是否允许删除", Description = "0：否；1：是；")]
-        public bool IsAllowDelete { get; set; }
-
-        /// <summary>
-        /// 是否显示：0：否；1：是；
-        /// </summary>
-        [Display(Name = "是否显示", Description = "0：否；1：是；")]
-        public bool IsShow { get; set; }
 
         /// <summary>
         /// 排序

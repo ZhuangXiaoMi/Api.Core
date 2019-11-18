@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_DBBackup")]
     [Display(Name = "数据库备份表")]
-    public partial class SysDBBackup : ABTEntity<SysDBBackup>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysDBBackup : ABTEntity<SysDBBackup>, ICreateEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>
@@ -74,12 +74,6 @@ namespace Entity.SysManage
         public int CreateUserId { get; set; }
 
         /// <summary>
-        /// 修改用户Id
-        /// </summary>
-        [Display(Name = "修改用户Id")]
-        public int? ModifyUserId { get; set; }
-
-        /// <summary>
         /// 删除用户Id
         /// </summary>
         [Display(Name = "删除用户Id")]
@@ -91,13 +85,6 @@ namespace Entity.SysManage
         [DisplayFormat(DataFormatString = "{0:g}")]
         [Display(Name = "创建时间")]
         public DateTime CreateTime { get; set; }
-
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:g}")]
-        [Display(Name = "修改时间")]
-        public DateTime? ModifyTime { get; set; }
 
         /// <summary>
         /// 删除时间

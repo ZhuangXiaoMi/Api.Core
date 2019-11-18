@@ -19,10 +19,10 @@ namespace Entity.SysManage
         public int Id { get; set; }
 
         /// <summary>
-        /// 项目类型：1：模块；2：按钮；
+        /// 项目类型：1：菜单 SysMenu；2：页面元素 SysElement；3：操作按钮 SysOperateBtn；4：附件 SysAttachment；5：模块表单 SysModuleForm；
         /// </summary>
-        [Range(1, 2, ErrorMessage = "异常值")]
-        [Display(Name = "项目类型", Description = "1：模块；2：按钮；")]
+        [Range(1, 5, ErrorMessage = "异常值")]
+        [Display(Name = "项目类型", Description = "1：菜单 SysMenu；2：页面元素 SysElement；3：操作按钮 SysOperateBtn；4：附件 SysAttachment；5：模块表单 SysModuleForm；")]
         public int ItemType { get; set; }
 
         /// <summary>
@@ -32,10 +32,10 @@ namespace Entity.SysManage
         public int ItemId { get; set; }
 
         /// <summary>
-        /// 对象类型：1：角色；2：部门；3：用户；
+        /// 对象类型：1：角色；2：用户；3：用户组；
         /// </summary>
         [Range(1, 3, ErrorMessage = "异常值")]
-        [Display(Name = "对象类型", Description = "1：角色；2：部门；3：用户；")]
+        [Display(Name = "对象类型", Description = "1：角色；2：用户；3：用户组；")]
         public int ObjectType { get; set; }
 
         /// <summary>
@@ -49,6 +49,13 @@ namespace Entity.SysManage
         /// </summary>
         [Display(Name = "排序", Description = "升序")]
         public int Sort { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [StringLength(500, ErrorMessage = "少于{0}个字")]
+        [Display(Name = "描述")]
+        public string Description { get; set; }
 
         /// <summary>
         /// 备注

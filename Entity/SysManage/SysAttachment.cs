@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entity.SysManage
 {
     [Serializable]
-    [Table("Sys_ModuleButton")]
-    [Display(Name = "模块按钮")]
-    public partial class SysModuleButton : ABTEntity<SysModuleButton>, ICreateEntity, IModifyEntity, IDeleteEntity
+    [Table("Sys_Attachment")]
+    [Display(Name = "附件表")]
+    public partial class SysAttachment : ABTEntity<SysAttachment>, ICreateEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>
@@ -17,65 +17,52 @@ namespace Entity.SysManage
         [Key]
         [Display(Name = "主键Id")]
         public int Id { get; set; }
+        //public int AttaId { get; set; }
 
         /// <summary>
-        /// 模块Id
+        /// 类型
         /// </summary>
-        [Display(Name = "模块Id")]
-        public int ModuleId { get; set; }
+        [Display(Name = "类型")]
+        public string AttaType { get; set; }
 
         /// <summary>
-        /// 模块按钮编码
+        /// 对象Id
+        /// </summary>
+        [Display(Name = "对象Id")]
+        public int ObjectId { get; set; }
+
+        /// <summary>
+        /// 文件路径
         /// </summary>
         [Required(ErrorMessage = "必填")]
-        [Display(Name = "模块按钮编码")]
-        public string ModuleBtnCode { get; set; }
+        [Display(Name = "文件路径")]
+        public string FilePath { get; set; }
 
         /// <summary>
-        /// 模块按钮名称
+        /// 文件路径前缀
+        /// </summary>
+        [NotMapped]
+        [Display(Name = "文件路径前缀")]
+        public string PrefixPath { get; set; }
+
+        /// <summary>
+        /// 文件名称
         /// </summary>
         [Required(ErrorMessage = "必填")]
-        [Display(Name = "模块按钮名称")]
-        public string ModuleBtnName { get; set; }
+        [Display(Name = "文件名称")]
+        public string FileName { get; set; }
 
         /// <summary>
-        /// 位置
+        /// 文件类型
         /// </summary>
-        [Display(Name = "位置")]
-        public string Location { get; set; }
+        [Display(Name = "文件类型")]
+        public string FileType { get; set; }
 
         /// <summary>
-        /// 事件
+        /// 文件大小：MB
         /// </summary>
-        [Display(Name = "事件")]
-        public string Event { get; set; }
-
-        /// <summary>
-        /// 链接
-        /// </summary>
-        [Url]
-        [Display(Name = "链接")]
-        public string Url { get; set; }
-
-        /// <summary>
-        /// 图标
-        /// </summary>
-        [FileExtensions(Extensions = "jpg,jpeg", ErrorMessage = "扩展名必须为{0}")]
-        [Display(Name = "图标")]
-        public string Icon { get; set; }
-
-        /// <summary>
-        /// 是否公共：0：否；1：是；
-        /// </summary>
-        [Column(TypeName = "bit")]
-        [Display(Name = "是否公共", Description = "0：否；1：是；")]
-        public bool IsPublic { get; set; }
-
-        /// <summary>
-        /// 是否显示：0：否；1：是；
-        /// </summary>
-        [Display(Name = "是否显示", Description = "0：否；1：是；")]
-        public bool IsShow { get; set; }
+        [Display(Name = "文件大小", Description = "MB")]
+        public double FileSize { get; set; }
 
         /// <summary>
         /// 排序
@@ -110,12 +97,6 @@ namespace Entity.SysManage
         public int CreateUserId { get; set; }
 
         /// <summary>
-        /// 修改用户Id
-        /// </summary>
-        [Display(Name = "修改用户Id")]
-        public int? ModifyUserId { get; set; }
-
-        /// <summary>
         /// 删除用户Id
         /// </summary>
         [Display(Name = "删除用户Id")]
@@ -127,13 +108,6 @@ namespace Entity.SysManage
         [DisplayFormat(DataFormatString = "{0:g}")]
         [Display(Name = "创建时间")]
         public DateTime CreateTime { get; set; }
-
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:g}")]
-        [Display(Name = "修改时间")]
-        public DateTime? ModifyTime { get; set; }
 
         /// <summary>
         /// 删除时间
