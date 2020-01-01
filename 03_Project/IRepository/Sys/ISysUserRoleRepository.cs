@@ -3,9 +3,9 @@ using IRepository.Base;
 
 namespace IRepository.Sys
 {
-	/// <summary>
-	/// ISysUserRoleRepository
-	/// </summary>	
+    /// <summary>
+    /// ISysUserRoleRepository
+    /// </summary>	
     public interface ISysUserRoleRepository : IBaseRepository<SysUserRole>
     {
     }

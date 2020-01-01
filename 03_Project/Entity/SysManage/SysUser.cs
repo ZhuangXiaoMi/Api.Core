@@ -30,6 +30,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 密码
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }
@@ -37,6 +38,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 用户密钥
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "用户密钥")]
         public string SecretKey { get; set; }
 
@@ -89,6 +91,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 手机号码
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Phone]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^1[3456789]\d{9}$", ErrorMessage = "错误")]
@@ -99,6 +102,7 @@ namespace Entity.SysManage
         /// 邮箱
         /// </summary>
         //[EmailAddress(ErrorMessage = "邮箱格式不正确")]
+        [Required(ErrorMessage = "必填")]
         [DataType(DataType.EmailAddress, ErrorMessage = "邮箱格式不正确")]
         [Display(Name = "邮箱")]
         public string Email { get; set; }
@@ -152,6 +156,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 状态：0：锁定；1：正常；2：未通过邮件验证；3：未通过管理员验证；4：删除；
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Range(0, 4, ErrorMessage = "异常值")]
         [Display(Name = "状态", Description = "0：锁定；1：正常；2：未通过邮件验证；3：未通过管理员验证；4：删除；")]
         public int Status { get; set; }

@@ -2,11 +2,11 @@
 using IService.Base;
 
 namespace IService.Sys
-{	
-	/// <summary>
-	/// ISysAttachmentService
-	/// </summary>	
+{
+    /// <summary>
+    /// ISysAttachmentService
+    /// </summary>	
     public interface ISysAttachmentService : IBaseService<SysAttachment>
-	{
+    {
     }
 }

@@ -28,6 +28,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 对象Id
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "对象Id")]
         public int ObjectId { get; set; }
 
@@ -55,6 +56,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 文件类型
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "文件类型")]
         public string FileType { get; set; }
 

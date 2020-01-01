@@ -22,6 +22,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 日志类型：1：FATAL；2：ERROR；3：WARN；4：INFO；5：DEBUG；
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Range(1, 5, ErrorMessage = "异常值")]
         [Display(Name = "日志类型", Description = "1：FATAL；2：ERROR；3：WARN；4：INFO；5：DEBUG；")]
         public int LogType { get; set; }
@@ -35,6 +36,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 系统模块Id
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "系统模块Id")]
         public int ModuleId { get; set; }
 
@@ -47,6 +49,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 请求地址
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [DataType(DataType.Url)]
         [Display(Name = "请求地址")]
         public string RequestURL { get; set; }

@@ -3,9 +3,9 @@ using IRepository.Base;
 
 namespace IRepository.Sys
 {
-	/// <summary>
-	/// ISysAttachmentRepository
-	/// </summary>	
+    /// <summary>
+    /// ISysAttachmentRepository
+    /// </summary>	
     public interface ISysAttachmentRepository : IBaseRepository<SysAttachment>
     {
     }

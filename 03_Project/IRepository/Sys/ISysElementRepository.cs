@@ -3,9 +3,9 @@ using IRepository.Base;
 
 namespace IRepository.Sys
 {
-	/// <summary>
-	/// ISysElementRepository
-	/// </summary>	
+    /// <summary>
+    /// ISysElementRepository
+    /// </summary>	
     public interface ISysElementRepository : IBaseRepository<SysElement>
     {
     }

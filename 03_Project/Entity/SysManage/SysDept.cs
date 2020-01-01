@@ -28,6 +28,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 部门编码
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "部门编码")]
         public string DeptCode { get; set; }
 
@@ -47,6 +48,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 机构类型：1：公司；2：部门；3：小组；
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Range(1, 3, ErrorMessage = "异常值")]
         [Display(Name = "机构类型", Description = "1：公司；2：部门；3：小组；")]
         public int DeptType { get; set; }
@@ -65,15 +67,15 @@ namespace Entity.SysManage
         public int Seq { get; set; }
 
         /// <summary>
-        /// 所属地区
+        /// 所属地区Id
         /// </summary>
-        [Display(Name = "所属地区")]
+        [Display(Name = "所属地区Id")]
         public int AreaId { get; set; }
 
         /// <summary>
-        /// 负责人
+        /// 负责人Id
         /// </summary>
-        [Display(Name = "负责人")]
+        [Display(Name = "负责人Id")]
         public int LeaderId { get; set; }
 
         /// <summary>

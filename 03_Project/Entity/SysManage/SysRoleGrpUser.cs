@@ -21,12 +21,14 @@ namespace Entity.SysManage
         /// <summary>
         /// 角色Id
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "角色Id")]
         public int RoleId { get; set; }
 
         /// <summary>
         /// 用户组Id
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "用户组Id")]
         public int GrpUserId { get; set; }
 

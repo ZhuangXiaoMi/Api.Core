@@ -2,11 +2,11 @@
 using IService.Base;
 
 namespace IService.Sys
-{	
-	/// <summary>
-	/// ISysAreaService
-	/// </summary>	
+{
+    /// <summary>
+    /// ISysAreaService
+    /// </summary>	
     public interface ISysAreaService : IBaseService<SysArea>
-	{
+    {
     }
 }

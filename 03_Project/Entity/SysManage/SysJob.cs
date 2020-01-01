@@ -22,6 +22,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 岗位名称
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "岗位名称")]
         public string JobName { get; set; }
 
@@ -34,6 +35,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 部门Id
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "部门Id")]
         public int DeptId { get; set; }
 

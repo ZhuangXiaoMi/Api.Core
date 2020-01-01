@@ -5,9 +5,9 @@ using Repository.SqlSugar;
 
 namespace Repository.Sys
 {
-	/// <summary>
-	/// SysModuleFormRepository
-	/// </summary>
+    /// <summary>
+    /// SysModuleFormRepository
+    /// </summary>
     public class SysModuleFormRepository : BaseRepository<SysModuleForm>, ISysModuleFormRepository
     {
         public SysModuleFormRepository(IUnitOfWork unitOfWork) : base(unitOfWork)

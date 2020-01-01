@@ -5,9 +5,9 @@ using Repository.SqlSugar;
 
 namespace Repository.Sys
 {
-	/// <summary>
-	/// SysGrpUserRepository
-	/// </summary>
+    /// <summary>
+    /// SysGrpUserRepository
+    /// </summary>
     public class SysGrpUserRepository : BaseRepository<SysGrpUser>, ISysGrpUserRepository
     {
         public SysGrpUserRepository(IUnitOfWork unitOfWork) : base(unitOfWork)

@@ -21,6 +21,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 项目类型：1：菜单 SysMenu；2：页面元素 SysElement；3：操作按钮 SysOperateBtn；4：附件 SysAttachment；5：模块表单 SysModuleForm；
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Range(1, 5, ErrorMessage = "异常值")]
         [Display(Name = "项目类型", Description = "1：菜单 SysMenu；2：页面元素 SysElement；3：操作按钮 SysOperateBtn；4：附件 SysAttachment；5：模块表单 SysModuleForm；")]
         public int ItemType { get; set; }
@@ -28,12 +29,14 @@ namespace Entity.SysManage
         /// <summary>
         /// 项目外键
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "项目外键")]
         public int ItemId { get; set; }
 
         /// <summary>
         /// 对象类型：1：角色；2：用户；3：用户组；
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Range(1, 3, ErrorMessage = "异常值")]
         [Display(Name = "对象类型", Description = "1：角色；2：用户；3：用户组；")]
         public int ObjectType { get; set; }
@@ -41,6 +44,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 对象外键
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "对象外键")]
         public int ObjectId { get; set; }
 

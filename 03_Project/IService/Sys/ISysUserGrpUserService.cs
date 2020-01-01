@@ -2,11 +2,11 @@
 using IService.Base;
 
 namespace IService.Sys
-{	
-	/// <summary>
-	/// ISysUserGrpUserService
-	/// </summary>	
+{
+    /// <summary>
+    /// ISysUserGrpUserService
+    /// </summary>	
     public interface ISysUserGrpUserService : IBaseService<SysUserGrpUser>
-	{
+    {
     }
 }

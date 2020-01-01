@@ -21,6 +21,7 @@ namespace Entity.SysManage
         /// <summary>
         /// 菜单Id
         /// </summary>
+        [Required(ErrorMessage = "必填")]
         [Display(Name = "菜单Id")]
         public int MenuId { get; set; }
 

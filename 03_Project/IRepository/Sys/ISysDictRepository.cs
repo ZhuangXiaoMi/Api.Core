@@ -3,9 +3,9 @@ using IRepository.Base;
 
 namespace IRepository.Sys
 {
-	/// <summary>
-	/// ISysDictRepository
-	/// </summary>	
+    /// <summary>
+    /// ISysDictRepository
+    /// </summary>	
     public interface ISysDictRepository : IBaseRepository<SysDict>
     {
     }

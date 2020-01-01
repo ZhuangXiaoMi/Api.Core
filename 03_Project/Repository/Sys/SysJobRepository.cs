@@ -5,9 +5,9 @@ using Repository.SqlSugar;
 
 namespace Repository.Sys
 {
-	/// <summary>
-	/// SysJobRepository
-	/// </summary>
+    /// <summary>
+    /// SysJobRepository
+    /// </summary>
     public class SysJobRepository : BaseRepository<SysJob>, ISysJobRepository
     {
         public SysJobRepository(IUnitOfWork unitOfWork) : base(unitOfWork)

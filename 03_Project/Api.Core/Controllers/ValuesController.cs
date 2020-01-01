@@ -1,4 +1,7 @@
 ﻿using Api.Core.Helper;
+using DTO;
+using Entity.SysManage;
+using IService.Sys;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -16,10 +19,13 @@ namespace Api.Core.Controllers
     {
         private static IConfiguration _configuration;//按节点访问
         private static IOptions<AppSettingsJson> _setting;//按对象访问
-        public ValuesController(IConfiguration configuration, IOptions<AppSettingsJson> setting)
+        private ISysUserService _sysUserService;
+
+        public ValuesController(IConfiguration configuration, IOptions<AppSettingsJson> setting, ISysUserService sysUserService)
         {
             _configuration = configuration;//读取appsettings.json
             _setting = setting;//读取mysettings.json
+            _sysUserService = sysUserService;
         }
 
         /// <summary>
@@ -78,14 +84,14 @@ namespace Api.Core.Controllers
         /// <returns></returns>
         [HttpGet]
         //[Authorize]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<IList<SysUser>> Get()
         {
             //_configuration读取appsettings.json
             var AllowedHosts = _configuration["AllowedHosts"];
             var SqlServerConnection = _configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
             var MySqlServerConnection = _setting.Value.AppSettings.SqlServer.ConnectionString;//读取mysettings.json
 
-            return new string[] { "value1", "value2" };
+            return await _sysUserService.Query(o => o.Id == 1, p => p.Account);
         }
 
         /// <summary>

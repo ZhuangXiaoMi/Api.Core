@@ -5,9 +5,9 @@ using Repository.SqlSugar;
 
 namespace Repository.Sys
 {
-	/// <summary>
-	/// SysAuthorizeRepository
-	/// </summary>
+    /// <summary>
+    /// SysAuthorizeRepository
+    /// </summary>
     public class SysAuthorizeRepository : BaseRepository<SysAuthorize>, ISysAuthorizeRepository
     {
         public SysAuthorizeRepository(IUnitOfWork unitOfWork) : base(unitOfWork)

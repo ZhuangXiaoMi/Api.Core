@@ -2,11 +2,11 @@
 using IService.Base;
 
 namespace IService.Sys
-{	
-	/// <summary>
-	/// ISysUserRoleService
-	/// </summary>	
+{
+    /// <summary>
+    /// ISysUserRoleService
+    /// </summary>	
     public interface ISysUserRoleService : IBaseService<SysUserRole>
-	{
+    {
     }
 }
