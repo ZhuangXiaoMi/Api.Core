@@ -1,20 +1,17 @@
 ﻿using Castle.DynamicProxy;
 using Common.Attribute;
 using Common.MemoryCache;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Api.Core.AOP
 {
     /// <summary>
     /// 面向切面的缓存使用
     /// </summary>
-    public class CacheAOP : BaseCacheAOP
+    public class MemoryCacheAOP : BaseCacheAOP
     {
         private readonly ICaching _cache;
-        public CacheAOP(ICaching cache)
+        public MemoryCacheAOP(ICaching cache)
         {
             _cache = cache;
         }

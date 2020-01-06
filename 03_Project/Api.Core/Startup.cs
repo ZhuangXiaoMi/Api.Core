@@ -6,6 +6,7 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
 using Common.Extends;
 using Common.Helper;
+using Common.Redis;
 using DTO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,7 @@ namespace Api.Core
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddSingleton<IRedisCacheManage, RedisCacheManage>();
             services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
 
             services.AddMemoryCacheService();
@@ -72,7 +74,8 @@ namespace Api.Core
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
 
             //注册要通过反射创建的组件
-            autofacBuilder.RegisterType<CacheAOP>();
+            autofacBuilder.RegisterType<MemoryCacheAOP>();
+            autofacBuilder.RegisterType<RedisCacheAOP>();
             autofacBuilder.RegisterType<LogAOP>();//注入拦截器
 
             #region 带有接口层的服务注入
@@ -88,9 +91,13 @@ namespace Api.Core
 
                 // AOP 开关，如果想要打开指定的功能，只需要在 appsettigns.json 对应对应 true 就行。
                 var cacheType = new List<Type>();
+                if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "RedisCachingAOP", "Enabled" }).ObjectToBool())
+                {
+                    cacheType.Add(typeof(RedisCacheAOP));
+                }
                 if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "MemoryCachingAOP", "Enabled" }).ObjectToBool())
                 {
-                    cacheType.Add(typeof(CacheAOP));
+                    cacheType.Add(typeof(MemoryCacheAOP));
                 }
                 if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "LogAOP", "Enabled" }).ObjectToBool())
                 {
@@ -106,7 +113,7 @@ namespace Api.Core
                 //允许将拦截器服务的列表分配给注册，即：将拦截器添加到要注入容器的接口或类上
                 //EnableInterfaceInterceptors：对目标类型启用接口拦截。拦截器将被确定，通过在类或接口上截取属性或添加InterceptedBy
                 //引用"Autofac.Extras.DynamicProxy"
-                //如果注入两个，InterceptedBy(typeof(CacheAOP), typeof(LogAOP))；如果使用Redis缓存，必须开启Redis服务，否则用memory缓存CacheAOP
+                //如果注入两个，InterceptedBy(typeof(MemoryCacheAOP), typeof(LogAOP))；如果使用Redis缓存，必须开启Redis服务，否则用memory缓存MemoryCacheAOP
 
                 var repositoryDllFile = Path.Combine(basePath, "Repository.dll");
                 var assemblyRepository = Assembly.LoadFrom(repositoryDllFile);
