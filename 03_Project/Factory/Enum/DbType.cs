@@ -4,10 +4,10 @@ namespace Factory.Enum
 {
     public enum DbType
     {
-        MySql,
-        SqlServer,
-        Sqlite,
-        Oracle,
-        PostgreSQL
+        MySql = 0,
+        SqlServer = 1,
+        Sqlite = 2,
+        Oracle = 3,
+        PostgreSQL = 4
     }
 }

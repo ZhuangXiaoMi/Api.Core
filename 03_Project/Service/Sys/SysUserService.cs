@@ -14,5 +14,10 @@ namespace Service.Sys
             this._repository = repository;
             base._baseRepository = repository;
         }
+
+        public string Print()
+        {
+            return "888";
+        }
     }
 }

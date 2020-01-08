@@ -19,13 +19,13 @@ namespace Api.Core.Controllers
     {
         private static IConfiguration _configuration;//按节点访问
         private static IOptions<AppSettingsJson> _setting;//按对象访问
-        private ISysUserService _sysUserService;
+        //private ISysUserService _sysUserService;
 
-        public ValuesController(IConfiguration configuration, IOptions<AppSettingsJson> setting, ISysUserService sysUserService)
+        public ValuesController(IConfiguration configuration, IOptions<AppSettingsJson> setting)//, ISysUserService sysUserService)
         {
             _configuration = configuration;//读取appsettings.json
             _setting = setting;//读取mysettings.json
-            _sysUserService = sysUserService;
+            //_sysUserService = sysUserService;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Api.Core.Controllers
             var SqlServerConnection = _configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
             var MySqlServerConnection = _setting.Value.AppSettings.SqlServer.ConnectionString;//读取mysettings.json
 
-            return await _sysUserService.Query(o => o.Id == 1, p => p.Account);
+            return null;//await _sysUserService.Query(o => o.Id == 1, p => p.Account);
         }
 
         /// <summary>

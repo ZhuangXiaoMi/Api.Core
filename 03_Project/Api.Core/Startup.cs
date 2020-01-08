@@ -41,13 +41,17 @@ namespace Api.Core
             services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
 
             services.AddMemoryCacheService();
-            services.AddCorsService();
+            services.AddSqlSugarService();
+            services.AddDbService();
+            services.AddAutoMapperService();
+            services.AddCorsService();//CORS配置要在Autofac前，否则autofacBuilder.Populate(services);后再配置会无效
             services.AddMiniProfilerService();
             services.AddSwaggerService();
             services.AddAuthenticationService();
             services.AddSignalR();
 
             #region Startup.cs读取appsettings.json
+            /*
             // 1.按节点访问，Startup类在构造函数已经注入Configuration(访问appsettings.json)，其它地方需要自己注入
             var AllowedHosts = Configuration["AllowedHosts"];
             var SqlServerConnection = Configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
@@ -67,6 +71,7 @@ namespace Api.Core
             services.AddOptions();//注入IOptions<T>
             //services.Configure<AppSettingsConfig>(MyConfiguration.GetSection("AppSettings"));//指定节点
             services.Configure<AppSettingsJson>(MyConfiguration);//整个文件
+            */
             #endregion Startup.cs读取appsettings.json
 
             #region Autofac
@@ -138,14 +143,16 @@ namespace Api.Core
             //    .InterceptedBy(typeof(LogAOP));
             #endregion 没有接口的单独类 class 注入，只能注入该类中的虚方法
 
-            autofacBuilder.Populate(services);//将IServiceCollection services填充到Autofac容器生成器中
-            //var ApplicationContainer = autofacBuilder.Build();//使用已进行的组件登记创建新容器
+            //将IServiceCollection services填充到Autofac容器生成器中
+            autofacBuilder.Populate(services);
+            var ApplicationContainer = autofacBuilder.Build();//使用已进行的组件登记创建新容器
             //return new AutofacServiceProvider(ApplicationContainer);//第三方IOC接管ConfigureServices函数，返回类型改成 IServiceProvider
 
             //---------- 测试 ----------
             //var sysUserService = ApplicationContainer.Resolve<IService.Sys.ISysUserService>();
             //string test = sysUserService.XXX();
             //int count = ApplicationContainer.ComponentRegistry.Registrations.Count();
+            //string test = sysUserService.Print();
             #endregion Autofac
 
             #region Core自带IOC容器
@@ -184,7 +191,16 @@ namespace Api.Core
             #endregion Swagger(NuGet："Swashbuckle.AspNetCore")
 
             app.UseMiniProfiler();
-            app.UseCors("LimitRequests");
+            app.UseCors("LimitRequests");//先进行跨域，再进行HTTP请求，否则无效
+
+            // 跳转https
+            //app.UseHttpsRedirection();
+            // 使用静态文件
+            app.UseStaticFiles();
+            // 使用cookie
+            app.UseCookiePolicy();
+            // 把错误码返回前台，如：404
+            app.UseStatusCodePages();
 
             //方法一：弃用-开启自定义认证中间件，用官方验证方法。如想传User全局变量，还可以继续使用中间件
             //[Authorize]无策略的授权报错，且无法验证过期时间

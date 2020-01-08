@@ -8,5 +8,6 @@ namespace IService.Sys
     /// </summary>	
     public interface ISysUserService : IBaseService<SysUser>
     {
+        string Print();
     }
 }

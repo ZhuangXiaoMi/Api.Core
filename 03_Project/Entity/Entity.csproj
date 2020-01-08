@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>..\Api.Core\bin\Debug\netcoreapp2.2\Entity.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>

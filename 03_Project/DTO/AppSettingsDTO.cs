@@ -3,7 +3,7 @@
 namespace DTO
 {
     #region appsettings.json节点
-    public class DbConfig
+    public class DbInfoConfig
     {
         public bool Enabled { get; set; }
         public string ConnectionString { get; set; }
@@ -17,10 +17,10 @@ namespace DTO
     }
     public class AppSettingsConfig
     {
-        public DbConfig MySql { get; set; }
-        public DbConfig SqlServer { get; set; }
-        public DbConfig Sqlite { get; set; }
-        public DbConfig Oracle { get; set; }
+        public DbInfoConfig MySql { get; set; }
+        public DbInfoConfig SqlServer { get; set; }
+        public DbInfoConfig Sqlite { get; set; }
+        public DbInfoConfig Oracle { get; set; }
     }
     public class AppSettingsJson
     {

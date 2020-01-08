@@ -75,6 +75,7 @@ namespace Test.Startup
             var ApplicationContainer = builder.Build();
 
             var sysUserService = ApplicationContainer.Resolve<ISysUserService>();
+            string test = sysUserService.Print();
 
             Assert.True(ApplicationContainer.ComponentRegistry.Registrations.Count() > 0);
         }

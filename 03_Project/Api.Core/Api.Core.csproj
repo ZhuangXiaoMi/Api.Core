@@ -37,6 +37,7 @@
     <ProjectReference Include="..\ApplicationService\ApplicationService.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\DTO\DTO.csproj" />
+    <ProjectReference Include="..\Factory\Factory.csproj" />
     <ProjectReference Include="..\IRepository\IRepository.csproj" />
     <ProjectReference Include="..\IService\IService.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
