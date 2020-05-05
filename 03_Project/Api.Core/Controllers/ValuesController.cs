@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Api.Core.Controllers
 {
@@ -17,12 +18,14 @@ namespace Api.Core.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ILogger<SysUser> _logger;
         private static IConfiguration _configuration;//按节点访问
         private static IOptions<AppSettingsJson> _setting;//按对象访问
         //private ISysUserService _sysUserService;
 
-        public ValuesController(IConfiguration configuration, IOptions<AppSettingsJson> setting)//, ISysUserService sysUserService)
+        public ValuesController(ILogger<SysUser> logger, IConfiguration configuration, IOptions<AppSettingsJson> setting)//, ISysUserService sysUserService)
         {
+            _logger = logger;
             _configuration = configuration;//读取appsettings.json
             _setting = setting;//读取mysettings.json
             //_sysUserService = sysUserService;

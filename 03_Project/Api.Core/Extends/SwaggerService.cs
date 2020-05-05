@@ -1,5 +1,6 @@
 ﻿using Common.Helper;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -23,22 +24,21 @@ namespace Api.Core.Extends
             services.AddSwaggerGen(c =>
             {
                 //"v1"上下一致
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v0.1.0",
                     Title = ApiName,
                     Description = "接口说明文档",
-                    TermsOfService = "None",
-                    Contact = new Contact
+                    Contact = new OpenApiContact
                     {
                         Name = ApiName,
                         Email = "1009123099@qq.com",
-                        Url = ""
+                        Url = new Uri("")
                     },
-                    License = new License
+                    License = new OpenApiLicense
                     {
                         Name = ApiName,
-                        Url = ""
+                        Url = new Uri("")
                     }
                 });
                 c.OrderActionsBy(o => o.RelativePath);
@@ -49,6 +49,8 @@ namespace Api.Core.Extends
                     var xmlPath = Path.Combine(basePath, "Api.Core.xml");//项目属性->生成->输出->XML文档文件，对应文件名
                     c.IncludeXmlComments(xmlPath, true);//默认第二个参数是false，这个是controller的注释，改为true
 
+                    var xmlEntityPath = Path.Combine(basePath, "Entity.xml");
+                    c.IncludeXmlComments(xmlEntityPath, true);
                 }
                 catch (Exception ex)
                 {
@@ -68,13 +70,13 @@ namespace Api.Core.Extends
                         IssuerName, new string[] { }
                     },
                 };
-                c.AddSecurityRequirement(security);
-                c.AddSecurityDefinition(IssuerName, new ApiKeyScheme
+                //c.AddSecurityRequirement(security);
+                c.AddSecurityDefinition(IssuerName, new OpenApiSecurityScheme
                 {
                     Description = "JWT授权(数据将在请求头中进行传输)直接在下框中输入Bearer {token}（注意两者之间是一个空格）",
                     Name = "Authorization",//jwt默认的参数名称
-                    In = "header",//jwt默认存放Authorization信息的位置(请求头中)
-                    Type = "apiKey"
+                    In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
+                    Type = SecuritySchemeType.ApiKey
                 });
                 #endregion Token绑定到ConfigureServices
 

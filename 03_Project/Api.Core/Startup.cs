@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,22 +25,21 @@ namespace Api.Core
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Env = env;
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
 
             services.AddSingleton<IRedisCacheManage, RedisCacheManage>();
-            services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
+            //services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
+            services.AddSingleton(new AppSettingsHelper(Configuration));
 
             services.AddMemoryCacheService();
             services.AddSqlSugarService();
@@ -163,7 +164,7 @@ namespace Api.Core
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSignalRConfigure();//SignalR
 
@@ -210,7 +211,14 @@ namespace Api.Core
             app.UseAuthentication();
 
             //HTTP管道有先后顺序，一定要写在 app.UseMvc(); 前，否则不起作用
-            app.UseMvc();
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

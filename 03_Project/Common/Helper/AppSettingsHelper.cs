@@ -36,6 +36,11 @@ namespace Common.Helper
             //var OracleConnection = Configuration["AppSettings:Oracle:ConnectionString"];
         }
 
+        public AppSettingsHelper(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         /// <summary>
         /// 获取appsettings.json指定节点值
         /// 参数1：new string[] { "XXX", "YYY" })

@@ -4,7 +4,7 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{8DEC0550-7AE9-4FA2-A0E1-D3C964AC0115}" Name="Api.Core" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Api.Core.pdm"/>
+		<Model Expanded="Yes" ID="{8DEC0550-7AE9-4FA2-A0E1-D3C964AC0115}" Loaded="No" Name="Api.Core" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Api.Core.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
