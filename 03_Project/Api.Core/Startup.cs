@@ -196,7 +196,7 @@ namespace Api.Core
 
             // 跳转https
             //app.UseHttpsRedirection();
-            // 使用静态文件
+            // 使用静态文件，这样客户端才能访问html、js、css
             app.UseStaticFiles();
             // 使用cookie
             app.UseCookiePolicy();
@@ -217,7 +217,12 @@ namespace Api.Core
 
             app.UseEndpoints(endpoints =>
             {
+                // 在控制器中使用[Route("api/[controller]")]
                 endpoints.MapControllers();
+                //或
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
