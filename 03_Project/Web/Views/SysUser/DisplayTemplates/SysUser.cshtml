@@ -1,0 +1,12 @@
+﻿@model Entity.SysManage.SysUser
+
+<tr>
+    <td>@Model.No</td>
+    <td>@Model.Account</td>
+    <td>@Model.RealName</td>
+    <td>@Model.Sex</td>
+
+    <td>
+        <a asp-controller="XXX" asp-action="Index" asp-route-deptId="@Model.Id">XXX</a>
+    </td>
+</tr>

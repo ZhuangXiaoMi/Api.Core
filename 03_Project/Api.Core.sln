@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Factory", "Factory\Factory.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{A8F09A2E-BBAF-49E6-BCCE-EB6BFF1EBB9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{328F96EC-EBD5-494D-9F03-77EA26967836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{328F96EC-EBD5-494D-9F03-77EA26967836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

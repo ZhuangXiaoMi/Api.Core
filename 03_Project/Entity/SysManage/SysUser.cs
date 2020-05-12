@@ -1,4 +1,5 @@
 ﻿using Entity.BaseManage;
+using Entity.Enum;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -65,7 +66,7 @@ namespace Entity.SysManage
         /// </summary>
         [Range(0, 2, ErrorMessage = "异常值")]
         [Display(Name = "性别", Description = "0：保密；1：男；2：女；")]
-        public int Sex { get; set; }
+        public Gender Sex { get; set; }
 
         /// <summary>
         /// 年龄

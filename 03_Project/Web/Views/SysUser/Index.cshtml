@@ -1,0 +1,30 @@
+﻿@using Entity.SysManage
+@model IList<SysUser>
+@{
+    //指明视图View(users)返回类型
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+
+<div class="row">
+    <div class="col-md-10 offset-md-2">
+        <table class="table">
+            <tr>
+                <th>No</th>
+                <th>Account</th>
+                <th>RealName</th>
+                <th>Gender</th>
+                <th>操作</th>
+            </tr>
+            @Html.DisplayForModel()<!-- 读取当前目录下DisplayTemplates文件夹模板视图 -->
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 offset-md-2">
+        <a asp-action="Add">Add</a>
+    </div>
+</div>

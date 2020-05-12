@@ -1,0 +1,11 @@
+﻿@model decimal?
+@*例子：https://www.dazhuanlan.com/2020/01/30/5e31e0aab2d88/*@
+@if (Model == null)
+{
+    <span class="text-danger">No Decimal Data!!</span>
+}
+else
+{
+    IFormatProvider formatProvider = new System.Globalization.CultureInfo("zh-cn");
+    <span>@(((decimal)Model).ToString("C", formatProvider))</span>
+}
