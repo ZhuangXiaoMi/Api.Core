@@ -1,5 +1,7 @@
 ﻿@using Entity.SysManage
+@using DTO
 @model IList<SysUser>
+@inject Microsoft.Extensions.Options.IOptions<AppSettingsJson> setting
 @{
     //指明视图View(users)返回类型
     ViewData["Title"] = "Index";
@@ -7,7 +9,24 @@
 }
 
 <h1>Index</h1>
+<span>数据库：@setting.Value.AppSettings.SqlServer.ConnectionString</span>
 
+@section Header {
+    <header>
+        @if (Model.FirstOrDefault().Sex == Entity.Enum.Gender.Gentleman)
+        {
+
+        }
+    </header>
+}
+@RenderSection("Header", false)
+@if (IsSectionDefined("Header"))
+{
+    @RenderSection("Header")
+}
+
+@await Component.InvokeAsync("Menu", new { id = ViewBag.DeptId })
+<vc:menu id="@ViewBag.DeptId"></vc:menu>
 
 <div class="row">
     <div class="col-md-10 offset-md-2">
@@ -25,6 +44,11 @@
 </div>
 <div class="row">
     <div class="col-md-4 offset-md-2">
-        <a asp-action="Add">Add</a>
+        <!-- asp-route-XXX：action对应参数XXX -->
+        <a asp-action="Add" asp-route-deptId="@ViewBag.DeptId">Add</a>
     </div>
 </div>
+
+@section Footer {
+    <footer></footer>
+}

@@ -1,0 +1,50 @@
+﻿@using Entity.SysManage
+@using Entity.Enum
+@model SysUser
+
+<form asp-action="Add">
+    <!-- Add[HttpGet]已经new做了DeptId赋值，需要放一个字段暂存 -->
+    <input type="hidden" asp-for="DeptId" />
+
+    <div class="row form-group">
+        <div class="col-md-2 offset-md-2">
+            <label asp-for="No"></label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control" asp-for="No" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-2 offset-md-2">
+            <label asp-for="Account"></label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control" asp-for="Account" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-2 offset-md-2">
+            <label asp-for="RealName"></label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control" asp-for="RealName" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-2 offset-md-2">
+            <label asp-for="Sex"></label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control"
+                    asp-for="Sex"
+                    asp-items="Html.GetEnumSelectList<Gender>()">
+            </select>
+            <input class="form-control" asp-for="Sex" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+</form>

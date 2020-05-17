@@ -25,6 +25,8 @@ namespace Web.Controllers
         {
             ViewBag.Title = $"User Index of {deptId}";
             var users = await _sysUserService.Query(o => o.DeptId == deptId && o.IsDelete == false, p => p.RealName);
+
+            ViewBag.DeptId = deptId;
             return View(users);
         }
 
