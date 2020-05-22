@@ -9,6 +9,14 @@
         "dist/css/bootstrap.css",
         "dist/css/bootstrap.min.css"
       ]
+    },
+    {
+      "library": "signalr@2.4.1",
+      "destination": "wwwroot/lib/signalr/",
+      "files": [
+        "jquery.signalR.js",
+        "jquery.signalR.min.js"
+      ]
     }
   ]
 }

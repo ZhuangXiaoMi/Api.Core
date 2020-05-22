@@ -11,4 +11,9 @@
     <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj" />
+    <ProjectReference Include="..\IService\IService.csproj" />
+  </ItemGroup>
+
 </Project>

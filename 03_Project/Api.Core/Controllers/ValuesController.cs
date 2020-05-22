@@ -112,6 +112,13 @@ namespace Api.Core.Controllers
             return "value";
         }
 
+        //[HttpGet("{id}")]
+        //public IActionResult Get(int id)
+        //{
+        //    return NoContent();
+        //    //return Ok(new { id });
+        //}
+
         /// <summary>
         /// 新增
         /// POST api/values

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace DTO
 {
     #region appsettings.json节点
+    [Serializable]
     public class DbInfoConfig
     {
+        [JsonProperty("Enabled")]
         public bool Enabled { get; set; }
         public string ConnectionString { get; set; }
         public string ProviderName { get; set; }

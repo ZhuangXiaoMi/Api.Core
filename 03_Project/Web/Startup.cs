@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Hub;
+using IService.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Service.Test;
 
 namespace Web
 {
@@ -25,6 +28,9 @@ namespace Web
             services.AddControllersWithViews();
             //services.AddControllers();
             //services.AddRazorPages();
+
+            services.AddSingleton<ISignalRService, SignalRService>();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +54,8 @@ namespace Web
             //端点 endpoints：Http请求URL结尾部分，被中间件处理
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/ChatHub");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
