@@ -1,4 +1,5 @@
-﻿using DTO.Hub;
+﻿using Common.Redis;
+using DTO.Hub;
 using IService.Test;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -18,11 +19,15 @@ namespace Common.Hub
     {
         private readonly ILogger<ChatHub> _logger;
         private readonly ISignalRService _signalRService;
+        private readonly IRedisCacheManage _redisCacheManage;
+        public readonly string PREFIXUSER = "signalr_u_";
+        public readonly string PREFIXGROUP = "signalr_g_";
 
-        public ChatHub(ILogger<ChatHub> logger, ISignalRService signalRService)
+        public ChatHub(ILogger<ChatHub> logger, ISignalRService signalRService, IRedisCacheManage redisCacheManage)
         {
             _logger = logger;
             _signalRService = signalRService;
+            _redisCacheManage = redisCacheManage;
         }
 
         /// <summary>
@@ -38,7 +43,7 @@ namespace Common.Hub
             _logger.LogDebug($"OnConnectedAsync----userId:{userId},groups:{groups},connectionId:{connectId}");
             if (!string.IsNullOrWhiteSpace(userId))
             {
-                //await _signalrRedisHelper.AddConnectForUserAsync(userId, connectId);
+                await _redisCacheManage.SetAsync($"{PREFIXUSER}{userId}", connectId);
                 await AddToGroupAsync(userId, connectId, groups?.Split(','));
                 await OnLineNotifyAsync(userId, connectId);
             }
@@ -58,7 +63,7 @@ namespace Common.Hub
             _logger.LogDebug($"OnDisconnectedAsync----userId:{userId},groups:{groups},connectionId:{connectId}");
             if (!string.IsNullOrWhiteSpace(userId))
             {
-                //await _signalrRedisHelper.RemoveConnectForUserAsync(userId, connectId);
+                await _redisCacheManage.DeleteAsync($"{PREFIXUSER}{userId}");
                 await OffLineNotifyAsync(userId, connectId);
             }
             await RemoveFromGroupAsync(connectId, groups?.Split(','));
@@ -79,7 +84,7 @@ namespace Common.Hub
                 foreach (var group in groups)
                 {
                     await Groups.AddToGroupAsync(connectionId, group);
-                    //await _signalrRedisHelper.AddUserForGroupAsync(group, connectionId, userId);
+                    await _redisCacheManage.HashSetAsync($"{PREFIXGROUP}{group}", connectionId, userId);
                 }
             }
         }
@@ -97,7 +102,7 @@ namespace Common.Hub
                 foreach (var group in groups)
                 {
                     await Groups.RemoveFromGroupAsync(connectionId, group);
-                    //await _signalrRedisHelper.RemoveConnectFromGroupAsync(group, connectionId);
+                    await _redisCacheManage.HashDeleteAsync($"{PREFIXGROUP}{group}", connectionId);
                 }
             }
         }
@@ -110,8 +115,7 @@ namespace Common.Hub
         /// <returns></returns>
         private async Task OnLineNotifyAsync(string userId, string connectionId)
         {
-            //var userConnectCount = await _signalrRedisHelper.GetConnectsCountByUserAsync(userId);
-            var userConnectCount = 1;
+            var userConnectCount = await _redisCacheManage.GetCountAsync($"{PREFIXUSER}{userId}");
             await Clients.All.OnLineAsync(new OnLineDTO()
             {
                 UserId = userId,
@@ -128,8 +132,7 @@ namespace Common.Hub
         /// <returns></returns>
         private async Task OffLineNotifyAsync(string userId, string connectionId)
         {
-            //var userConnectCount = await _signalrRedisHelper.GetConnectsCountByUserAsync(userId);
-            var userConnectCount = 0;
+            var userConnectCount = await _redisCacheManage.GetCountAsync($"{PREFIXUSER}{userId}");
             await Clients.All.OffLineAsync(new OffLineDTO()
             {
                 UserId = userId,
@@ -137,7 +140,6 @@ namespace Common.Hub
                 IsLast = userConnectCount == 0
             });
         }
-
 
         /// <summary>
         /// 向指定群组发送信息

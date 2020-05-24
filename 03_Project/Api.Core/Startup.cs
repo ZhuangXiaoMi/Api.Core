@@ -97,11 +97,11 @@ namespace Api.Core
 
                 // AOP 开关，如果想要打开指定的功能，只需要在 appsettigns.json 对应对应 true 就行。
                 var cacheType = new List<Type>();
-                if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "RedisCachingAOP", "Enabled" }).ObjectToBool())
+                if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "RedisCacheAOP", "Enabled" }).ObjectToBool())
                 {
                     cacheType.Add(typeof(RedisCacheAOP));
                 }
-                if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "MemoryCachingAOP", "Enabled" }).ObjectToBool())
+                if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "MemoryCacheAOP", "Enabled" }).ObjectToBool())
                 {
                     cacheType.Add(typeof(MemoryCacheAOP));
                 }

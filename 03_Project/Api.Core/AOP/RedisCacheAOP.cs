@@ -30,7 +30,7 @@ namespace Api.Core.AOP
                 //获取自定义缓存键
                 var cacheKey = CustomCacheKey(invocation);
                 //注意是 string 类型，方法GetValue
-                var cacheValue = _cache.GetValue(cacheKey);
+                var cacheValue = _cache.GetAsync(cacheKey).Result;
                 if (cacheValue != null)
                 {
                     //将当前获取到的缓存值，赋值给当前执行方法
@@ -62,7 +62,7 @@ namespace Api.Core.AOP
                     else
                     {
                         // 核心2，要进行 ChangeType
-                        response = Convert.ChangeType(_cache.Get<object>(cacheKey), type);
+                        response = Convert.ChangeType(_cache.GetAsync<object>(cacheKey), type);
                     }
 
                     invocation.ReturnValue = response;
@@ -88,7 +88,7 @@ namespace Api.Core.AOP
                     }
                     if (response == null) response = string.Empty;
 
-                    _cache.Set(cacheKey, response, TimeSpan.FromMinutes(qCachingAttribute.AbsoluteExpiration));
+                    _cache.SetAsync(cacheKey, response, TimeSpan.FromMinutes(qCachingAttribute.AbsoluteExpiration));
                 }
             }
             else

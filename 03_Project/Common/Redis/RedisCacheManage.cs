@@ -1,106 +1,145 @@
 ﻿using Common.Helper;
+using DTO;
+using DTO.Hub;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Common.Redis
 {
     public class RedisCacheManage : IRedisCacheManage
     {
-        public volatile ConnectionMultiplexer _redisConnection;
-        private readonly string _redisConnectionString;
-        private readonly object _redisConnectionLock = new object();
+        #region 全局变量
+        private static IOptions<AppSettingsJson> _appSettingsJson;
+        //volatile：修饰变量，保证变量在所有线程中同步，值唯一
+        private static volatile ConnectionMultiplexer _redisConnection = null;
+        private static readonly object _redisConnectionLock = new object();
+        private static IDatabase _database;
+        private static readonly object _redisDatabaseLock = new object();
+        ////单例模式：https://www.cnblogs.com/leolion/p/10241822.html
+        //private static readonly Lazy<IDatabase> _lazyDatabase = new Lazy<IDatabase>(() => _redisConnection.GetDatabase(_appSettingsJson.Value.RedisCache.DatabaseId));
+        //public static IDatabase _database
+        //{
+        //    get { return _lazyDatabase.Value; }
+        //}
 
-        public RedisCacheManage()
+        private RedisValue _token = Environment.MachineName;
+        #endregion 全局变量
+
+        #region 构造函数、全局变量初始化
+        public RedisCacheManage(IOptions<AppSettingsJson> appSettingsJson)
         {
-            string redisConfiguration = AppSettingsHelper.GetElement(new string[] { "AppSettings", "RedisCachingAOP", "ConnectionString" });//获取连接字符串
-
-            if (string.IsNullOrWhiteSpace(redisConfiguration))
+            _appSettingsJson = appSettingsJson;
+            if (string.IsNullOrWhiteSpace(_appSettingsJson.Value.RedisCache.ConnectionString))
             {
-                throw new ArgumentException("redis config is empty", nameof(redisConfiguration));
+                throw new ArgumentException("redis config is empty", nameof(_appSettingsJson.Value.RedisCache.ConnectionString));
             }
-            this._redisConnectionString = redisConfiguration;
-            this._redisConnection = GetRedisConnection();
+            _redisConnection = GetRedisConnection();
         }
 
         /// <summary>
         /// 核心代码，获取连接实例
-        /// 通过双if加lock的方式，实现单例模式
+        /// 单例模式：https://www.cnblogs.com/leolion/p/10241822.html
         /// </summary>
         /// <returns></returns>
-        private ConnectionMultiplexer GetRedisConnection()
+        public ConnectionMultiplexer GetRedisConnection()
         {
-            //如果已经连接实例，直接返回
-            if (this._redisConnection != null && this._redisConnection.IsConnected)
+            if (_redisConnection == null)
             {
-                return this._redisConnection;
-            }
-            //加锁，防止异步编程中，出现单例无效的问题
-            lock (_redisConnectionLock)
-            {
-                if (this._redisConnection != null)
+                lock (_redisConnectionLock)
                 {
-                    //释放redis连接
-                    this._redisConnection.Dispose();
-                }
-                try
-                {
-                    this._redisConnection = ConnectionMultiplexer.Connect(_redisConnectionString);
-                }
-                catch (Exception)
-                {
-                    //throw new Exception("Redis服务未启用，请开启该服务，本项目的端口号6319，没有设置密码。");
+                    if (_redisConnection == null)
+                    {
+                        _redisConnection = ConnectionMultiplexer.Connect(_appSettingsJson.Value.RedisCache.ConnectionString);
+                    }
                 }
             }
-            return this._redisConnection;
-        }
 
-        /// <summary>
-        /// 清除
-        /// </summary>
-        public void Clear()
+            return _redisConnection;
+        }
+        public IDatabase GetDatabase()
         {
-            foreach (var endPoint in this.GetRedisConnection().GetEndPoints())
+            if (_database == null)
             {
-                var server = this.GetRedisConnection().GetServer(endPoint);
-                foreach (var key in server.Keys())
+                lock (_redisDatabaseLock)
                 {
-                    _redisConnection.GetDatabase().KeyDelete(key);
+                    if (_database == null)
+                    {
+                        if (_appSettingsJson.Value.RedisCache.DatabaseId > 0)
+                        {
+                            _database = _redisConnection.GetDatabase(_appSettingsJson.Value.RedisCache.DatabaseId);
+                        }
+                        else
+                        {
+                            _database = _redisConnection.GetDatabase();
+                        }
+                    }
                 }
             }
+            return _database;
         }
+        public IServer GetServer() => _redisConnection.GetServer(_redisConnection.GetEndPoints()[0]);
+        #endregion 构造函数、全局变量初始化
 
+        #region 接口
         /// <summary>
-        /// 判断是否存在
+        /// 是否存在
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool Get(string key)
+        public async Task<bool> ExistsAsync(string key) => await GetDatabase().KeyExistsAsync(key);
+
+        /// <summary>
+        /// 增加/修改
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="expireTime"></param>
+        public async Task<bool> SetAsync(string key, dynamic value, TimeSpan? expireTime = null)
         {
-            return _redisConnection.GetDatabase().KeyExists(key);
+            if (!expireTime.HasValue)
+            {
+                expireTime = TimeSpan.FromSeconds(120);
+            }
+
+            return await GetDatabase().StringSetAsync(key, value, expireTime);
         }
 
         /// <summary>
-        /// 查询
+        /// 删除
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string GetValue(string key)
-        {
-            return _redisConnection.GetDatabase().StringGet(key);
-        }
+        public async Task<bool> DeleteAsync(string key) => await GetDatabase().KeyDeleteAsync(key);
 
         /// <summary>
-        /// 获取
+        /// 获取连接数
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public async Task<long> GetCountAsync(string key) => await GetDatabase().SetLengthAsync(key);
+
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public async Task<string> GetAsync(string key) => await GetAsync<string>(key);
+
+        /// <summary>
+        /// 获取值
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public TEntity Get<TEntity>(string key)
+        public async Task<TEntity> GetAsync<TEntity>(string key)
         {
-            var value = _redisConnection.GetDatabase().StringGet(key);
+            var value = await GetDatabase().StringGetAsync(key);
             if (value.HasValue)
             {
-                //需要用的反序列化，将Redis存储的Byte[]，进行反序列化
                 return SerializeHelper.Deserialize<TEntity>(value);
             }
             else
@@ -110,38 +149,72 @@ namespace Common.Redis
         }
 
         /// <summary>
-        /// 移除
+        /// 根据值的正则，获取Keys
         /// </summary>
-        /// <param name="key"></param>
-        public void Remove(string key)
-        {
-            _redisConnection.GetDatabase().KeyDelete(key);
-        }
+        /// <param name="pattern">xxx_*</param>
+        /// <returns></returns>
+        public IEnumerable<string> GetKeys(string pattern) =>
+            GetServer()
+                .Keys(_appSettingsJson.Value.RedisCache.DatabaseId, pattern, int.MaxValue)
+                .Select(p => p.ToString());
 
         /// <summary>
-        /// 设置
+        /// Hash 增加/修改
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="cacheTime"></param>
-        public void Set(string key, object value, TimeSpan cacheTime)
-        {
-            if (value != null)
-            {
-                //序列化，将object值生成RedisValue
-                _redisConnection.GetDatabase().StringSet(key, SerializeHelper.Serialize(value), cacheTime);
-            }
-        }
-
-        /// <summary>
-        /// 增加/修改
-        /// </summary>
-        /// <param name="key"></param>
+        /// <param name="hashField"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool SetValue(string key, byte[] value)
+        public async Task<bool> HashSetAsync(string key, string hashField, dynamic value) =>
+            await GetDatabase().HashSetAsync(key, hashField, value);
+
+        /// <summary>
+        /// 删除 Hash
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashField"></param>
+        /// <returns></returns>
+        public async Task<bool> HashDeleteAsync(string key, string hashField) =>
+            await GetDatabase().HashDeleteAsync(key, hashField);
+
+        /// <summary>
+        /// 获取 Hash 值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<dynamic>> GetHashsAsync(string key)
         {
-            return _redisConnection.GetDatabase().StringSet(key, value, TimeSpan.FromSeconds(120));
+            var hashs = await GetDatabase().HashGetAllAsync(key);
+            var dynamicList = hashs.Select(p => new
+            {
+                hashField = p.Name.ToString(),
+                value = p.Value.ToString()
+            });
+            return dynamicList;
         }
+
+        /// <summary>
+        /// 清除
+        /// </summary>
+        public async Task Clear()
+        {
+            foreach (var endPoint in this.GetRedisConnection().GetEndPoints())
+            {
+                var server = this.GetRedisConnection().GetServer(endPoint);
+                //await server.FlushDatabaseAsync(_appSettingsJson.Value.RedisCache.DatabaseId);
+
+                foreach (var key in server.Keys(_appSettingsJson.Value.RedisCache.DatabaseId, pattern: "*", int.MaxValue))
+                {
+                    await GetDatabase().KeyDeleteAsync(key);
+
+                    //var hashs = await GetDatabase().HashGetAllAsync(key);
+                    //foreach (var item in hashs)
+                    //{
+                    //    await GetDatabase().HashDeleteAsync(key, item.Name);
+                    //}
+                }
+            }
+        }
+        #endregion 接口
     }
 }
