@@ -11,7 +11,7 @@
 <button id="submit">提交</button>
 <div id="result" style="color:green;font-weight:bold;"></div>
 
-<script src="~/lib/signalr/jquery.signalR.js"></script>
+<script src="~/lib/@aspnet/signalr/dist/browser/signalr.js"></script>
 <script>
     let connection = null;
     let setupConnection = () => {
@@ -47,7 +47,10 @@
 
         fetch("api/home",
             {
-                method: "post"
+                method: "post",
+                headers: {
+                    'content-type': 'application/json'
+                }
             })
             .then(response => response.text())
             .then(id => connection.invoke("GetLatestCountAsync", id));

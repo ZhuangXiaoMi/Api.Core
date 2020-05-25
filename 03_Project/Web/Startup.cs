@@ -30,7 +30,7 @@ namespace Web
             //services.AddRazorPages();
 
             services.AddSingleton<ISignalRService, SignalRService>();
-            services.AddSignalR();
+            services.AddSignalR();//客户端Js 客户端库：@aspnet/signalr
             //服务端 NuGet：Microsoft.AspNetCore.SignalR.Protocols.MessagePack
             //客户端Js 客户端库：@aspnet/signalr-protocol-msgpack
             //services.AddSignalR().AddMessagePackProtocol();//支持JSON、MessagePack
