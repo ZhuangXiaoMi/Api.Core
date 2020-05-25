@@ -8,7 +8,8 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+    <PackageReference Include="ServiceStack.Redis" Version="5.8.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.1.30" />
   </ItemGroup>
 
   <ItemGroup>

@@ -36,9 +36,9 @@ namespace Common.Hub
         /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
-            //await Clients.All.ReceiveMessageAsync(new { UserId = Context.User.Identity.Name, Name = Context.User.Identity.Name, ConnectId = Context.ConnectionId });
+            //await Clients.All.OnNotifyAsync(new { UserId = Context.User.Identity.Name, Name = Context.User.Identity.Name, ConnectId = Context.ConnectionId });
             var userId = Context.User.Identity.Name;
-            var connectId = Context.ConnectionId;
+            var connectId = Context.ConnectionId;// 客户端的唯一标识
             var groups = Context.GetHttpContext().Request.Query["group"].FirstOrDefault();
             _logger.LogDebug($"OnConnectedAsync----userId:{userId},groups:{groups},connectionId:{connectId}");
             if (!string.IsNullOrWhiteSpace(userId))
@@ -84,7 +84,7 @@ namespace Common.Hub
                 foreach (var group in groups)
                 {
                     await Groups.AddToGroupAsync(connectionId, group);
-                    await _redisCacheManage.HashSetAsync($"{PREFIXGROUP}{group}", connectionId, userId);
+                    await _redisCacheManage.HashSetAsync($"{PREFIXGROUP}{group}", connectionId, $"{PREFIXUSER}{userId}");
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace Common.Hub
         }
 
         /// <summary>
-        /// 上线通知（只有第一个连接用户才通知）
+        /// 上线通知（只有用户的第一个连接才通知）
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="connectionId"></param>
@@ -125,7 +125,7 @@ namespace Common.Hub
         }
 
         /// <summary>
-        /// 下线通知（没有一个连接用户才算下线）
+        /// 下线通知（只有当用户一个连接都没了才算下线）
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="connectionId"></param>
@@ -144,28 +144,40 @@ namespace Common.Hub
         /// <summary>
         /// 向指定群组发送信息
         /// </summary>
-        /// <param name="groupName">组名</param>
-        /// <param name="message">信息内容</param>
+        /// <param name="data">信息内容</param>
+        /// <param name="groups"></param>
         /// <returns></returns>
-        public async Task SendMessageToGroupAsync(string groupName, string message)
+        public async Task SendMessageToGroupAsync(dynamic data, params string[] groups)
         {
-            await Clients.Group(groupName).ReceiveMessageAsync(message);
+            if (groups != null && groups.Length > 0)
+            {
+                foreach (var group in groups)
+                {
+                    await Clients.Group(group).ReceiveMessageAsync(data);
+                }
+            }
         }
 
         /// <summary>
         /// 向指定成员发送信息
         /// </summary>
-        /// <param name="user">成员名</param>
-        /// <param name="message">信息内容</param>
+        /// <param name="userId">用户</param>
+        /// <param name="data">信息内容</param>
         /// <returns></returns>
-        public async Task SendPrivateMessageAsync(string user, string message)
+        public async Task SendMessageToUserAsync(string userId, dynamic data)
         {
-            await Clients.User(user).ReceiveMessageAsync(message);
+            //await Clients.Client(connectionId).ReceiveMessageAsync(data);
+            await Clients.User(userId).ReceiveMessageAsync(data);
         }
 
-        public async Task SendMessageAsync(string user, string message)
+        /// <summary>
+        /// 向所有成员发送信息
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public async Task SendMessageToAllAsync(dynamic data)
         {
-            await Clients.All.ReceiveMessageAsync(user, message);
+            await Clients.All.ReceiveMessageAsync(data);
         }
 
         /// <summary>
@@ -179,17 +191,16 @@ namespace Common.Hub
             //2.服务端主动向客户端发送数据，名字不能错
             //await Clients.All.ReceiveUpdateAsync(LogLock.GetLogData());
 
+            var userId = Context.User.Identity.Name;
             int count = 0;
             while (count < 10)
             {
                 count = _signalRService.GetCount();
-
                 Thread.Sleep(1000);
-
-                await Clients.All.ReceiveMessageAsync("", "");
+                await SendMessageToUserAsync(userId, new { count });
             }
 
-            await Clients.All.ReceiveUpdateAsync(new { });
+            await SendMessageToUserAsync(userId, new { Message = "Finish" });
 
             //3.客户端再通过 ReceiveUpdateAsync 接收
         }

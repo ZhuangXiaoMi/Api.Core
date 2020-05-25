@@ -31,6 +31,9 @@ namespace Web
 
             services.AddSingleton<ISignalRService, SignalRService>();
             services.AddSignalR();
+            //服务端 NuGet：Microsoft.AspNetCore.SignalR.Protocols.MessagePack
+            //客户端Js 客户端库：@aspnet/signalr-protocol-msgpack
+            //services.AddSignalR().AddMessagePackProtocol();//支持JSON、MessagePack
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

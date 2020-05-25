@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Api.Core
 {
@@ -20,6 +21,13 @@ namespace Api.Core
                 //    configBuilder.Sources.Clear();//清理掉全部源配置
                 //    configBuilder.AddJsonFile("mysettings.json");
                 //})
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.ClearProviders(); //去掉默认的日志
+                    logging.AddFilter("System", LogLevel.Error);
+                    logging.AddFilter("Microsoft", LogLevel.Error);
+                    //logging.AddLog4Net();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

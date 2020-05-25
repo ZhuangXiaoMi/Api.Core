@@ -6,3 +6,50 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+<button id="submit">提交</button>
+<div id="result" style="color:green;font-weight:bold;"></div>
+
+<script src="~/lib/signalr/jquery.signalR.js"></script>
+<script>
+    let connection = null;
+    let setupConnection = () => {
+        connection = new signalR.HubConnectionBuilder()
+            .withUrl("/ChatHub")
+            //.withUrl("/ChatHub", signalR.HttpTransportType.LongPolling)//指定传输方式
+            .build();
+
+        connection.on("someFunc", (obj) => {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `Someone called this, parameters: ${obj.random}`;
+        });
+
+        connection.on("ReceiveUpdate", (update) => {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = update;
+        });
+
+        connection.on("finished", () => {
+            connection.stop();
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "Finished";
+        });
+
+        connection.start()
+            .catch(err => console.error(err.toString()));
+    };
+
+    setupConnection();
+
+    document.getElementById("submit").addEventListener("click", e => {
+        e.preventDefault();
+
+        fetch("api/home",
+            {
+                method: "post"
+            })
+            .then(response => response.text())
+            .then(id => connection.invoke("GetLatestCountAsync", id));
+    });
+</script>

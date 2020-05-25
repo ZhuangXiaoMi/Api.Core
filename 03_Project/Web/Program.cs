@@ -18,6 +18,13 @@ namespace Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.ClearProviders(); //去掉默认的日志
+                    logging.AddFilter("System", LogLevel.Error);
+                    logging.AddFilter("Microsoft", LogLevel.Error);
+                    //logging.AddLog4Net();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
