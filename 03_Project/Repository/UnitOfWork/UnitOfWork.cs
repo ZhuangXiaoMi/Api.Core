@@ -1,19 +1,19 @@
-﻿using IRepository.UnitOfWork;
-using SqlSugar;
+﻿using IRepository;
+using IRepository.UnitOfWork;
 using System;
 
 namespace Repository.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly ISqlSugarClient _dbContext;
+        private readonly IDbContext _dbContext;
 
-        public UnitOfWork(ISqlSugarClient dbContext)
+        public UnitOfWork(IDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public ISqlSugarClient GetDbContext()
+        public IDbContext GetDbContext()
         {
             return _dbContext;
         }

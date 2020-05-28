@@ -9,13 +9,13 @@ namespace Test.Repository
     public class DbContextTest
     {
         private static string _strConnection = "Persist Security Info=True;Data Source=.;User ID=sa;Password=123456;Initial Catalog=ApiCore;";
-        private DbContext _dbContext;
+        private ApiDbContext _dbContext;
 
         [SetUp]
         public void Setup()
         {
-            DbContext.Init(_strConnection);
-            _dbContext = DbContext.GetDbContext();
+            ApiDbContext.Init(_strConnection);
+            _dbContext = ApiDbContext.GetDbContext();
         }
 
         [Test]

@@ -1,10 +1,13 @@
-﻿using SqlSugar;
+﻿using System;
 
 namespace IRepository.UnitOfWork
 {
+    /// <summary>
+    /// 写操作
+    /// </summary>
     public interface IUnitOfWork
     {
-        ISqlSugarClient GetDbContext();
+        IDbContext GetDbContext();
 
         void BeginTransaction();
 

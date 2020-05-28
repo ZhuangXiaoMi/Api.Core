@@ -6,6 +6,10 @@ using VO.SysManage;
 
 namespace IRepository.Base
 {
+    /// <summary>
+    /// 读操作
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public interface IBaseRepository<TEntity> where TEntity : class, new()
     {
         Task<TEntity> Add(TEntity entity);

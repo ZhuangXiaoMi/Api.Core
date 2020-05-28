@@ -1,4 +1,5 @@
-﻿using SqlSugar;
+﻿using IRepository;
+using SqlSugar;
 using System;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Reflection;
 
 namespace Repository.SqlSugar
 {
-    public class DbContext
+    public class ApiDbContext : IDbContext
     {
         #region 属性
         /// <summary>
@@ -28,11 +29,11 @@ namespace Repository.SqlSugar
         /// 数据库上下文实例（自动关闭连接）
         /// 在内存中保存一个SqlSugarClient实例（SqlSugarClient对象不能静态定义）
         /// </summary>
-        public static DbContext Context
+        public static ApiDbContext Context
         {
             get
             {
-                return new DbContext();
+                return new ApiDbContext();
             }
         }
         #endregion 属性
@@ -49,7 +50,7 @@ namespace Repository.SqlSugar
             DbType = dbType;
         }
 
-        private DbContext(bool isAutoCloseConnection = true)
+        private ApiDbContext(bool isAutoCloseConnection = true)
         {
             if (string.IsNullOrEmpty(ConnectionString)) throw new ArgumentNullException("数据库连接字符串为空！");
 
@@ -81,7 +82,7 @@ namespace Repository.SqlSugar
         /// </summary>
         /// <param name="isAutoCloseConnection">是否自动关闭连接</param>
         /// <returns></returns>
-        public static DbContext GetDbContext(bool isAutoCloseConnection = true) => new DbContext(isAutoCloseConnection);
+        public static ApiDbContext GetDbContext(bool isAutoCloseConnection = true) => new ApiDbContext(isAutoCloseConnection);
         #endregion 构造函数
 
         #region 获取实体上下文

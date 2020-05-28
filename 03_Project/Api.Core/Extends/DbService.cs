@@ -12,7 +12,7 @@ namespace Api.Core.Extends
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-            services.AddScoped<Repository.SqlSugar.DbContext>();
+            services.AddScoped<Repository.SqlSugar.ApiDbContext>();
         }
     }
 }
