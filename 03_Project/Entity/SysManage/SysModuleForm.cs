@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_ModuleForm")]
     [Display(Name = "模块表单")]
-    public partial class SysModuleForm : ABTEntity<SysModuleForm>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysModuleForm : ABTAggregateRoot<SysModuleForm>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

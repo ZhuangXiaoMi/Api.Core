@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_UserRole")]
     [Display(Name = "用户角色表")]
-    public partial class SysUserRole : ABTEntity<SysUserRole>, ICreateEntity
+    public partial class SysUserRole : ABTAggregateRoot<SysUserRole>, ICreateEntity
     {
         #region 原始字段
         /// <summary>

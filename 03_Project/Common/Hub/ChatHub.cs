@@ -1,6 +1,5 @@
 ﻿using Common.Redis;
 using DTO.Hub;
-using IService.Test;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -18,15 +17,13 @@ namespace Common.Hub
     public class ChatHub : Hub<IChatClient>, IChatService
     {
         private readonly ILogger<ChatHub> _logger;
-        private readonly ISignalRService _signalRService;
         private readonly IRedisCacheManage _redisCacheManage;
         public readonly string PREFIXUSER = "signalr_u_";
         public readonly string PREFIXGROUP = "signalr_g_";
 
-        public ChatHub(ILogger<ChatHub> logger, ISignalRService signalRService, IRedisCacheManage redisCacheManage)
+        public ChatHub(ILogger<ChatHub> logger, IRedisCacheManage redisCacheManage)
         {
             _logger = logger;
-            _signalRService = signalRService;
             _redisCacheManage = redisCacheManage;
         }
 
@@ -195,7 +192,7 @@ namespace Common.Hub
             int count = 0;
             while (count < 10)
             {
-                count = _signalRService.GetCount();
+                count++;
                 Thread.Sleep(1000);
                 await SendMessageToUserAsync(userId, new { count });
             }

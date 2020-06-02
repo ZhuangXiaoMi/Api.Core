@@ -5,8 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using IService.Sys;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,15 +59,15 @@ namespace Test.Startup
             var assemblysServices = Assembly.LoadFrom(servicesDllFile);
             builder.RegisterAssemblyTypes(assemblysServices)
                          .AsImplementedInterfaces()
-                         .InstancePerLifetimeScope()
-                         .EnableInterfaceInterceptors();
+                         .InstancePerLifetimeScope();
+                         //.EnableInterfaceInterceptors();
 
             var repositoryDllFile = Path.Combine(basePath, "Repository.dll");
             var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
             builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
 
             //将services填充到Autofac容器生成器中
-            builder.Populate(services);
+            //builder.Populate(services);
 
             //使用已进行的组件登记创建新容器
             var ApplicationContainer = builder.Build();

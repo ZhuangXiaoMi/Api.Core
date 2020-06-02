@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Dept")]
     [Display(Name = "部门表")]
-    public partial class SysDept : ABTEntity<SysDept>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysDept : ABTAggregateRoot<SysDept>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

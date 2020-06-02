@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Attachment")]
     [Display(Name = "附件表")]
-    public partial class SysAttachment : ABTEntity<SysAttachment>, ICreateEntity, IDeleteEntity
+    public partial class SysAttachment : ABTAggregateRoot<SysAttachment>, ICreateEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

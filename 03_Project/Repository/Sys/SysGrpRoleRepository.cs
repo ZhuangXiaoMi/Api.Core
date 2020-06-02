@@ -1,7 +1,7 @@
 ﻿using Entity.SysManage;
+using IRepository;
 using IRepository.Sys;
-using IRepository.UnitOfWork;
-using Repository.SqlSugar;
+using Repository.EF;
 
 namespace Repository.Sys
 {
@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysGrpRoleRepository : BaseRepository<SysGrpRole>, ISysGrpRoleRepository
     {
-        public SysGrpRoleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public SysGrpRoleRepository(IDbContext dbContext) : base(dbContext)
         {
         }
     }

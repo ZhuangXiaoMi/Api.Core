@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Authorize")]
     [Display(Name = "授权表")]
-    public partial class SysAuthorize : ABTEntity<SysAuthorize>, ICreateEntity
+    public partial class SysAuthorize : ABTAggregateRoot<SysAuthorize>, ICreateEntity
     {
         #region 原始字段
         /// <summary>

@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Dict")]
     [Display(Name = "字典表")]
-    public partial class SysDict : ABTEntity<SysDict>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysDict : ABTAggregateRoot<SysDict>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

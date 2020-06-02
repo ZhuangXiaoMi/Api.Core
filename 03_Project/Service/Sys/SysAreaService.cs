@@ -1,5 +1,6 @@
 ﻿using Entity.SysManage;
 using IRepository.Sys;
+using IRepository.UnitOfWork;
 using IService.Sys;
 using Service.Base;
 
@@ -7,12 +8,10 @@ namespace Service.Sys
 {
     public class SysAreaService : BaseService<SysArea>, ISysAreaService
     {
-        ISysAreaRepository _repository;
-
-        public SysAreaService(ISysAreaRepository repository)
+        public SysAreaService(IUnitOfWork unitOfWork, ISysAreaRepository sysAreaRepository)
+            : base(unitOfWork, sysAreaRepository)
         {
-            this._repository = repository;
-            base._baseRepository = repository;
+
         }
     }
 }

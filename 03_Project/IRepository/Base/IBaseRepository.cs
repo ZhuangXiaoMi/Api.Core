@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Entity.BaseManage;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using VO.SysManage;
@@ -9,21 +11,13 @@ namespace IRepository.Base
     /// <summary>
     /// 读操作
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    public interface IBaseRepository<TEntity> where TEntity : class, new()
+    /// <typeparam name="TAggregateRoot"></typeparam>
+    public interface IBaseRepository<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
     {
-        Task<TEntity> Add(TEntity entity);
+        IQueryable<TAggregateRoot> Query<SEntity>(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true);
+        //Task<IList<TAggregateRoot>> Query(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true);
 
-        Task<bool> Delete(dynamic id);
-
-        Task<bool> Delete(Expression<Func<TEntity, bool>> expression);
-
-        Task<bool> Update(TEntity entity);
-
-        //Task<IQueryable<TEntity>> Query<SEntity>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, SEntity>> orderExpression, bool isAsc = true);
-        Task<IList<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> orderExpression, bool isAsc = true);
-
-        //Task<IQueryable<TEntity>> Query<SEntity>(PagingVO paging, Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, SEntity>> orderExpression, bool isAsc = true);
-        Task<IList<TEntity>> Query(PagingVO paging, Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> orderExpression, bool isAsc = true);
+        IQueryable<TAggregateRoot> Query<SEntity>(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true);
+        //Task<IList<TAggregateRoot>> Query(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true);
     }
 }

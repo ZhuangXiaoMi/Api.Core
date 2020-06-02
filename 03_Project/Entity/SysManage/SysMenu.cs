@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Menu")]
     [Display(Name = "菜单表")]
-    public partial class SysMenu : ABTEntity<SysMenu>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysMenu : ABTAggregateRoot<SysMenu>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

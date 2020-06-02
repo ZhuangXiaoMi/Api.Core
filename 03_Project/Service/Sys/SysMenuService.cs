@@ -1,5 +1,6 @@
 ﻿using Entity.SysManage;
 using IRepository.Sys;
+using IRepository.UnitOfWork;
 using IService.Sys;
 using Service.Base;
 
@@ -7,12 +8,10 @@ namespace Service.Sys
 {
     public class SysMenuService : BaseService<SysMenu>, ISysMenuService
     {
-        ISysMenuRepository _repository;
-
-        public SysMenuService(ISysMenuRepository repository)
+        public SysMenuService(IUnitOfWork unitOfWork, ISysMenuRepository sysMenuRepository)
+            : base(unitOfWork, sysMenuRepository)
         {
-            this._repository = repository;
-            base._baseRepository = repository;
+
         }
     }
 }

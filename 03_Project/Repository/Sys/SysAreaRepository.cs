@@ -1,7 +1,7 @@
 ﻿using Entity.SysManage;
+using IRepository;
 using IRepository.Sys;
-using IRepository.UnitOfWork;
-using Repository.SqlSugar;
+using Repository.EF;
 
 namespace Repository.Sys
 {
@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysAreaRepository : BaseRepository<SysArea>, ISysAreaRepository
     {
-        public SysAreaRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public SysAreaRepository(IDbContext dbContext) : base(dbContext)
         {
         }
     }

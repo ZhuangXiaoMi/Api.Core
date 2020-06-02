@@ -1,5 +1,6 @@
 ﻿using Entity.SysManage;
 using IRepository.Sys;
+using IRepository.UnitOfWork;
 using IService.Sys;
 using Service.Base;
 
@@ -7,12 +8,10 @@ namespace Service.Sys
 {
     public class SysLogService : BaseService<SysLog>, ISysLogService
     {
-        ISysLogRepository _repository;
-
-        public SysLogService(ISysLogRepository repository)
+        public SysLogService(IUnitOfWork unitOfWork, ISysLogRepository sysLogRepository)
+            : base(unitOfWork, sysLogRepository)
         {
-            this._repository = repository;
-            base._baseRepository = repository;
+
         }
     }
 }

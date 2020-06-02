@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_JobHistory")]
     [Display(Name = "任职表")]
-    public partial class SysJobHistory : ABTEntity<SysJobHistory>, ICreateEntity, IDeleteEntity
+    public partial class SysJobHistory : ABTAggregateRoot<SysJobHistory>, ICreateEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

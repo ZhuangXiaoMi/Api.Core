@@ -9,7 +9,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_User")]
     [Display(Name = "用户表")]
-    public partial class SysUser : ABTEntity<SysUser>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysUser : ABTAggregateRoot<SysUser>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

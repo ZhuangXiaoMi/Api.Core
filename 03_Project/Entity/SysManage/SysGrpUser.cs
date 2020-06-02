@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_GrpUser")]
     [Display(Name = "用户组")]
-    public partial class SysGrpUser : ABTEntity<SysGrpUser>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysGrpUser : ABTAggregateRoot<SysGrpUser>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

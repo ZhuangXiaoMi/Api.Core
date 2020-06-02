@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Element")]
     [Display(Name = "页面元素表")]
-    public partial class SysElement : ABTEntity<SysElement>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysElement : ABTAggregateRoot<SysElement>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

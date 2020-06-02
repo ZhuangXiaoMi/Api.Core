@@ -4,8 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entity.BaseManage
 {
     [NotMapped]
-    public abstract class ABTEntity<TEntity> where TEntity : class, new()
+    public abstract class ABTAggregateRoot<TEntity> : IAggregateRoot where TEntity : class, new()
     {
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public int Id { get; set; }
+
         public virtual void Create()
         {
             var entity = this as ICreateEntity;

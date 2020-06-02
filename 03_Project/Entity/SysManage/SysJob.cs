@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Job")]
     [Display(Name = "岗位表")]
-    public partial class SysJob : ABTEntity<SysJob>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysJob : ABTAggregateRoot<SysJob>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

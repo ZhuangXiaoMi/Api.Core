@@ -1,5 +1,6 @@
 ﻿using Entity.SysManage;
 using IRepository.Sys;
+using IRepository.UnitOfWork;
 using IService.Sys;
 using Service.Base;
 
@@ -7,12 +8,10 @@ namespace Service.Sys
 {
     public class SysRoleService : BaseService<SysRole>, ISysRoleService
     {
-        ISysRoleRepository _repository;
-
-        public SysRoleService(ISysRoleRepository repository)
+        public SysRoleService(IUnitOfWork unitOfWork, ISysRoleRepository sysRoleRepository)
+            : base(unitOfWork, sysRoleRepository)
         {
-            this._repository = repository;
-            base._baseRepository = repository;
+
         }
     }
 }

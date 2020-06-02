@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_DBBackup")]
     [Display(Name = "数据库备份表")]
-    public partial class SysDBBackup : ABTEntity<SysDBBackup>, ICreateEntity, IDeleteEntity
+    public partial class SysDBBackup : ABTAggregateRoot<SysDBBackup>, ICreateEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

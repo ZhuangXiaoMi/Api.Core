@@ -1,5 +1,6 @@
 ﻿using Entity.SysManage;
 using IRepository.Sys;
+using IRepository.UnitOfWork;
 using IService.Sys;
 using Service.Base;
 
@@ -7,12 +8,10 @@ namespace Service.Sys
 {
     public class SysDictService : BaseService<SysDict>, ISysDictService
     {
-        ISysDictRepository _repository;
-
-        public SysDictService(ISysDictRepository repository)
+        public SysDictService(IUnitOfWork unitOfWork, ISysDictRepository sysDictRepository)
+            : base(unitOfWork, sysDictRepository)
         {
-            this._repository = repository;
-            base._baseRepository = repository;
+
         }
     }
 }

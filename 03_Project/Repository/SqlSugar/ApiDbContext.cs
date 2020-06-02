@@ -1,13 +1,20 @@
-﻿using IRepository;
+﻿using Entity.BaseManage;
+using IRepository;
 using SqlSugar;
 using System;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
+
+//using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore.ChangeTracking;
+//using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Repository.SqlSugar
 {
-    public class ApiDbContext : IDbContext
+    public class ApiDbContext //: IDbContext
     {
         #region 属性
         /// <summary>
@@ -344,6 +351,50 @@ namespace " + nameSpace + @"
             DB.InitTables(arrEntityTypes);
         }
         #endregion 根据实体类生成数据库表
+
+
+        #region 接口
+        //public virtual DatabaseFacade Database => throw new NotImplementedException();
+        //public virtual EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //public virtual DbSet<TEntity> Set<TEntity>() where TEntity : class
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+
+        //public async Task<int> SaveChangesEntityAsync()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<TAggregateRoot> AddEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        //{
+        //    //GetEntityContext<TAggregateRoot>().Insert(entity);
+        //    //await Db.Insertable<TAggregateRoot>(entity).ExecuteReturnEntity();
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<bool> DeleteEntityAsync<TAggregateRoot>(dynamic id) where TAggregateRoot : class, IAggregateRoot
+        //{
+        //    //await Db.Deleteable<TAggregateRoot>().In(id).ExecuteCommand();
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<bool> DeleteEntityAsync<TAggregateRoot>(Expression<Func<TAggregateRoot, bool>> expression) where TAggregateRoot : class, IAggregateRoot
+        //{
+        //    //await Db.Deleteable<TAggregateRoot>().Where(expression).ExecuteCommand();
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<TAggregateRoot> UpdateEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        //{
+        //    //await Db.Updateable(entity);
+        //    throw new NotImplementedException();
+        //}
+        #endregion 接口
 
     }
 }

@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_OperateBtn")]
     [Display(Name = "操作按钮表")]
-    public partial class SysOperateBtn : ABTEntity<SysOperateBtn>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysOperateBtn : ABTAggregateRoot<SysOperateBtn>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

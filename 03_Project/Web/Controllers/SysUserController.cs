@@ -21,10 +21,10 @@ namespace Web.Controllers
         }
 
         // GET: SysUser
-        public async Task<IActionResult> Index(int deptId)
+        public IActionResult Index(int deptId)
         {
             ViewBag.Title = $"User Index of {deptId}";
-            var users = await _sysUserService.Query(o => o.DeptId == deptId && o.IsDelete == false, p => p.RealName);
+            var users = _sysUserService.Query(o => o.DeptId == deptId && o.IsDelete == false, p => p.RealName);
 
             ViewBag.DeptId = deptId;
             return View(users);

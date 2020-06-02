@@ -9,7 +9,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Role")]
     [Display(Name = "角色表")]
-    public partial class SysRole : ABTEntity<SysRole>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysRole : ABTAggregateRoot<SysRole>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

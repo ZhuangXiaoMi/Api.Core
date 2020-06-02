@@ -1,7 +1,7 @@
 ﻿using Entity.SysManage;
+using IRepository;
 using IRepository.Sys;
-using IRepository.UnitOfWork;
-using Repository.SqlSugar;
+using Repository.EF;
 
 namespace Repository.Sys
 {
@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysAuthorizeRepository : BaseRepository<SysAuthorize>, ISysAuthorizeRepository
     {
-        public SysAuthorizeRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public SysAuthorizeRepository(IDbContext dbContext) : base(dbContext)
         {
         }
     }

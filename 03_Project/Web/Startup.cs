@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Hub;
-using IService.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Service.Test;
 
 namespace Web
 {
@@ -29,7 +27,6 @@ namespace Web
             //services.AddControllers();
             //services.AddRazorPages();
 
-            services.AddSingleton<ISignalRService, SignalRService>();
             services.AddSignalR();//客户端Js 客户端库：@aspnet/signalr
             //服务端 NuGet：Microsoft.AspNetCore.SignalR.Protocols.MessagePack
             //客户端Js 客户端库：@aspnet/signalr-protocol-msgpack

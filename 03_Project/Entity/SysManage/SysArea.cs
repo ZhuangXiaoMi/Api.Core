@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Area")]
     [Display(Name = "地区表")]
-    public partial class SysArea : ABTEntity<SysArea>, ICreateEntity, IModifyEntity, IDeleteEntity
+    public partial class SysArea : ABTAggregateRoot<SysArea>, ICreateEntity, IModifyEntity, IDeleteEntity
     {
         #region 原始字段
         /// <summary>

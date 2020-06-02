@@ -1,45 +1,50 @@
-﻿using IRepository.Base;
+﻿using Entity.BaseManage;
+using IRepository.Base;
+using IRepository.UnitOfWork;
 using IService.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using VO.SysManage;
 
 namespace Service.Base
 {
-    public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class, new()
+    public class BaseService<TAggregateRoot> : IBaseService<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
     {
-        public IBaseRepository<TEntity> _baseRepository;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IBaseRepository<TAggregateRoot> _baseRepository;
 
-        public async Task<TEntity> Add(TEntity entity)
+        public BaseService(IUnitOfWork unitOfWork, IBaseRepository<TAggregateRoot> baseRepository)
         {
-            return await _baseRepository.Add(entity);
+            _unitOfWork = unitOfWork;
+            _baseRepository = baseRepository;
         }
 
-        public async Task<bool> Delete(dynamic id)
+        public async Task<bool> Add(TAggregateRoot entity)
         {
-            return await _baseRepository.Delete(id);
+            return await _unitOfWork.Add<TAggregateRoot>(entity);
         }
 
-        public async Task<bool> Delete(Expression<Func<TEntity, bool>> expression)
+        public async Task<bool> Delete(TAggregateRoot entity)
         {
-            return await _baseRepository.Delete(expression);
+            return await _unitOfWork.Delete<TAggregateRoot>(entity);
         }
 
-        public async Task<bool> Update(TEntity entity)
+        public async Task<bool> Update(TAggregateRoot entity)
         {
-            return await _baseRepository.Update(entity);
+            return await _unitOfWork.Update<TAggregateRoot>(entity);
         }
 
-        public async Task<IList<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> orderExpression, bool isAsc = true)
+        public IQueryable<TAggregateRoot> Query<SEntity>(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true)
         {
-            return await _baseRepository.Query(whereExpression, orderExpression, isAsc);
+            return _baseRepository.Query<SEntity>(whereExpression, orderExpression, isAsc);
         }
 
-        public async Task<IList<TEntity>> Query(PagingVO paging, Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> orderExpression, bool isAsc = true)
+        public IQueryable<TAggregateRoot> Query<SEntity>(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true)
         {
-            return await _baseRepository.Query(paging, whereExpression, orderExpression, isAsc);
+            return _baseRepository.Query<SEntity>(paging, whereExpression, orderExpression, isAsc);
         }
     }
 }

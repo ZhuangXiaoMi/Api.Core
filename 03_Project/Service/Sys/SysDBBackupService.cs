@@ -1,5 +1,6 @@
 ﻿using Entity.SysManage;
 using IRepository.Sys;
+using IRepository.UnitOfWork;
 using IService.Sys;
 using Service.Base;
 
@@ -7,12 +8,10 @@ namespace Service.Sys
 {
     public class SysDBBackupService : BaseService<SysDBBackup>, ISysDBBackupService
     {
-        ISysDBBackupRepository _repository;
-
-        public SysDBBackupService(ISysDBBackupRepository repository)
+        public SysDBBackupService(IUnitOfWork unitOfWork, ISysDBBackupRepository sysDBBackupRepository)
+            : base(unitOfWork, sysDBBackupRepository)
         {
-            this._repository = repository;
-            base._baseRepository = repository;
+
         }
     }
 }

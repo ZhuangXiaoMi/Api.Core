@@ -8,7 +8,7 @@ namespace Entity.SysManage
     [Serializable]
     [Table("Sys_Log")]
     [Display(Name = "日志表")]
-    public partial class SysLog : ABTEntity<SysLog>, ICreateEntity
+    public partial class SysLog : ABTAggregateRoot<SysLog>, ICreateEntity
     {
         #region 原始字段
         /// <summary>
