@@ -9,6 +9,8 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using ServiceStack;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Api.Core.Controllers
 {
@@ -20,15 +22,15 @@ namespace Api.Core.Controllers
     {
         private readonly ILogger<SysUser> _logger;
         private static IConfiguration _configuration;//按节点访问
-        private static IOptions<AppSettingsJson> _setting;//按对象访问
-        //private ISysUserService _sysUserService;
+        private static Microsoft.Extensions.Options.IOptions<AppSettingsJson> _setting;//按对象访问
+        private readonly ISysUserService _sysUserService;
 
-        public ValuesController(ILogger<SysUser> logger, IConfiguration configuration, IOptions<AppSettingsJson> setting)//, ISysUserService sysUserService)
+        public ValuesController(ILogger<SysUser> logger, IConfiguration configuration, Microsoft.Extensions.Options.IOptions<AppSettingsJson> setting, ISysUserService sysUserService)
         {
             _logger = logger;
             _configuration = configuration;//读取appsettings.json
             _setting = setting;//读取mysettings.json
-            //_sysUserService = sysUserService;
+            _sysUserService = sysUserService;
         }
 
         /// <summary>
@@ -103,21 +105,31 @@ namespace Api.Core.Controllers
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetById")]//HttpGet 加东西，相当于参数来源于地址
         //[Authorize(Roles = "Admin")]
         //[Authorize(Roles = "System")]
         [Authorize(Policy = "Admin")]
         public ActionResult<string> Get(int id)
         {
+            //return NotFound();
             return "value";
         }
 
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    return NoContent();
-        //    //return Ok(new { id });
-        //}
+        [HttpGet]
+        //public async Task<IActionResult> Get(int id, string name)
+        public async Task<ActionResult<IEnumerable<SysUser>>> Get(int id, string name)
+        {
+            var sysUsers = _sysUserService.Query(p => p.Id == id, o => o.CreateTime);
+            if (!sysUsers.Any())
+            {
+                return NoContent();//推荐：ActionResult<IEnumerable<SysUser>> 兼容有、无数据情况
+            }
+
+            return CreatedAtRoute("GetById", new { id = id }/*参数*/, sysUsers/*添加后对象*/);//201
+            //return Ok(sysUsers);//200
+            //return Ok(new { id });
+            //return new ObjectResult(sysUsers);
+        }
 
         /// <summary>
         /// 新增
