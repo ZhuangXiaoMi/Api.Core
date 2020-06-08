@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using ServiceStack;
+//using ServiceStack;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Api.Core.Controllers
