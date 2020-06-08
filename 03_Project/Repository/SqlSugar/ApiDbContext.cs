@@ -190,8 +190,8 @@ namespace " + nameSpace + @"
                 DB = DB.Where(arrTableName);
             }
             DB.IsCreateAttribute().IsCreateDefaultValue()
-                .SettingClassDescriptionTemplate(p => p = @"    ///<summary>
-    ///{ClassDescription}    ///</summary>")
+                .SettingClassDescriptionTemplate(p => p = @"    /// <summary>
+    /// {ClassDescription}    /// </summary>")
                 /*.SettingClassTemplate(p => p = @"{using}
 namespace {Namespace}
 {
