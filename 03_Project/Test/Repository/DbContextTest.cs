@@ -31,7 +31,8 @@ namespace Test.Repository
             //_dbContext.CreateServiceByDBT("D:\\DbFirst\\Service\\", "Service.Sys");
 
 
-            _dbContext.CreateModelByDBTXY("D:\\DbFirst\\Entity\\", "xinyartech.Repository.Domain");
+            _dbContext.CreateModelByDBTXYEntity("D:\\DbFirst\\Entity\\", "xinyartech.Repository.Domain");
+            _dbContext.CreateModelByDBTXYDto("D:\\DbFirst\\Dto\\", "xinyartech.Repository.Domain");
             Assert.Pass();
         }
 

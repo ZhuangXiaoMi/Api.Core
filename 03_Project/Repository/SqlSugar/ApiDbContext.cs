@@ -182,7 +182,7 @@ namespace " + nameSpace + @"
         /// <param name="classPath">实体类文件生成路径</param>
         /// <param name="nameSpace">命名空间</param>
         /// <param name="arrTableName">生成指定表</param>
-        public void CreateModelByDBTXY(string classPath, string nameSpace, string[] arrTableName = null)
+        public void CreateModelByDBTXYEntity(string classPath, string nameSpace, string[] arrTableName = null)
         {
             var DB = Db.DbFirst;
             if (arrTableName != null && arrTableName.Length > 0)
@@ -229,6 +229,69 @@ using xinyartech.Repository.Core;
         /// Nullable:{IsNullable}
         /// </summary>
         [Description(""{PropertyDescription}"")]")
+                /*.SettingPropertyTemplate(p => p = @"{SugarColumn}
+        public {PropertyType} {PropertyName} { get; set; }
+")*/
+                .SettingPropertyTemplate(p => p = @"
+        public {PropertyType} {PropertyName} { get; set; }
+")
+                .CreateClassFile(classPath, nameSpace);
+        }
+
+        /// <summary>
+        /// 根据数据库表生成实体类
+        /// InitKeyType.SystemTable
+        /// </summary>
+        /// <param name="classPath">实体类文件生成路径</param>
+        /// <param name="nameSpace">命名空间</param>
+        /// <param name="arrTableName">生成指定表</param>
+        public void CreateModelByDBTXYDto(string classPath, string nameSpace, string[] arrTableName = null)
+        {
+            var DB = Db.DbFirst;
+            if (arrTableName != null && arrTableName.Length > 0)
+            {
+                DB = DB.Where(arrTableName);
+            }
+            DB.IsCreateAttribute().IsCreateDefaultValue()
+                .SettingClassDescriptionTemplate(p => p = @"    /// <summary>
+    /// {ClassDescription}    /// </summary>")
+                /*.SettingClassTemplate(p => p = @"{using}
+namespace {Namespace}
+{
+{ClassDescription}{SugarTable}
+    public partial class {ClassName}
+    {
+        public {ClassName}()
+        {{Constructor}
+        }
+
+{PropertyName}
+    }
+}")*/
+                .SettingClassTemplate(p => p = @"{using}
+namespace {Namespace}
+{
+{ClassDescription}
+    [Table(""{ClassName}"")]
+    public partial class {ClassName} : Entity
+    {
+{PropertyName}
+    }
+}")
+                //修改构造函数
+                .SettingConstructorTemplate(p => p = @"
+            this.{PropertyName} = {DefaultValue};")
+                .SettingNamespaceTemplate(p => p = @"using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using xinyartech.Repository.Core;
+")
+                .SettingPropertyDescriptionTemplate(p => p = @"        /// <summary>
+        /// {PropertyDescription}
+        /// </summary>
+        [Description(""{PropertyDescription}"")]
+        [Display(Name = ""{PropertyDescription}"")]")
                 /*.SettingPropertyTemplate(p => p = @"{SugarColumn}
         public {PropertyType} {PropertyName} { get; set; }
 ")*/
