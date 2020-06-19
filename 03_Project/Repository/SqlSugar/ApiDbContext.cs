@@ -272,8 +272,7 @@ namespace {Namespace}
 namespace {Namespace}
 {
 {ClassDescription}
-    [Table(""{ClassName}"")]
-    public partial class {ClassName} : Entity
+    public partial class {ClassName}
     {
 {PropertyName}
     }
@@ -284,8 +283,6 @@ namespace {Namespace}
                 .SettingNamespaceTemplate(p => p = @"using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using xinyartech.Repository.Core;
 ")
                 .SettingPropertyDescriptionTemplate(p => p = @"        /// <summary>
         /// {PropertyDescription}
