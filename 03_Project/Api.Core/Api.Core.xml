@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Api.Core</name>
+    </assembly>
+    <members>
+        <member name="M:Api.Core.Controllers.ValuesController.GetJWTToken(System.String,System.String)">
+            <summary>
+            登录接口：获取 Access_Token，然后 Authorize
+            </summary>
+            <param name="name">账号</param>
+            <param name="pass">密码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Core.Controllers.ValuesController.Get">
+            <summary>
+            获取（登录角色认证）
+            GET api/values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Core.Controllers.ValuesController.Get(System.Int32)">
+            <summary>
+            根据id获取（管理员策略认证）
+            GET api/values/5
+            </summary>
+            <param name="id">主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Core.Controllers.ValuesController.Post(System.String)">
+            <summary>
+            新增
+            POST api/values
+            </summary>
+            <param name="value">表单数据</param>
+        </member>
+        <member name="M:Api.Core.Controllers.ValuesController.Put(System.Int32,System.String)">
+            <summary>
+            修改
+            PUT api/values/5
+            </summary>
+            <param name="id">主键</param>
+            <param name="value">表单数据</param>
+        </member>
+        <member name="M:Api.Core.Controllers.ValuesController.Delete(System.Int32)">
+            <summary>
+            删除
+            DELETE api/values/5
+            </summary>
+            <param name="id">主键</param>
+        </member>
+        <member name="M:Api.Core.Helper.JwtHelper.IssueJWT(Api.Core.Helper.TokenModelJWT)">
+            <summary>
+            颁发JWT字符串
+            </summary>
+            <param name="tokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Core.Helper.JwtHelper.SerializeJWT(System.String)">
+            <summary>
+            解析
+            </summary>
+            <param name="jwtStr"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Api.Core.Helper.TokenModelJWT">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="P:Api.Core.Helper.TokenModelJWT.Uid">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Api.Core.Helper.TokenModelJWT.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Api.Core.Helper.TokenModelJWT.Work">
+            <summary>
+            职能
+            </summary>
+        </member>
+        <member name="T:Api.Core.Helper.JwtTokenAuth">
+            <summary>
+            自定义的认证中间件，[Authorize]无策略的授权报错，且无法验证过期时间
+            </summary>
+        </member>
+        <member name="F:Api.Core.Helper.JwtTokenAuth._next">
+            <summary>
+            中间件必须要有next，让管道正常走下去
+            </summary>
+        </member>
+        <member name="M:Api.Core.Helper.JwtTokenAuth.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            自定义认证中间件，保存声明主体 ClaimsPrincipal
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Api.Core.Helper.MiddlewareHelpers">
+            <summary>
+            中间件Helper，给当前模块的中间件取别名
+            </summary>
+        </member>
+    </members>
+</doc>

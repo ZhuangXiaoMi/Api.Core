@@ -1,12 +1,7 @@
-﻿using Api.Core.AOP;
-using Api.Core.Extends;
-using Api.Core.Middleware;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
-using Common.Extends;
-using Common.Helper;
-using Common.Redis;
+using Common;
 using DTO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,12 +20,14 @@ namespace Api.Core
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -42,8 +39,8 @@ namespace Api.Core
             services.AddSingleton(new AppSettingsHelper(Configuration));
 
             services.AddMemoryCacheService();
-            services.AddSqlSugarService();
-            services.AddDbService();
+            //services.AddSqlSugarService();
+            services.AddDbContext<Repository.EF.ApiDbContext>();//services.AddDbService();
             services.AddAutoMapperService();
             services.AddCorsService();//CORS配置要在Autofac前，否则autofacBuilder.Populate(services);后再配置会无效
             services.AddMiniProfilerService();

@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Common.Helper
+namespace Common
 {
     public class EncryptHelper
     {

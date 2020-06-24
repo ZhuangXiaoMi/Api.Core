@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Api.Core.Middleware
+namespace Common
 {
     public static class MiddlewareConfigure
     {

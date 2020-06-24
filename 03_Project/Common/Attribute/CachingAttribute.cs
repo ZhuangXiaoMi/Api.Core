@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Attribute
+namespace Common
 {
     /// <summary>
     /// 缓存特性验证，添加到要缓存数据的Service层方法中（必须是方法）

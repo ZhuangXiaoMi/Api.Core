@@ -1,9 +1,8 @@
-﻿using Api.Core.AutoMapperHelper;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Api.Core.Extends
+namespace Common
 {
     /// <summary>
     /// AutoMapper 启动服务

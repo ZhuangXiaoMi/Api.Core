@@ -1,8 +1,7 @@
-﻿using Common.Helper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Api.Core.Extends
+namespace Common
 {
     /// <summary>
     /// 跨域请求 CORS

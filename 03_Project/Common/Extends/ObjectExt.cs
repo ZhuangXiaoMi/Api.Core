@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Extends
+namespace Common
 {
     public static class ObjectExt
     {

@@ -1,12 +1,11 @@
-﻿using Common.Helper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Api.Core.Extends
+namespace Common
 {
     /// <summary>
     /// Swagger UI Service(NuGet："Swashbuckle.AspNetCore")

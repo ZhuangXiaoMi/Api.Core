@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Common.Redis
+namespace Common
 {
     /// <summary>
     /// Redis缓存

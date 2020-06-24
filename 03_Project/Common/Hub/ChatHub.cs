@@ -1,5 +1,4 @@
-﻿using Common.Redis;
-using DTO.Hub;
+﻿using DTO.Hub;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Common.Hub
+namespace Common
 {
     /// <summary>
     /// SignalR 强类型 Hub

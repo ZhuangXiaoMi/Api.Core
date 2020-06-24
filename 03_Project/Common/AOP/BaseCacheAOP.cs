@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Api.Core.AOP
+namespace Common
 {
     public abstract class BaseCacheAOP : IInterceptor
     {
@@ -54,11 +54,11 @@ namespace Api.Core.AOP
                 {
                     var obj = arg as Expression;
                     var result = Resolve(obj);
-                    return Common.Helper.EncryptHelper.MD5Encrypt32(result);
+                    return Common.EncryptHelper.MD5Encrypt32(result);
                 }
                 else if (arg.GetType().IsClass)
                 {
-                    return Common.Helper.EncryptHelper.MD5Encrypt32(Newtonsoft.Json.JsonConvert.SerializeObject(arg));
+                    return Common.EncryptHelper.MD5Encrypt32(Newtonsoft.Json.JsonConvert.SerializeObject(arg));
                 }
             }
             return string.Empty;

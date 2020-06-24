@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
 
-namespace Common.Helper
+namespace Common
 {
     public class SerializeHelper
     {

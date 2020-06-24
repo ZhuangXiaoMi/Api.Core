@@ -2,7 +2,7 @@
 using StackExchange.Profiling.Storage;
 using System;
 
-namespace Api.Core.Extends
+namespace Common
 {
     /// <summary>
     /// 分析工具 MiniProfiler 服务

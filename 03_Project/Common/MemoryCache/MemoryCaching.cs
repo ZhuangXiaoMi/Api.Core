@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 
-namespace Common.MemoryCache
+namespace Common
 {
     public class MemoryCaching : ICaching
     {

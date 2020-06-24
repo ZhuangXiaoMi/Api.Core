@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Hub
+namespace Common
 {
     /// <summary>
     /// 服务端使用接口

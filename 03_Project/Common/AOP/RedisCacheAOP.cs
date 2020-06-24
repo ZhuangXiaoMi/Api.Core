@@ -1,11 +1,10 @@
 ﻿using Castle.DynamicProxy;
-using Common.Attribute;
-using Common.Redis;
+using Common;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api.Core.AOP
+namespace Common
 {
     /// <summary>
     /// 面向切面的缓存使用

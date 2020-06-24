@@ -1,6 +1,4 @@
-﻿using Common.Helper;
-using DTO;
-using DTO.Hub;
+﻿using DTO;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System;
@@ -8,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Common.Redis
+namespace Common
 {
     public class RedisCacheManage : IRedisCacheManage
     {
@@ -53,7 +51,23 @@ namespace Common.Redis
                 {
                     if (_redisConnection == null)
                     {
-                        _redisConnection = ConnectionMultiplexer.Connect(_appSettingsJson.Value.RedisCache.ConnectionString);
+                        try
+                        {
+                            var config = new ConfigurationOptions
+                            {
+                                AbortOnConnectFail = false,
+                                AllowAdmin = true,
+                                ConnectTimeout = 15000,//15s
+                                SyncTimeout = 5000,
+                                //Password = "Pwd",//Redis数据库密码
+                                EndPoints = { _appSettingsJson.Value.RedisCache.ConnectionString }//格式：IP:Port，如“192.168.2.110:6379”
+                            };
+                            _redisConnection = ConnectionMultiplexer.Connect(config);
+                        }
+                        catch (Exception ex)
+                        {
+                            //throw new Exception("Redis服务未开启，请注意配置文件端口号。");
+                        }
                     }
                 }
             }

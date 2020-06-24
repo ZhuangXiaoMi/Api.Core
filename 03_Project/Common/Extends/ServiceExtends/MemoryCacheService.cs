@@ -1,9 +1,8 @@
-﻿using Common.MemoryCache;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Api.Core.Extends
+namespace Common
 {
     /// <summary>
     /// 缓存

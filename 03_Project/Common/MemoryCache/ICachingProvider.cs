@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.MemoryCache
+namespace Common
 {
     public interface ICaching
     {

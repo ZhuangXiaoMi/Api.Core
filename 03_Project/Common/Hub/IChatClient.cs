@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Common.Hub
+namespace Common
 {
     /// <summary>
     /// 客户端使用接口

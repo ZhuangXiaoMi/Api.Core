@@ -1,9 +1,8 @@
 ﻿using Castle.DynamicProxy;
-using Common.Attribute;
-using Common.MemoryCache;
+using Common;
 using System.Linq;
 
-namespace Api.Core.AOP
+namespace Common
 {
     /// <summary>
     /// 面向切面的缓存使用

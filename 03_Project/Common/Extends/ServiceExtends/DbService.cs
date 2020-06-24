@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Api.Core.Extends
+namespace Common
 {
     /// <summary>
     /// Db 启动服务
@@ -14,7 +14,7 @@ namespace Api.Core.Extends
 
             //services.AddScoped<Repository.SqlSugar.ApiDbContext>();
             //services.AddScoped<Repository.EF.ApiDbContext>();
-            services.AddDbContext<Repository.EF.ApiDbContext>();
+            //services.AddDbContext<Repository.EF.ApiDbContext>();
         }
     }
 }

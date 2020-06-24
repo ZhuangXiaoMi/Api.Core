@@ -2,10 +2,11 @@
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Common.Helper
+namespace Common
 {
     /// <summary>
     /// appsettings.json操作类
@@ -61,6 +62,19 @@ namespace Common.Helper
             catch (Exception e) { }
 
             return "";
+        }
+
+        /// <summary>
+        /// 获取配置信息数组
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sections"></param>
+        /// <returns></returns>
+        public static List<T> GetElement<T>(params string[] sections)
+        {
+            List<T> list = new List<T>();
+            //Configuration.Bind(string.Join(":", sections), list);
+            return list;
         }
     }
 }

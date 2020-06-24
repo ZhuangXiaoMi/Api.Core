@@ -1,11 +1,9 @@
-﻿using Common.Extends;
-using Common.Helper;
-using Common.Hub;
+﻿using Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
-namespace Api.Core.Middleware
+namespace Common
 {
     /// <summary>
     /// 记录请求和响应数据

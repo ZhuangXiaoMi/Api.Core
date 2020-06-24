@@ -1,5 +1,5 @@
 ﻿using Castle.DynamicProxy;
-using Common.Hub;
+using Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Api.Core.AOP
+namespace Common
 {
     /// <summary>
     /// 拦截器，实现IInterceptor接口Intercept方法

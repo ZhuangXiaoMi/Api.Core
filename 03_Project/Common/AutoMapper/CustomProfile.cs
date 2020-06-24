@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Api.Core.AutoMapperHelper
+namespace Common
 {
     public class CustomProfile : Profile
     {

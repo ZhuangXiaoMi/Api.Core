@@ -1,4 +1,4 @@
-﻿using Common.Helper;
+﻿using Common;
 
 namespace Factory
 {
