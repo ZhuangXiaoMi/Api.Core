@@ -11,13 +11,15 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 //using ServiceStack;
 using Microsoft.EntityFrameworkCore.Internal;
+using Common;
 
 namespace Api.Core.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    //[Route("api/[controller]/[action]")]
+    //[Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
+    [ApiGroup(GroupNameEnum.Test)]
     public class ValuesController : ControllerBase
     {
         private readonly ILogger<SysUser> _logger;
@@ -89,6 +91,7 @@ namespace Api.Core.Controllers
         /// <returns></returns>
         [HttpGet]
         //[Authorize]
+        [Route("/api/value/get")]
         public async Task<IList<SysUser>> Get()
         {
             //_configuration读取appsettings.json

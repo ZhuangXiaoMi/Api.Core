@@ -59,7 +59,7 @@ namespace Common
                     return Configuration[string.Join(":", sections)];
                 }
             }
-            catch (Exception e) { }
+            catch (Exception ex) { }
 
             return "";
         }

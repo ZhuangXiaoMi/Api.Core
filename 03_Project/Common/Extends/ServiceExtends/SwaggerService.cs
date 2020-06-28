@@ -4,6 +4,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Common
 {
@@ -20,36 +23,59 @@ namespace Common
             //var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;//D:\MySource\Api.Core\Api.Core\bin\Debug\netcoreapp2.2
             var ApiName = AppSettingsHelper.GetElement(new string[] { "Startup", "ApiName" });
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                //"v1"上下一致
-                c.SwaggerDoc("v1", new OpenApiInfo
+                //遍历出全部的版本，做文档信息展示
+                typeof(GroupNameEnum).GetFields(BindingFlags.Public | BindingFlags.Static).ToList().ForEach(group =>
                 {
-                    Version = "v0.1.0",
-                    Title = ApiName,
-                    Description = "接口说明文档",
-                    Contact = new OpenApiContact
+                    //获取枚举值上的特性
+                    var info = group.GetCustomAttributes(typeof(GroupInfoAttribute), false).OfType<GroupInfoAttribute>().FirstOrDefault();
+                    options.SwaggerDoc(group.Name, new OpenApiInfo
                     {
-                        Name = ApiName,
-                        Email = "1009123099@qq.com",
-                        Url = new Uri("")
-                    },
-                    License = new OpenApiLicense
+                        Version = Enum.GetName(typeof(ApiVersionEnum), info?.Version),
+                        Title = $"{ApiName}-{info?.Title}-{RuntimeInformation.FrameworkDescription}",
+                        Description = info?.Description,
+                        Contact = new OpenApiContact
+                        {
+                            Name = ApiName,
+                            Email = "1009123099@qq.com",
+                            Url = new Uri("https://www.baidu.com/")
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = ApiName,
+                            Url = new Uri("https://www.baidu.com/")
+                        }
+                    });
+                    options.OrderActionsBy(o => o.RelativePath);
+                });
+                //没有加特性的分到这个NoGroup上
+                options.SwaggerDoc("NoGroup", new OpenApiInfo
+                {
+                    Title = "无分组"
+                });
+                //判断接口归于哪个分组
+                options.DocInclusionPredicate((docName, apiDescription) =>
+                {
+                    if (docName == "NoGroup")
                     {
-                        Name = ApiName,
-                        Url = new Uri("")
+                        //当分组为NoGroup时，只要没加特性的都属于这个组
+                        return string.IsNullOrEmpty(apiDescription.GroupName);
+                    }
+                    else
+                    {
+                        return apiDescription.GroupName == docName;
                     }
                 });
-                c.OrderActionsBy(o => o.RelativePath);
 
                 #region 引入XML注释
                 try
                 {
                     var xmlPath = Path.Combine(basePath, "Api.Core.xml");//项目属性->生成->输出->XML文档文件，对应文件名
-                    c.IncludeXmlComments(xmlPath, true);//默认第二个参数是false，这个是controller的注释，改为true
+                    options.IncludeXmlComments(xmlPath, true);//默认第二个参数是false，这个是controller的注释，改为true
 
                     var xmlEntityPath = Path.Combine(basePath, "Entity.xml");
-                    c.IncludeXmlComments(xmlEntityPath, true);
+                    options.IncludeXmlComments(xmlEntityPath, true);
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +96,7 @@ namespace Common
                     },
                 };
                 //c.AddSecurityRequirement(security);
-                c.AddSecurityDefinition(IssuerName, new OpenApiSecurityScheme
+                options.AddSecurityDefinition(IssuerName, new OpenApiSecurityScheme
                 {
                     Description = "JWT授权(数据将在请求头中进行传输)直接在下框中输入Bearer {token}（注意两者之间是一个空格）",
                     Name = "Authorization",//jwt默认的参数名称
