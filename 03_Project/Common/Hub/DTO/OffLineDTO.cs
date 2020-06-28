@@ -1,6 +1,6 @@
 ﻿using MessagePack;
 
-namespace DTO.Hub
+namespace Common
 {
     /// <summary>
     /// 下线通知

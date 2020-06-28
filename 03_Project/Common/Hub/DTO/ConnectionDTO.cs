@@ -1,24 +1,24 @@
 ﻿using MessagePack;
 
-namespace DTO.Hub
+namespace Common
 {
     [MessagePackObject(keyAsPropertyName: true)]
-    public class NotifyDTO
+    public class ConnectionDTO
     {
         /// <summary>
-        /// 组名集合(多个以,隔开)
+        /// 用户Id
         /// </summary>
-        public string GroupIds { set; get; }
+        public string UserId { set; get; }
 
         /// <summary>
-        /// 用户Id列表(多个以,隔开)
+        /// 连接Id
         /// </summary>
-        public string UserIds { set; get; }
+        public string ConnectionId { set; get; }
 
         /// <summary>
-        /// 是否排除指定用户列表
+        /// 是否排除指定连接，当且仅当 UserId 有值的情况才有效
         /// </summary>
-        public bool ExcludeUsers { set; get; }
+        public bool ExcludeConnectId { set; get; }
 
         /// <summary>
         /// 通知数据

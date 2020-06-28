@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace DTO
+namespace Common
 {
     #region appsettings.json节点
     [Serializable]

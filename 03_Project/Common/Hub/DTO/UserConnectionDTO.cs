@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DTO.Hub
+namespace Common
 {
     [Serializable]
     public class UserConnectionDTO
