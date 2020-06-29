@@ -33,8 +33,8 @@ namespace Common
 
             //获取方式
             //var AllowedHosts = Configuration["AllowedHosts"];
-            //var SqlServerConnection = Configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
-            //var OracleConnection = Configuration["AppSettings:Oracle:ConnectionString"];
+            //var SqlServerConnection = Configuration.GetSection("DBM").GetSection("SqlServer").GetSection("0")["ConnectionString"];
+            //var OracleConnection = Configuration["DBM:Oracle:0:ConnectionString"];
         }
 
         public AppSettingsHelper(IConfiguration configuration)
@@ -55,7 +55,7 @@ namespace Common
             {
                 if (sections.Any())
                 {
-                    //Configuration["AppSettings:Oracle:ConnectionString"];
+                    //Configuration["DBM:Oracle:0:ConnectionString"];
                     return Configuration[string.Join(":", sections)];
                 }
             }

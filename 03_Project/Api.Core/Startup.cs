@@ -52,10 +52,10 @@ namespace Api.Core
             /*
             // 1.按节点访问，Startup类在构造函数已经注入Configuration(访问appsettings.json)，其它地方需要自己注入
             var AllowedHosts = Configuration["AllowedHosts"];
-            var SqlServerConnection = Configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
-            var OracleConnection = Configuration["AppSettings:Oracle:ConnectionString"];
-            var OracleConnection1 = AppSettingsHelper.GetElement(new string[] { "AppSettings", "Oracle", "ConnectionString" });
-            var OracleConnection2 = AppSettingsHelper.GetElement("AppSettings", "Oracle", "ConnectionString");
+            var SqlServerConnection = Configuration.GetSection("DBM").GetSection("SqlServer").GetSection("0")["ConnectionString"];
+            var OracleConnection = Configuration["DBM:Oracle:0:ConnectionString"];
+            var OracleConnection1 = AppSettingsHelper.GetElement(new string[] { "DBM", "Oracle", "0", "ConnectionString" });
+            var OracleConnection2 = AppSettingsHelper.GetElement("DBM", "Oracle", "0", "ConnectionString");
 
             // 2.按对象访问
             var rootPath = Env.ContentRootPath;//D:\MySource\Api.Core\Api.Core

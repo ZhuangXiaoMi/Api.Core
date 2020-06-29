@@ -30,9 +30,9 @@ namespace Common
         public RedisCacheManage(IOptions<AppSettingsJson> appSettingsJson)
         {
             _appSettingsJson = appSettingsJson;
-            if (string.IsNullOrWhiteSpace(_appSettingsJson.Value.RedisCache.ConnectionString))
+            if (string.IsNullOrWhiteSpace(_appSettingsJson.Value.AppSettings.RedisCacheAOP.ConnectionString))
             {
-                throw new ArgumentException("redis config is empty", nameof(_appSettingsJson.Value.RedisCache.ConnectionString));
+                throw new ArgumentException("redis config is empty", nameof(_appSettingsJson.Value.AppSettings.RedisCacheAOP.ConnectionString));
             }
             _redisConnection = GetRedisConnection();
         }
@@ -59,7 +59,7 @@ namespace Common
                                 ConnectTimeout = 15000,//15s
                                 SyncTimeout = 5000,
                                 //Password = "Pwd",//Redis数据库密码
-                                EndPoints = { _appSettingsJson.Value.RedisCache.ConnectionString }//格式：IP:Port，如“192.168.2.110:6379”
+                                EndPoints = { _appSettingsJson.Value.AppSettings.RedisCacheAOP.ConnectionString }//格式：IP:Port，如“192.168.2.110:6379”
                             };
                             _redisConnection = ConnectionMultiplexer.Connect(config);
                         }
@@ -81,9 +81,9 @@ namespace Common
                 {
                     if (_database == null)
                     {
-                        if (_appSettingsJson.Value.RedisCache.DatabaseId > 0)
+                        if (_appSettingsJson.Value.AppSettings.RedisCacheAOP.DatabaseId > 0)
                         {
-                            _database = _redisConnection.GetDatabase(_appSettingsJson.Value.RedisCache.DatabaseId);
+                            _database = _redisConnection.GetDatabase(_appSettingsJson.Value.AppSettings.RedisCacheAOP.DatabaseId);
                         }
                         else
                         {
@@ -168,7 +168,7 @@ namespace Common
         /// <returns></returns>
         public IEnumerable<string> GetKeys(string pattern) =>
             GetServer()
-                .Keys(_appSettingsJson.Value.RedisCache.DatabaseId, pattern, int.MaxValue)
+                .Keys(_appSettingsJson.Value.AppSettings.RedisCacheAOP.DatabaseId, pattern, int.MaxValue)
                 .Select(p => p.ToString());
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace Common
                 var server = this.GetRedisConnection().GetServer(endPoint);
                 //await server.FlushDatabaseAsync(_appSettingsJson.Value.RedisCache.DatabaseId);
 
-                foreach (var key in server.Keys(_appSettingsJson.Value.RedisCache.DatabaseId, pattern: "*", int.MaxValue))
+                foreach (var key in server.Keys(_appSettingsJson.Value.AppSettings.RedisCacheAOP.DatabaseId, pattern: "*", int.MaxValue))
                 {
                     await GetDatabase().KeyDeleteAsync(key);
 

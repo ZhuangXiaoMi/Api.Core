@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Factory.Enum
+namespace Common
 {
     public enum DbType
     {

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Common
 {
@@ -7,7 +8,8 @@ namespace Common
     [Serializable]
     public class DbInfoConfig
     {
-        [JsonProperty("Enabled")]
+        [JsonProperty("DbType")]
+        public DbType DbType { get; set; }
         public bool Enabled { get; set; }
         public string ConnectionString { get; set; }
         public string ProviderName { get; set; }
@@ -32,27 +34,33 @@ namespace Common
         public string Secret { get; set; }
     }
 
-    public class RedisCacheConfig
+    public class CacheConfig
     {
         public bool Enabled { get; set; }
         public string ConnectionString { get; set; }
         public int DatabaseId { get; set; }
     }
 
+    public class DBMConfig
+    {
+        public IList<DbInfoConfig> MySql { get; set; }
+        public IList<DbInfoConfig> SqlServer { get; set; }
+        public IList<DbInfoConfig> Sqlite { get; set; }
+        public IList<DbInfoConfig> Oracle { get; set; }
+    }
     public class AppSettingsConfig
     {
-        public DbInfoConfig MySql { get; set; }
-        public DbInfoConfig SqlServer { get; set; }
-        public DbInfoConfig Sqlite { get; set; }
-        public DbInfoConfig Oracle { get; set; }
+        public CacheConfig RedisCacheAOP { get; set; }
+        public CacheConfig MemoryCacheAOP { get; set; }
+        public CacheConfig LogAOP { get; set; }
+        public CacheConfig TranAOP { get; set; }
+        public CacheConfig SqlAOP { get; set; }
     }
     public class AppSettingsJson
     {
         public AppSettingsConfig AppSettings { get; set; }
+        public DBMConfig DBM { get; set; }
         public JwtTokenAuthConfig Audience { get; set; }
-        public RedisCacheConfig RedisCache { get; set; }
-        public RedisCacheConfig RedisCacheAOP { get; set; }
-        public RedisCacheConfig SignalRRedisCache { get; set; }
     }
     #endregion appsettings.json节点
 }

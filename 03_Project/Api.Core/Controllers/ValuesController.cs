@@ -95,8 +95,8 @@ namespace Api.Core.Controllers
         {
             //_configuration读取appsettings.json
             var AllowedHosts = _configuration["AllowedHosts"];
-            var SqlServerConnection = _configuration.GetSection("AppSettings").GetSection("SqlServer")["ConnectionString"];
-            var MySqlServerConnection = _setting.Value.AppSettings.SqlServer.ConnectionString;//读取mysettings.json
+            var SqlServerConnection = _configuration.GetSection("DBM").GetSection("SqlServer").GetSection("0")["ConnectionString"];
+            var MySqlServerConnection = _setting.Value.DBM.SqlServer[0].ConnectionString;//读取mysettings.json
 
             return null;//await _sysUserService.Query(o => o.Id == 1, p => p.Account);
         }
