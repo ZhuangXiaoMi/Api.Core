@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Tasks;
 
 namespace Api.Core
 {
@@ -30,6 +32,11 @@ namespace Api.Core
                     logging.AddFilter("Microsoft", LogLevel.Error);
                     //logging.AddLog4Net();
                 })
+                //.ConfigureServices(services =>
+                //{
+                //    services.AddHostedService<JobHostService>();
+                //    services.AddHostedService<JobBackService>();
+                //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.Filters;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -75,7 +74,7 @@ namespace Common
                     options.IncludeXmlComments(xmlPath, true);//默认第二个参数是false，这个是controller的注释，改为true
 
                     var xmlEntityPath = Path.Combine(basePath, "Entity.xml");
-                    options.IncludeXmlComments(xmlEntityPath, true);
+                    options.IncludeXmlComments(xmlEntityPath);
                 }
                 catch (Exception ex)
                 {
@@ -84,19 +83,16 @@ namespace Common
                 #endregion 引入XML注释
 
                 #region Token绑定到ConfigureServices
-                //添加header验证信息
-                //c.OperationFilter<SwaggerHeader>();
 
-                // 发行人
-                var IssuerName = AppSettingsHelper.GetElement(new string[] { "Audience", "Issuer" });
-                var security = new Dictionary<string, IEnumerable<string>>
-                {
-                    {
-                        IssuerName, new string[] { }
-                    },
-                };
-                //c.AddSecurityRequirement(security);
-                options.AddSecurityDefinition(IssuerName, new OpenApiSecurityScheme
+                // 开启加权小锁
+                options.OperationFilter<AddResponseHeadersFilter>();
+                options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+
+                // 在header中添加token，传递到后台
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
+
+                // Jwt Bearer 认证，必须是 oauth2
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = "JWT授权(数据将在请求头中进行传输)直接在下框中输入Bearer {token}（注意两者之间是一个空格）",
                     Name = "Authorization",//jwt默认的参数名称

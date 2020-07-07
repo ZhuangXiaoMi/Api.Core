@@ -3,10 +3,10 @@
 namespace Common
 {
     /// <summary>
-    /// 下线通知
+    /// 上线数据
     /// </summary>
     [MessagePackObject(keyAsPropertyName: true)]
-    public class OffLineDTO
+    public class OnLineModel
     {
         /// <summary>
         /// 用户Id
@@ -19,8 +19,8 @@ namespace Common
         public string ConnectionId { set; get; }
 
         /// <summary>
-        /// 是否该用户的最后一个连接
+        /// 是否该用户的第一个连接
         /// </summary>
-        public bool IsLast { set; get; }
+        public bool IsFirst { set; get; }
     }
 }

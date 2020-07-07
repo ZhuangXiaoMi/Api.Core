@@ -3,7 +3,7 @@
 namespace Common
 {
     [Serializable]
-    public class UserConnectionDTO
+    public class UserConnectionModel
     {
         /// <summary>
         /// 用户Id

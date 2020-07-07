@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Tasks;
+using Tasks.JobScheduler;
 
 namespace Api.Core
 {
@@ -37,13 +39,18 @@ namespace Api.Core
             services.AddSingleton<IRedisCacheManage, RedisCacheManage>();
             //services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
             services.AddSingleton(new AppSettingsHelper(Configuration));
+            services.AddSingleton(new LogLockService(Env.ContentRootPath));
+
+            services.AddHostedService<JobHostService>();
+            services.AddHostedService<JobBackService>();
+            services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
 
             services.AddMemoryCacheService();
             //services.AddSqlSugarService();
             services.AddDbContext<Repository.EF.ApiDbContext>();//services.AddDbService();
             services.AddAutoMapperService();
-            services.AddCorsService();//CORS配置要在Autofac前，否则autofacBuilder.Populate(services);后再配置会无效
-            services.AddMiniProfilerService();
+            services.AddCorsService();
+            services.AddMiniProfilerService();//MemoryCache后
             services.AddSwaggerService();
             services.AddAuthenticationService();
             services.AddSignalR().AddNewtonsoftJsonProtocol();

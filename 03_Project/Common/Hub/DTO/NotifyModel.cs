@@ -3,7 +3,7 @@
 namespace Common
 {
     [MessagePackObject(keyAsPropertyName: true)]
-    public class NotifyDTO
+    public class NotifyModel
     {
         /// <summary>
         /// 组名集合(多个以,隔开)

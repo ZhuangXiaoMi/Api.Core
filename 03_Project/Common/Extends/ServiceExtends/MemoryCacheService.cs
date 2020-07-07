@@ -5,7 +5,7 @@ using System;
 namespace Common
 {
     /// <summary>
-    /// 缓存
+    /// Memory 缓存
     /// </summary>
     public static class MemoryCacheService
     {

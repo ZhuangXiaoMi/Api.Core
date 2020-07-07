@@ -111,7 +111,7 @@ namespace Common
         private async Task OnLineNotifyAsync(string userId, string connectionId)
         {
             var userConnectCount = await _redisCacheManage.GetCountAsync($"{PREFIXUSER}{userId}");
-            await Clients.All.OnLineAsync(new OnLineDTO()
+            await Clients.All.OnLineAsync(new OnLineModel()
             {
                 UserId = userId,
                 ConnectionId = connectionId,
@@ -128,7 +128,7 @@ namespace Common
         private async Task OffLineNotifyAsync(string userId, string connectionId)
         {
             var userConnectCount = await _redisCacheManage.GetCountAsync($"{PREFIXUSER}{userId}");
-            await Clients.All.OffLineAsync(new OffLineDTO()
+            await Clients.All.OffLineAsync(new OffLineModel()
             {
                 UserId = userId,
                 ConnectionId = connectionId,

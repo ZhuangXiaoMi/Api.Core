@@ -3,7 +3,7 @@
 namespace Common
 {
     [MessagePackObject(keyAsPropertyName: true)]
-    public class ConnectionDTO
+    public class ConnectionModel
     {
         /// <summary>
         /// 用户Id
