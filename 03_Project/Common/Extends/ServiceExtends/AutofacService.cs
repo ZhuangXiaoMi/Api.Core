@@ -10,7 +10,7 @@ namespace Common
 {
     public class AutofacService : Autofac.Module
     {
-        protected virtual void Load(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             //var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
             var basePath = AppContext.BaseDirectory;
@@ -31,28 +31,37 @@ namespace Common
                 //方法一：autofacBuilder.RegisterType<SysUserService>().As<ISysUserService>();
                 //方法二：var assemblyService = Assembly.Load("Service.dll");
                 var serviceDllFile = Path.Combine(basePath, "Service.dll");//获取注入项目绝对路径
-                //var assemblyService = Assembly.LoadFile(serviceDllFile);//加载指定文件，不会加载引用的其它dll
-                var assemblyService = Assembly.LoadFrom(serviceDllFile);//加载指定文件，会加载引用的其它dll
+                var repositoryDllFile = Path.Combine(basePath, "Repository.dll");
+                if (!File.Exists(serviceDllFile) || !File.Exists(repositoryDllFile))
+                {
+                    throw new Exception("Service.dll 或 Repository.dll 不存在");
+                }
 
                 // AOP 开关，如果想要打开指定的功能，只需要在 appsettigns.json 对应对应 true 就行。
                 var cacheType = new List<Type>();
                 if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "RedisCacheAOP", "Enabled" }).ObjectToBool())
                 {
+                    builder.RegisterType<RedisCacheAOP>();
                     cacheType.Add(typeof(RedisCacheAOP));
                 }
                 if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "MemoryCacheAOP", "Enabled" }).ObjectToBool())
                 {
+                    builder.RegisterType<MemoryCacheAOP>();
                     cacheType.Add(typeof(MemoryCacheAOP));
                 }
                 if (AppSettingsHelper.GetElement(new string[] { "AppSettings", "LogAOP", "Enabled" }).ObjectToBool())
                 {
+                    builder.RegisterType<LogAOP>();
                     cacheType.Add(typeof(LogAOP));
                 }
+
+                //var assemblyService = Assembly.LoadFile(serviceDllFile);//加载指定文件，不会加载引用的其它dll
+                var assemblyService = Assembly.LoadFrom(serviceDllFile);//加载指定文件，会加载引用的其它dll
 
                 //autofacBuilder.RegisterAssemblyTypes(assemblyService).AsImplementedInterfaces();//指定已扫描程序集中的类型注册为提供所有其实现的接口
                 autofacBuilder.RegisterAssemblyTypes(assemblyService)
                     .AsImplementedInterfaces()
-                    .InstancePerLifetimeScope()
+                    .InstancePerDependency()
                     .EnableInterfaceInterceptors()
                     .InterceptedBy(cacheType.ToArray());
                 //允许将拦截器服务的列表分配给注册，即：将拦截器添加到要注入容器的接口或类上
@@ -60,9 +69,10 @@ namespace Common
                 //引用"Autofac.Extras.DynamicProxy"
                 //如果注入两个，InterceptedBy(typeof(MemoryCacheAOP), typeof(LogAOP))；如果使用Redis缓存，必须开启Redis服务，否则用memory缓存MemoryCacheAOP
 
-                var repositoryDllFile = Path.Combine(basePath, "Repository.dll");
                 var assemblyRepository = Assembly.LoadFrom(repositoryDllFile);
-                autofacBuilder.RegisterAssemblyTypes(assemblyRepository).AsImplementedInterfaces();
+                autofacBuilder.RegisterAssemblyTypes(assemblyRepository)
+                    .AsImplementedInterfaces()
+                    .InstancePerDependency();
 
             }
             catch (Exception ex)

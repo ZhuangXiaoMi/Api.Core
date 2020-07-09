@@ -52,7 +52,7 @@ namespace Api.Core
             services.AddCorsService();
             services.AddMiniProfilerService();//MemoryCache后
             services.AddSwaggerService();
-            services.AddAuthenticationService();
+            services.AddAuthorizationService();
             services.AddSignalR().AddNewtonsoftJsonProtocol();
 
             #region Startup.cs读取appsettings.json
@@ -79,6 +79,7 @@ namespace Api.Core
             */
             #endregion Startup.cs读取appsettings.json
 
+            _services = services;
         }
 
         // Program.cs -> CreateHostBuilder：添加 Autofac 服务工厂
@@ -135,6 +136,8 @@ namespace Api.Core
                 //endpoints.MapControllerRoute(
                 //    name: "default",
                 //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<ChatHub>("/api/ChatHub");
             });
         }
     }

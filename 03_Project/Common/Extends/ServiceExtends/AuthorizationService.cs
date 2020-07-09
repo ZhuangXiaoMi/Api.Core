@@ -4,15 +4,16 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Common
 {
     /// <summary>
     /// 授权
     /// </summary>
-    public static class AuthenticationService
+    public static class AuthorizationService
     {
-        public static void AddAuthenticationService(this IServiceCollection services)
+        public static void AddAuthorizationService(this IServiceCollection services)
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
@@ -52,11 +53,31 @@ namespace Common
             #endregion 2、基于策略的授权（简单版）
             #endregion 一、【简单授权】
 
+            #region 【复杂授权】
+
+            #endregion 【复杂授权】
+
             #region 二、【官方认证】
             //读取配置文件
             var symmetricKeyAsBase64 = AppSettingsHelper.GetElement(new string[] { "Audience", "Secret" });
             var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
             var signingKey = new SymmetricSecurityKey(keyByteArray);
+            var issuer = AppSettingsHelper.GetElement(new string[] { "Audience", "Issuer" });//必须，Token颁发机构-发行人
+            var audience = AppSettingsHelper.GetElement(new string[] { "Audience", "Audience" });//必须，颁发给谁-订阅人
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,//必须，签名秘钥
+                ValidateIssuer = true,
+                ValidIssuer = issuer,//发行人
+                ValidateAudience = true,
+                ValidAudience = audience,//订阅人
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.FromSeconds(30),//允许的服务器时间偏移量
+                                                     //ValidIssuer、ValidAudience与TokenClaims中Issuer和Audience对比，不一致则验证失败
+                RequireExpirationTime = true,
+            };
 
             //3、官方认证
             services.AddAuthentication(x =>
@@ -68,20 +89,7 @@ namespace Common
             })
             .AddJwtBearer(o =>
             {
-                o.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = signingKey,//必须，签名秘钥
-                    ValidateIssuer = true,
-                    ValidIssuer = AppSettingsHelper.GetElement(new string[] { "Audience", "Issuer" }),//必须，Token颁发机构-发行人
-                    ValidateAudience = true,
-                    ValidAudience = AppSettingsHelper.GetElement(new string[] { "Audience", "Audience" }),//必须，颁发给谁-订阅人
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromSeconds(30),//允许的服务器时间偏移量
-                    //ValidIssuer、ValidAudience与TokenClaims中Issuer和Audience对比，不一致则验证失败
-                    RequireExpirationTime = true,
-                };
-
+                o.TokenValidationParameters = tokenValidationParameters;
                 o.Events = new JwtBearerEvents
                 {
                     OnAuthenticationFailed = context =>
