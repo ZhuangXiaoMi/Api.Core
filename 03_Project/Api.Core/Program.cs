@@ -30,7 +30,7 @@ namespace Api.Core
                     logging.ClearProviders(); //去掉默认的日志
                     logging.AddFilter("System", LogLevel.Error);
                     logging.AddFilter("Microsoft", LogLevel.Error);
-                    //logging.AddLog4Net();
+                    logging.AddLog4Net();
                 })
                 //.ConfigureServices(services =>
                 //{
