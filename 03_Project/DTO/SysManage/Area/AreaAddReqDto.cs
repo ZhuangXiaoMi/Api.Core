@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace DTO.SysManage
+namespace DTO
 {
     [Serializable]
     public class AreaAddReqDto
