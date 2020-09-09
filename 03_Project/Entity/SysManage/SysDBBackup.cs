@@ -7,7 +7,7 @@ namespace Entity.SysManage
     /// 数据库备份表
     /// </summary>
     [Table("sys_db_backup")]
-    public partial class SysDBBackup : ABTAggregateRoot<SysDBBackup>
+    public partial class SysDBBackup : ABTAggregateRoot
     {
         #region 原始字段
         /// <summary>

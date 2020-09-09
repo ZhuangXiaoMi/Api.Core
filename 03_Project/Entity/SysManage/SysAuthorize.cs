@@ -7,7 +7,7 @@ namespace Entity
     /// 授权表
     /// </summary>
     [Table("sys_authorize")]
-    public partial class SysAuthorize : ABTAggregateRoot<SysAuthorize>
+    public partial class SysAuthorize : ABTAggregateRoot
     {
         #region 原始字段
         /// <summary>

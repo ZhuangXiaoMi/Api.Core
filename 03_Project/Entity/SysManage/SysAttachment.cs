@@ -7,7 +7,7 @@ namespace Entity
     /// 附件表
     /// </summary>
     [Table("sys_attachment")]
-    public partial class SysAttachment : ABTAggregateRoot<SysAttachment>
+    public partial class SysAttachment : ABTAggregateRoot
     {
         #region 原始字段
         /// <summary>

@@ -7,7 +7,7 @@ namespace Entity
     /// 地区表
     /// </summary>
     [Table("sys_area")]
-    public partial class SysArea : ABTAggregateRoot<SysArea>
+    public partial class SysArea : ABTAggregateRoot
     {
         #region 原始字段
         /// <summary>

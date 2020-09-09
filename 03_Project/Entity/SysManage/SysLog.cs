@@ -1,104 +1,74 @@
-﻿using Entity.BaseManage;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entity.SysManage
+namespace Entity
 {
-    [Serializable]
-    [Table("Sys_Log")]
-    [Display(Name = "日志表")]
-    public partial class SysLog : ABTAggregateRoot<SysLog>, ICreateEntity
+    /// <summary>
+    /// 日志表
+    /// </summary>
+    [Table("sys_log")]
+    public partial class SysLog : ABTAggregateRoot
     {
         #region 原始字段
         /// <summary>
-        /// 主键Id
+        /// 日志类型：1FATAL 2ERROR 3WARN 4INFO 5DEBUG
         /// </summary>
-        [Key]
-        [Display(Name = "主键Id")]
-        public int Id { get; set; }
-        //public int LogId { get; set; }
-
-        /// <summary>
-        /// 日志类型：1：FATAL；2：ERROR；3：WARN；4：INFO；5：DEBUG；
-        /// </summary>
-        [Required(ErrorMessage = "必填")]
-        [Range(1, 5, ErrorMessage = "异常值")]
-        [Display(Name = "日志类型", Description = "1：FATAL；2：ERROR；3：WARN；4：INFO；5：DEBUG；")]
-        public int LogType { get; set; }
+        [Description("日志类型")]
+        public int log_type { get; set; }
 
         /// <summary>
         /// 操作IP
         /// </summary>
-        [Display(Name = "操作IP")]
-        public string IP { get; set; }
+        [Description("操作IP")]
+        public string ip { get; set; }
 
         /// <summary>
         /// 系统模块Id
         /// </summary>
-        [Required(ErrorMessage = "必填")]
-        [Display(Name = "系统模块Id")]
-        public int ModuleId { get; set; }
+        [Description("系统模块Id")]
+        public long module_id { get; set; }
 
         /// <summary>
         /// 系统模块名称
         /// </summary>
-        [Display(Name = "系统模块名称")]
-        public string ModuleName { get; set; }
+        [Description("系统模块名称")]
+        public string module_name { get; set; }
 
         /// <summary>
         /// 请求地址
         /// </summary>
-        [Required(ErrorMessage = "必填")]
-        [DataType(DataType.Url)]
-        [Display(Name = "请求地址")]
-        public string RequestURL { get; set; }
+        [Description("请求地址")]
+        public string request_url { get; set; }
 
         /// <summary>
         /// 操作方式
         /// </summary>
-        [Display(Name = "操作方式")]
-        public string Method { get; set; }
+        [Description("操作方式")]
+        public string method { get; set; }
 
         /// <summary>
         /// 操作提交数据
         /// </summary>
-        [Display(Name = "操作提交数据")]
-        public string Params { get; set; }
+        [Description("操作提交数据")]
+        public string parameter { get; set; }
 
         /// <summary>
-        /// 是否成功：0：否；1：是；
+        /// 是否成功：0否 1是
         /// </summary>
-        [Column(TypeName = "bit")]
-        [Display(Name = "是否成功", Description = "0：否；1：是；")]
-        public bool IsSuccess { get; set; }
+        [Description("是否成功")]
+        public int is_success { get; set; }
 
         /// <summary>
         /// 异常信息
         /// </summary>
-        [StringLength(500, ErrorMessage = "少于{0}个字")]
-        [Display(Name = "异常信息")]
-        public string Exception { get; set; }
+        [Description("异常信息")]
+        public string exception { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
-        [StringLength(500, ErrorMessage = "少于{0}个字")]
-        [Display(Name = "描述")]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// 创建用户Id
-        /// </summary>
-        [Display(Name = "创建用户Id")]
-        public int CreateUserId { get; set; }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:g}")]
-        [Display(Name = "创建时间")]
-        public DateTime CreateTime { get; set; }
+        [Description("描述")]
+        public string description { get; set; }
         #endregion 原始字段
 
         #region 扩展字段

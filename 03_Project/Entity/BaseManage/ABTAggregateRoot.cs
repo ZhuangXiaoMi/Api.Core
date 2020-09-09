@@ -10,7 +10,7 @@ namespace Entity
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     [NotMapped]
-    public abstract class ABTAggregateRoot<TEntity> : ICloneable where TEntity : class
+    public abstract class ABTAggregateRoot : ICloneable
     {
         #region 属性
         /// <summary>
