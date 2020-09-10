@@ -1,55 +1,32 @@
-﻿using Entity.BaseManage;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entity.SysManage
+namespace Entity
 {
-    [Serializable]
-    [Table("Sys_UserGrpUser")]
-    [Display(Name = "用户与用户组关联表")]
-    public partial class SysUserGrpUser : ABTAggregateRoot<SysUserGrpUser>, ICreateEntity
+    /// <summary>
+    /// 用户与用户组关联表
+    /// </summary>
+    [Table("sys_user_grp_user")]
+    public partial class SysUserGrpUser : ABTAggregateRoot
     {
         #region 原始字段
         /// <summary>
-        /// 主键Id
-        /// </summary>
-        [Key]
-        [Display(Name = "主键Id")]
-        public int Id { get; set; }
-
-        /// <summary>
         /// 用户Id
         /// </summary>
-        [Required(ErrorMessage = "必填")]
-        [Display(Name = "用户Id")]
-        public int UserId { get; set; }
+        [Description("用户Id")]
+        public long user_id { get; set; }
 
         /// <summary>
         /// 用户组Id
         /// </summary>
-        [Required(ErrorMessage = "必填")]
-        [Display(Name = "用户组Id")]
-        public int GrpUserId { get; set; }
+        [Description("用户组Id")]
+        public long grp_user_id { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
-        [Display(Name = "备注")]
-        public string Remark { get; set; }
-
-        /// <summary>
-        /// 创建用户Id
-        /// </summary>
-        [Display(Name = "创建用户Id")]
-        public int CreateUserId { get; set; }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:g}")]
-        [Display(Name = "创建时间")]
-        public DateTime CreateTime { get; set; }
+        [Description("备注")]
+        public string remark { get; set; }
         #endregion 原始字段
 
         #region 扩展字段
