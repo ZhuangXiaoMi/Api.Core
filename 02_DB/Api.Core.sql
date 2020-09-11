@@ -547,7 +547,7 @@ create table sys_attachment (
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            tinyint              not null default 0
-      constraint CKC_IS_DELETE_SYS_ATTA check (is_delete between 0 and 1),
+      constraint CKC_IS_DELETE_SYS_ATTACHMENT check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
    delete_user_id       bigint           not null default '0',
@@ -904,16 +904,16 @@ go
 create table sys_authorize (
    id                   bigint               identity,
    item_type            tinyint              not null
-      constraint CKC_ITEM_TYPE_SYS_AUTH check (item_type between 1 and 5),
+      constraint CKC_ITEM_TYPE_SYS_AUTHORIZE check (item_type between 1 and 5),
    item_id              bigint           not null default '0',
    object_type          tinyint              not null
-      constraint CKC_OBJECT_TYPE_SYS_AUTH check (object_type between 1 and 3),
+      constraint CKC_OBJECT_TYPE_SYS_AUTHORIZE check (object_type between 1 and 3),
    object_id            bigint           not null default '0',
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            tinyint              not null default 0
-      constraint CKC_IS_DELETE_SYS_AUTH check (is_delete between 0 and 1),
+      constraint CKC_IS_DELETE_SYS_AUTHORIZE check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
    delete_user_id       bigint           not null default '0',
@@ -1232,14 +1232,14 @@ go
 create table sys_db_backup (
    id                   bigint               identity,
    backup_type          tinyint              not null default 1
-      constraint CKC_BACKUP_TYPE_SYS_DB_B check (backup_type between 1 and 2),
+      constraint CKC_BACKUP_TYPE_SYS_DB_BACKUP check (backup_type between 1 and 2),
    db_name              varchar(30)          not null,
    file_name            nvarchar(30)         not null,
    file_size            decimal(7,2)         not null default 0,
    file_path            varchar(100)         not null,
    description          nvarchar(300)        not null,
    is_delete            tinyint              not null default 0
-      constraint CKC_IS_DELETE_SYS_DB_B check (is_delete between 0 and 1),
+      constraint CKC_IS_DELETE_SYS_DB_BACKUP check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
    delete_user_id       bigint           not null default '0',
@@ -2424,7 +2424,7 @@ create table sys_element (
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            tinyint              not null default 0
-      constraint CKC_IS_DELETE_SYS_ELEM check (is_delete between 0 and 1),
+      constraint CKC_IS_DELETE_SYS_ELEMENT check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
    delete_user_id       bigint           not null default '0',
@@ -3708,7 +3708,7 @@ create table sys_job_history (
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            tinyint              not null default 0
-      constraint CKC_IS_DELETE_SYS_JOB_ check (is_delete between 0 and 1),
+      constraint CKC_IS_DELETE_SYS_JOB_HISTORY check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
    delete_user_id       bigint           not null default '0',
@@ -4813,7 +4813,7 @@ create table sys_module_form (
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            tinyint              not null default 0
-      constraint CKC_IS_DELETE_SYS_MODU check (is_delete between 0 and 1),
+      constraint CKC_IS_DELETE_SYS_MODULE_FORM check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
    delete_user_id       bigint           not null default '0',
@@ -5122,7 +5122,7 @@ create table sys_operate_btn (
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            tinyint              not null default 0
-      constraint CKC_IS_DELETE_SYS_OPER check (is_delete between 0 and 1),
+      constraint CKC_IS_DELETE_SYS_OPERATE_BTN check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
    delete_user_id       bigint           not null default '0',
