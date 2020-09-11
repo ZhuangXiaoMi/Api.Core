@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entity.SysManage
+namespace Entity
 {
     /// <summary>
     /// 数据库备份表

@@ -1,45 +1,45 @@
-﻿@using Entity.SysManage
+﻿@using Entity
 @using Entity.Enum
 @model SysUser
 
 <form asp-action="Add">
     <!-- Add[HttpGet]已经new做了DeptId赋值，需要放一个字段暂存 -->
-    <input type="hidden" asp-for="DeptId" />
+    <input type="hidden" asp-for="dept_id" />
 
     <div class="row form-group">
         <div class="col-md-2 offset-md-2">
-            <label asp-for="No"></label>
+            <label asp-for="no"></label>
         </div>
         <div class="col-md-6">
-            <input class="form-control" asp-for="No" />
+            <input class="form-control" asp-for="no" />
         </div>
     </div>
     <div class="row form-group">
         <div class="col-md-2 offset-md-2">
-            <label asp-for="Account"></label>
+            <label asp-for="account"></label>
         </div>
         <div class="col-md-6">
-            <input class="form-control" asp-for="Account" />
+            <input class="form-control" asp-for="account" />
         </div>
     </div>
     <div class="row form-group">
         <div class="col-md-2 offset-md-2">
-            <label asp-for="RealName"></label>
+            <label asp-for="real_name"></label>
         </div>
         <div class="col-md-6">
-            <input class="form-control" asp-for="RealName" />
+            <input class="form-control" asp-for="real_name" />
         </div>
     </div>
     <div class="row form-group">
         <div class="col-md-2 offset-md-2">
-            <label asp-for="Sex"></label>
+            <label asp-for="sex"></label>
         </div>
         <div class="col-md-6">
             <select class="form-control"
-                    asp-for="Sex"
+                    asp-for="sex"
                     asp-items="Html.GetEnumSelectList<Gender>()">
             </select>
-            <input class="form-control" asp-for="Sex" />
+            <input class="form-control" asp-for="sex" />
         </div>
     </div>
     <div class="row">

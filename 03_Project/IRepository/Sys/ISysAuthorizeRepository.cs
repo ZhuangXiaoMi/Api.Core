@@ -1,4 +1,4 @@
-﻿using Entity.SysManage;
+﻿using Entity;
 using IRepository.Base;
 
 namespace IRepository.Sys

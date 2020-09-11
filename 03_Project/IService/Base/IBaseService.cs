@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using VO.SysManage;
 
 namespace IService.Base
 {
-    public interface IBaseService<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
+    public interface IBaseService<TAggregateRoot> where TAggregateRoot : ABTAggregateRoot
     {
         Task<bool> Add(TAggregateRoot entity);
 

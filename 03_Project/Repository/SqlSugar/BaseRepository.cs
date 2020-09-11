@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using IRepository;
 using IRepository.Base;
 using SqlSugar;
@@ -11,7 +11,7 @@ using VO.SysManage;
 
 namespace Repository.SqlSugar
 {
-    public abstract class BaseRepository<TAggregateRoot> /*: IBaseRepository<TAggregateRoot>*/ where TAggregateRoot : class, IAggregateRoot
+    public abstract class BaseRepository<TAggregateRoot> /*: IBaseRepository<TAggregateRoot>*/ where TAggregateRoot : ABTAggregateRoot
     {
         private readonly IDbContext _dbContext;
         public readonly IQueryable<TAggregateRoot> _entity;

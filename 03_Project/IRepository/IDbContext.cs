@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -20,12 +20,12 @@ namespace IRepository
 
         Task<int> SaveChangesEntityAsync();
 
-        Task<TAggregateRoot> AddEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot;
+        Task<TAggregateRoot> AddEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot;
 
-        Task<bool> DeleteEntityAsync<TAggregateRoot>(dynamic id) where TAggregateRoot : class, IAggregateRoot;
+        Task<bool> DeleteEntityAsync<TAggregateRoot>(dynamic id) where TAggregateRoot : ABTAggregateRoot;
 
-        Task<bool> DeleteEntityAsync<TAggregateRoot>(Expression<Func<TAggregateRoot, bool>> expression) where TAggregateRoot : class, IAggregateRoot;
+        Task<bool> DeleteEntityAsync<TAggregateRoot>(Expression<Func<TAggregateRoot, bool>> expression) where TAggregateRoot : ABTAggregateRoot;
 
-        Task<TAggregateRoot> UpdateEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot;
+        Task<TAggregateRoot> UpdateEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot;
     }
 }

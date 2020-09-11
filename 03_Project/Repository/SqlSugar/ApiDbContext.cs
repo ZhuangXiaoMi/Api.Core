@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using IRepository;
 using SqlSugar;
 using System;
@@ -315,7 +315,7 @@ using System.ComponentModel.DataAnnotations;
                 DB = DB.Where(arrTableName);
             }
             DB.IsCreateAttribute().IsCreateDefaultValue()
-                .SettingClassTemplate(p => p = @"using Entity.SysManage;
+                .SettingClassTemplate(p => p = @"using Entity;
 using IRepository.Base;
 
 namespace " + nameSpace + @"
@@ -347,7 +347,7 @@ namespace " + nameSpace + @"
                 DB = DB.Where(arrTableName);
             }
             DB.IsCreateAttribute().IsCreateDefaultValue()
-                .SettingClassTemplate(p => p = @"using Entity.SysManage;
+                .SettingClassTemplate(p => p = @"using Entity;
 using IService.Base;
 
 namespace " + nameSpace + @"
@@ -379,7 +379,7 @@ namespace " + nameSpace + @"
                 DB = DB.Where(arrTableName);
             }
             DB.IsCreateAttribute().IsCreateDefaultValue()
-                .SettingClassTemplate(p => p = @"using Entity.SysManage;
+                .SettingClassTemplate(p => p = @"using Entity;
 using IRepository.Sys;
 using IRepository.UnitOfWork;
 using Repository.SqlSugar;
@@ -416,7 +416,7 @@ namespace " + nameSpace + @"
                 DB = DB.Where(arrTableName);
             }
             DB.IsCreateAttribute().IsCreateDefaultValue()
-                .SettingClassTemplate(p => p = @"using Entity.SysManage;
+                .SettingClassTemplate(p => p = @"using Entity;
 using IRepository.Sys;
 using IService.Sys;
 using Service.Base;
@@ -493,26 +493,26 @@ namespace " + nameSpace + @"
         //    throw new NotImplementedException();
         //}
 
-        //public async Task<TAggregateRoot> AddEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        //public async Task<TAggregateRoot> AddEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot
         //{
         //    //GetEntityContext<TAggregateRoot>().Insert(entity);
         //    //await Db.Insertable<TAggregateRoot>(entity).ExecuteReturnEntity();
         //    throw new NotImplementedException();
         //}
 
-        //public async Task<bool> DeleteEntityAsync<TAggregateRoot>(dynamic id) where TAggregateRoot : class, IAggregateRoot
+        //public async Task<bool> DeleteEntityAsync<TAggregateRoot>(dynamic id) where TAggregateRoot : ABTAggregateRoot
         //{
         //    //await Db.Deleteable<TAggregateRoot>().In(id).ExecuteCommand();
         //    throw new NotImplementedException();
         //}
 
-        //public async Task<bool> DeleteEntityAsync<TAggregateRoot>(Expression<Func<TAggregateRoot, bool>> expression) where TAggregateRoot : class, IAggregateRoot
+        //public async Task<bool> DeleteEntityAsync<TAggregateRoot>(Expression<Func<TAggregateRoot, bool>> expression) where TAggregateRoot : ABTAggregateRoot
         //{
         //    //await Db.Deleteable<TAggregateRoot>().Where(expression).ExecuteCommand();
         //    throw new NotImplementedException();
         //}
 
-        //public async Task<TAggregateRoot> UpdateEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        //public async Task<TAggregateRoot> UpdateEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot
         //{
         //    //await Db.Updateable(entity);
         //    throw new NotImplementedException();

@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using IRepository;
 using IRepository.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +26,7 @@ namespace Repository.UnitOfWork
             return _dbContext;
         }
 
-        public async Task<bool> Add<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        public async Task<bool> Add<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot
         {
             _dbContext.Set<TAggregateRoot>().Add(entity);
             if (_dbContextTransaction != null)
@@ -34,7 +34,7 @@ namespace Repository.UnitOfWork
             return true;
         }
 
-        public async Task<bool> Delete<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        public async Task<bool> Delete<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot
         {
             _dbContext.Set<TAggregateRoot>().Remove(entity);
             if (_dbContextTransaction != null)
@@ -42,7 +42,7 @@ namespace Repository.UnitOfWork
             return true;
         }
 
-        public async Task<bool> Update<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        public async Task<bool> Update<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot
         {
             _dbContext.Entry<TAggregateRoot>(entity).State = EntityState.Modified;
             if (_dbContextTransaction != null)

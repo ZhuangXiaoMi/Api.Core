@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using IRepository.Base;
 using IRepository.UnitOfWork;
 using IService.Base;
@@ -11,7 +11,7 @@ using VO.SysManage;
 
 namespace Service.Base
 {
-    public class BaseService<TAggregateRoot> : IBaseService<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
+    public class BaseService<TAggregateRoot> : IBaseService<TAggregateRoot> where TAggregateRoot : ABTAggregateRoot
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IBaseRepository<TAggregateRoot> _baseRepository;

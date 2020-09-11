@@ -1,5 +1,5 @@
-﻿using Entity.BaseManage;
-using Entity.SysManage;
+﻿using Entity;
+using Entity;
 using IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -84,23 +84,23 @@ namespace Repository.EF
             return await base.SaveChangesAsync();
         }
 
-        public async Task<TAggregateRoot> AddEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        public async Task<TAggregateRoot> AddEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot
         {
             //return base.Set<TAggregateRoot>().Add(entity) as TAggregateRoot;
             return await base.AddAsync<TAggregateRoot>(entity) as TAggregateRoot;
         }
 
-        public async Task<bool> DeleteEntityAsync<TAggregateRoot>(dynamic id) where TAggregateRoot : class, IAggregateRoot
+        public async Task<bool> DeleteEntityAsync<TAggregateRoot>(dynamic id) where TAggregateRoot : ABTAggregateRoot
         {
             return await base.Set<TAggregateRoot>().Remove(id);
         }
 
-        public async Task<bool> DeleteEntityAsync<TAggregateRoot>(Expression<Func<TAggregateRoot, bool>> expression) where TAggregateRoot : class, IAggregateRoot
+        public async Task<bool> DeleteEntityAsync<TAggregateRoot>(Expression<Func<TAggregateRoot, bool>> expression) where TAggregateRoot : ABTAggregateRoot
         {
             throw new NotImplementedException();
         }
 
-        public async Task<TAggregateRoot> UpdateEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : class, IAggregateRoot
+        public async Task<TAggregateRoot> UpdateEntityAsync<TAggregateRoot>(TAggregateRoot entity) where TAggregateRoot : ABTAggregateRoot
         {
             //base.Entry<TAggregateRoot>(entity).State = EntityState.Modified;
             //return entity;

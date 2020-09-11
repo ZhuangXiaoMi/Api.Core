@@ -1,4 +1,4 @@
-﻿using Entity.SysManage;
+﻿using Entity;
 using IService.Sys;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
@@ -32,7 +32,7 @@ namespace Web.ViewComponents
                 var imageUrl = match.Groups[1].Value;
                 return View("Default", new SysUser
                 {
-                    Icon = imageUrl
+                    icon = imageUrl
                 });
             }
         }

@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace IRepository.Base
     /// 读操作
     /// </summary>
     /// <typeparam name="TAggregateRoot"></typeparam>
-    public interface IBaseRepository<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
+    public interface IBaseRepository<TAggregateRoot> where TAggregateRoot : ABTAggregateRoot
     {
         IQueryable<TAggregateRoot> Query<SEntity>(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true);
         //Task<IList<TAggregateRoot>> Query(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true);

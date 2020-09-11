@@ -1,4 +1,4 @@
-﻿using Entity.BaseManage;
+﻿using Entity;
 using IRepository.Base;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using VO.SysManage;
 
 namespace Repository.Base
 {
-    public class BaseRepository<TAggregateRoot> /*: IBaseRepository<TAggregateRoot>*/ where TAggregateRoot : class, IAggregateRoot
+    public class BaseRepository<TAggregateRoot> /*: IBaseRepository<TAggregateRoot>*/ where TAggregateRoot : ABTAggregateRoot
     {
         public async Task<IList<TAggregateRoot>> Query(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true)
         {

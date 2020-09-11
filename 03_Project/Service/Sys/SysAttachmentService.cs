@@ -1,4 +1,4 @@
-﻿using Entity.SysManage;
+﻿using Entity;
 using IRepository.Sys;
 using IRepository.UnitOfWork;
 using IService.Sys;

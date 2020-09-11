@@ -4,1599 +4,1045 @@
         <name>Entity</name>
     </assembly>
     <members>
-        <member name="P:Entity.BaseManage.ABTAggregateRoot`1.Id">
+        <member name="T:Entity.ABTAggregateRoot">
             <summary>
-            主键
+            聚合根
             </summary>
+            <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="P:Entity.BaseManage.IAggregateRoot.Id">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.ICreateEntity.Id">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.ICreateEntity.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.ICreateEntity.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.IDeleteEntity.IsDelete">
-            <summary>
-            是否删除：0 否；1 是；
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.IDeleteEntity.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.IDeleteEntity.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.IModifyEntity.Id">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.IModifyEntity.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.BaseManage.IModifyEntity.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysArea.Id">
+        <member name="P:Entity.ABTAggregateRoot.id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.ParentId">
+        <member name="P:Entity.ABTAggregateRoot.is_delete">
+            <summary>
+            是否删除：0否 1是
+            </summary>
+        </member>
+        <member name="P:Entity.ABTAggregateRoot.create_user_id">
+            <summary>
+            创建用户Id
+            </summary>
+        </member>
+        <member name="P:Entity.ABTAggregateRoot.modify_user_id">
+            <summary>
+            修改用户Id
+            </summary>
+        </member>
+        <member name="P:Entity.ABTAggregateRoot.delete_user_id">
+            <summary>
+            删除用户Id
+            </summary>
+        </member>
+        <member name="P:Entity.ABTAggregateRoot.create_time">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Entity.ABTAggregateRoot.modify_time">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:Entity.ABTAggregateRoot.delete_time">
+            <summary>
+            删除时间
+            </summary>
+        </member>
+        <member name="T:Entity.SysArea">
+            <summary>
+            地区表
+            </summary>
+        </member>
+        <member name="P:Entity.SysArea.parent_id">
             <summary>
             上级地区Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.AdministrativeDivision">
+        <member name="P:Entity.SysArea.administrative_division">
             <summary>
             行政区划代码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.AreaCode">
+        <member name="P:Entity.SysArea.area_code">
             <summary>
             邮政编码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.AreaName">
+        <member name="P:Entity.SysArea.area_name">
             <summary>
             地区名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.SimpleName">
+        <member name="P:Entity.SysArea.simple_name">
             <summary>
             简称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.Level">
+        <member name="P:Entity.SysArea.level">
             <summary>
-            行政区划级别：0：国家；1：省级；2：地级；3：县级；4：乡级；
+            行政区划级别：0国家 1省级 2地级 3县级 4乡级 5村庄
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.Sort">
+        <member name="P:Entity.SysArea.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.Description">
+        <member name="P:Entity.SysArea.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.Remark">
+        <member name="P:Entity.SysArea.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.IsEnabled">
+        <member name="P:Entity.SysArea.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.IsDelete">
+        <member name="T:Entity.SysAttachment">
             <summary>
-            是否删除：0：否；1：是；
+            附件表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysArea.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysArea.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysArea.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysArea.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysArea.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysArea.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysAttachment.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysAttachment.AttaType">
+        <member name="P:Entity.SysAttachment.atta_type">
             <summary>
             类型
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.ObjectId">
+        <member name="P:Entity.SysAttachment.object_id">
             <summary>
             对象Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.FilePath">
+        <member name="P:Entity.SysAttachment.file_path">
             <summary>
             文件路径
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.PrefixPath">
+        <member name="P:Entity.SysAttachment.prefix_path">
             <summary>
             文件路径前缀
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.FileName">
+        <member name="P:Entity.SysAttachment.file_name">
             <summary>
             文件名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.FileType">
+        <member name="P:Entity.SysAttachment.file_type">
             <summary>
             文件类型
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.FileSize">
+        <member name="P:Entity.SysAttachment.file_size">
             <summary>
             文件大小：MB
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.Sort">
+        <member name="P:Entity.SysAttachment.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.Description">
+        <member name="P:Entity.SysAttachment.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.Remark">
+        <member name="P:Entity.SysAttachment.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.IsDelete">
+        <member name="T:Entity.SysAuthorize">
             <summary>
-            是否删除：0：否；1：是；
+            授权表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.CreateUserId">
+        <member name="P:Entity.SysAuthorize.item_type">
             <summary>
-            创建用户Id
+            项目类型：1菜单SysMenu 2页面元素SysElement 3操作按钮SysOperateBtn 4附件SysAttachment 5模块表单SysModuleForm
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAttachment.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysAttachment.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysAttachment.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysAuthorize.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysAuthorize.ItemType">
-            <summary>
-            项目类型：1：菜单 SysMenu；2：页面元素 SysElement；3：操作按钮 SysOperateBtn；4：附件 SysAttachment；5：模块表单 SysModuleForm；
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysAuthorize.ItemId">
+        <member name="P:Entity.SysAuthorize.item_id">
             <summary>
             项目外键
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAuthorize.ObjectType">
+        <member name="P:Entity.SysAuthorize.object_type">
             <summary>
-            对象类型：1：角色；2：用户；3：用户组；
+            对象类型：1角色 2用户 3用户组
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAuthorize.ObjectId">
+        <member name="P:Entity.SysAuthorize.object_id">
             <summary>
             对象外键
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAuthorize.Sort">
+        <member name="P:Entity.SysAuthorize.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAuthorize.Description">
+        <member name="P:Entity.SysAuthorize.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAuthorize.Remark">
+        <member name="P:Entity.SysAuthorize.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAuthorize.CreateUserId">
+        <member name="T:Entity.SysDBBackup">
             <summary>
-            创建用户Id
+            数据库备份表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysAuthorize.CreateTime">
+        <member name="P:Entity.SysDBBackup.backup_type">
             <summary>
-            创建时间
+            备份类型：1完全备份 2增量备份
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDBBackup.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDBBackup.BackupType">
-            <summary>
-            备份类型：1：完全备份；2：增量备份；
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDBBackup.DBName">
+        <member name="P:Entity.SysDBBackup.db_name">
             <summary>
             数据库名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDBBackup.FileName">
+        <member name="P:Entity.SysDBBackup.file_name">
             <summary>
             文件名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDBBackup.FileSize">
+        <member name="P:Entity.SysDBBackup.file_size">
             <summary>
-            文件大小
+            文件大小：MB
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDBBackup.FilePath">
+        <member name="P:Entity.SysDBBackup.file_path">
             <summary>
             文件路径
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDBBackup.Description">
+        <member name="P:Entity.SysDBBackup.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDBBackup.IsDelete">
+        <member name="T:Entity.SysDept">
             <summary>
-            是否删除：0：否；1：是；
+            部门表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDBBackup.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDBBackup.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDBBackup.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDBBackup.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDept.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDept.ParentId">
+        <member name="P:Entity.SysDept.parent_id">
             <summary>
             上级部门Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.DeptCode">
+        <member name="P:Entity.SysDept.dept_code">
             <summary>
             部门编码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.DeptName">
+        <member name="P:Entity.SysDept.dept_name">
             <summary>
             部门名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.SimpleName">
+        <member name="P:Entity.SysDept.simple_name">
             <summary>
             简称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.DeptType">
+        <member name="P:Entity.SysDept.dept_type">
             <summary>
-            机构类型：1：公司；2：部门；3：小组；
+            机构类型：1公司 2部门 3小组
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Level">
+        <member name="P:Entity.SysDept.level">
             <summary>
-            机构等级：1：一级；2：二级；3：三级；4：四级；
+            机构等级：1一级 2二级 3三级 4四级
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Seq">
+        <member name="P:Entity.SysDept.seq">
             <summary>
-            当前层级顺序，升序
+            当前层级顺序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.AreaId">
+        <member name="P:Entity.SysDept.area_id">
             <summary>
             所属地区Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.LeaderId">
+        <member name="P:Entity.SysDept.leader_id">
             <summary>
             负责人Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Address">
+        <member name="P:Entity.SysDept.address">
             <summary>
             联系地址
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Telephone">
+        <member name="P:Entity.SysDept.telephone">
             <summary>
             固定电话
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Email">
+        <member name="P:Entity.SysDept.email">
             <summary>
             邮箱
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.IsAllowEdit">
+        <member name="P:Entity.SysDept.is_allow_edit">
             <summary>
-            是否允许编辑：0：否；1：是；
+            是否允许编辑：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.IsAllowDelete">
+        <member name="P:Entity.SysDept.is_allow_delete">
             <summary>
-            是否允许删除：0：否；1：是；
+            是否允许删除：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Sort">
+        <member name="P:Entity.SysDept.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Description">
+        <member name="P:Entity.SysDept.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.Remark">
+        <member name="P:Entity.SysDept.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.IsEnabled">
+        <member name="P:Entity.SysDept.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.IsDelete">
+        <member name="T:Entity.SysDict">
             <summary>
-            是否删除：0：否；1：是；
+            字典表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDept.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDept.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDept.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDept.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDept.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDept.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDict.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDict.ParentId">
+        <member name="P:Entity.SysDict.parent_id">
             <summary>
             上级Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.Name">
+        <member name="P:Entity.SysDict.name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.Value">
+        <member name="P:Entity.SysDict.value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.Type">
+        <member name="P:Entity.SysDict.type">
             <summary>
             类型
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.Sort">
+        <member name="P:Entity.SysDict.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.Remark">
+        <member name="P:Entity.SysDict.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.IsEnabled">
+        <member name="P:Entity.SysDict.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.IsDelete">
+        <member name="T:Entity.SysElement">
             <summary>
-            是否删除：0：否；1：是；
+            页面元素表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysDict.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDict.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDict.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDict.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDict.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysDict.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysElement.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysElement.MenuId">
+        <member name="P:Entity.SysElement.menu_id">
             <summary>
             菜单Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.ElemCode">
+        <member name="P:Entity.SysElement.elem_code">
             <summary>
             元素编码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.ElemName">
+        <member name="P:Entity.SysElement.elem_name">
             <summary>
             元素名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.Location">
+        <member name="P:Entity.SysElement.location">
             <summary>
             位置
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.Sort">
+        <member name="P:Entity.SysElement.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.Description">
+        <member name="P:Entity.SysElement.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.Remark">
+        <member name="P:Entity.SysElement.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.IsDelete">
+        <member name="T:Entity.SysGrpRole">
             <summary>
-            是否删除：0：否；1：是；
+            角色组
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysElement.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysElement.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysElement.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysElement.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysElement.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysElement.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpRole.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpRole.GrpRoleName">
+        <member name="P:Entity.SysGrpRole.grp_role_name">
             <summary>
             角色组名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpRole.Sort">
+        <member name="P:Entity.SysGrpRole.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpRole.Description">
+        <member name="P:Entity.SysGrpRole.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpRole.Remark">
+        <member name="P:Entity.SysGrpRole.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpRole.IsEnabled">
+        <member name="P:Entity.SysGrpRole.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpRole.IsDelete">
+        <member name="T:Entity.SysGrpUser">
             <summary>
-            是否删除：0：否；1：是；
+            用户组
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpRole.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpRole.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpRole.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpRole.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpRole.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpRole.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpUser.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpUser.ParentId">
+        <member name="P:Entity.SysGrpUser.parent_id">
             <summary>
             上级Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpUser.GrpUserName">
+        <member name="P:Entity.SysGrpUser.grp_user_name">
             <summary>
             用户组名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpUser.Sort">
+        <member name="P:Entity.SysGrpUser.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpUser.Description">
+        <member name="P:Entity.SysGrpUser.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpUser.Remark">
+        <member name="P:Entity.SysGrpUser.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpUser.IsEnabled">
+        <member name="P:Entity.SysGrpUser.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpUser.IsDelete">
+        <member name="T:Entity.SysJob">
             <summary>
-            是否删除：0：否；1：是；
+            岗位表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysGrpUser.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpUser.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpUser.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpUser.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpUser.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysGrpUser.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJob.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJob.JobName">
+        <member name="P:Entity.SysJob.job_name">
             <summary>
             岗位名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.Nickname">
+        <member name="P:Entity.SysJob.nickname">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.DeptId">
+        <member name="P:Entity.SysJob.dept_id">
             <summary>
             部门Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.MinSalary">
+        <member name="P:Entity.SysJob.min_salary">
             <summary>
             最低薪资
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.MaxSalary">
+        <member name="P:Entity.SysJob.max_salary">
             <summary>
             最高薪资
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.Sort">
+        <member name="P:Entity.SysJob.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.Description">
+        <member name="P:Entity.SysJob.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.Remark">
+        <member name="P:Entity.SysJob.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.IsEnabled">
+        <member name="P:Entity.SysJob.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.IsDelete">
+        <member name="T:Entity.SysJobHistory">
             <summary>
-            是否删除：0：否；1：是；
+            任职表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJob.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJob.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJob.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJob.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJob.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJob.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJobHistory.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJobHistory.UserId">
+        <member name="P:Entity.SysJobHistory.user_id">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJobHistory.JobId">
+        <member name="P:Entity.SysJobHistory.job_id">
             <summary>
             岗位Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJobHistory.Description">
+        <member name="P:Entity.SysJobHistory.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJobHistory.Remark">
+        <member name="P:Entity.SysJobHistory.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJobHistory.IsDelete">
+        <member name="T:Entity.SysLog">
             <summary>
-            是否删除：0：否；1：是；
+            日志表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJobHistory.CreateUserId">
+        <member name="P:Entity.SysLog.log_type">
             <summary>
-            创建用户Id
+            日志类型：1FATAL 2ERROR 3WARN 4INFO 5DEBUG
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysJobHistory.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJobHistory.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysJobHistory.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysLog.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysLog.LogType">
-            <summary>
-            日志类型：1：FATAL；2：ERROR；3：WARN；4：INFO；5：DEBUG；
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysLog.IP">
+        <member name="P:Entity.SysLog.ip">
             <summary>
             操作IP
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.ModuleId">
+        <member name="P:Entity.SysLog.module_id">
             <summary>
             系统模块Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.ModuleName">
+        <member name="P:Entity.SysLog.module_name">
             <summary>
             系统模块名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.RequestURL">
+        <member name="P:Entity.SysLog.request_url">
             <summary>
             请求地址
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.Method">
+        <member name="P:Entity.SysLog.method">
             <summary>
             操作方式
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.Params">
+        <member name="P:Entity.SysLog.parameter">
             <summary>
             操作提交数据
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.IsSuccess">
+        <member name="P:Entity.SysLog.is_success">
             <summary>
-            是否成功：0：否；1：是；
+            是否成功：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.Exception">
+        <member name="P:Entity.SysLog.exception">
             <summary>
             异常信息
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.Description">
+        <member name="P:Entity.SysLog.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.CreateUserId">
+        <member name="T:Entity.SysMenu">
             <summary>
-            创建用户Id
+            菜单表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysLog.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysMenu.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysMenu.ParentId">
+        <member name="P:Entity.SysMenu.parent_id">
             <summary>
             上级菜单Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.MenuCode">
+        <member name="P:Entity.SysMenu.menu_code">
             <summary>
             菜单编码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.MenuName">
+        <member name="P:Entity.SysMenu.menu_name">
             <summary>
             菜单名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.Level">
+        <member name="P:Entity.SysMenu.level">
             <summary>
             菜单层次
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.Url">
+        <member name="P:Entity.SysMenu.url">
             <summary>
             链接
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.Target">
+        <member name="P:Entity.SysMenu.target">
             <summary>
-            目标
+            目标：mainFrame、_blank、_self、_parent、_top
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.Icon">
+        <member name="P:Entity.SysMenu.icon">
             <summary>
             图标
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.IsMenu">
+        <member name="P:Entity.SysMenu.is_menu">
             <summary>
-            是否菜单：0：否；1：是；
+            是否菜单：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.IsExpand">
+        <member name="P:Entity.SysMenu.is_expand">
             <summary>
-            是否展开：0：否；1：是；
+            是否展开：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.Sort">
+        <member name="P:Entity.SysMenu.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.Description">
+        <member name="P:Entity.SysMenu.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.Remark">
+        <member name="P:Entity.SysMenu.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.IsEnabled">
+        <member name="P:Entity.SysMenu.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.IsDelete">
+        <member name="T:Entity.SysModuleForm">
             <summary>
-            是否删除：0：否；1：是；
+            模块表单
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysMenu.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysMenu.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysMenu.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysMenu.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysMenu.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysMenu.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysModuleForm.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysModuleForm.MenuId">
+        <member name="P:Entity.SysModuleForm.menu_id">
             <summary>
             菜单Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysModuleForm.ModuleFormCode">
+        <member name="P:Entity.SysModuleForm.module_form_code">
             <summary>
             模块表单编码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysModuleForm.ModuleFormName">
+        <member name="P:Entity.SysModuleForm.module_form_name">
             <summary>
             模块表单名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysModuleForm.Sort">
+        <member name="P:Entity.SysModuleForm.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysModuleForm.Description">
+        <member name="P:Entity.SysModuleForm.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysModuleForm.Remark">
+        <member name="P:Entity.SysModuleForm.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysModuleForm.IsDelete">
+        <member name="T:Entity.SysOperateBtn">
             <summary>
-            是否删除：0：否；1：是；
+            操作按钮表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysModuleForm.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysModuleForm.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysModuleForm.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysModuleForm.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysModuleForm.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysModuleForm.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.MenuId">
+        <member name="P:Entity.SysOperateBtn.menu_id">
             <summary>
             菜单Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.OperBtnCode">
+        <member name="P:Entity.SysOperateBtn.oper_btn_code">
             <summary>
             操作按钮编码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.OperBtnName">
+        <member name="P:Entity.SysOperateBtn.oper_btn_name">
             <summary>
             操作按钮名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.Event">
+        <member name="P:Entity.SysOperateBtn.btn_event">
             <summary>
             事件
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.Url">
+        <member name="P:Entity.SysOperateBtn.url">
             <summary>
             链接
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.Icon">
+        <member name="P:Entity.SysOperateBtn.icon">
             <summary>
             图标
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.Sort">
+        <member name="P:Entity.SysOperateBtn.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.Description">
+        <member name="P:Entity.SysOperateBtn.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.Remark">
+        <member name="P:Entity.SysOperateBtn.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.IsDelete">
+        <member name="T:Entity.SysRole">
             <summary>
-            是否删除：0：否；1：是；
+            角色表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysOperateBtn.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRole.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRole.RoleCode">
+        <member name="P:Entity.SysRole.role_code">
             <summary>
             角色编码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.RoleName">
+        <member name="P:Entity.SysRole.role_name">
             <summary>
             角色名称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.RoleType">
+        <member name="P:Entity.SysRole.role_type">
             <summary>
-            角色类型：0：管理用户；1：员工；2：VIP类型；3：普通用户；
+            角色类型：0管理用户 1员工 2VIP类型 3普通用户
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.DataScope">
+        <member name="P:Entity.SysRole.data_scope">
             <summary>
-            数据范围：0：所有数据；1：所在公司及以下数据；2：所在公司数据；3：所在部门及以下数据；4：所在部门数据；8：仅本人数据；9：按明细设置；
+            数据范围：0所有数据 1所在公司及以下数据 2所在公司数据 3所在部门及以下数据 4所在部门数据 8仅本人数据 9按明细设置
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.DeptId">
+        <member name="P:Entity.SysRole.dept_id">
             <summary>
             所属机构Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.GrpRoleId">
+        <member name="P:Entity.SysRole.grp_role_id">
             <summary>
             角色组Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.IsAllowEdit">
+        <member name="P:Entity.SysRole.is_allow_edit">
             <summary>
-            是否允许编辑：0：否；1：是；
+            是否允许编辑：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.IsAllowDelete">
+        <member name="P:Entity.SysRole.is_allow_delete">
             <summary>
-            是否允许删除：0：否；1：是；
+            是否允许删除：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.Sort">
+        <member name="P:Entity.SysRole.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.Description">
+        <member name="P:Entity.SysRole.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.Remark">
+        <member name="P:Entity.SysRole.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.IsEnabled">
+        <member name="P:Entity.SysRole.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.IsDelete">
+        <member name="T:Entity.SysRoleGrpUser">
             <summary>
-            是否删除：0：否；1：是；
+            角色与用户组关联表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRole.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRole.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRole.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRole.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRole.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRole.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRoleGrpUser.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysRoleGrpUser.RoleId">
+        <member name="P:Entity.SysRoleGrpUser.role_id">
             <summary>
             角色Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRoleGrpUser.GrpUserId">
+        <member name="P:Entity.SysRoleGrpUser.grp_user_id">
             <summary>
             用户组Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRoleGrpUser.Remark">
+        <member name="P:Entity.SysRoleGrpUser.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRoleGrpUser.CreateUserId">
+        <member name="T:Entity.SysUser">
             <summary>
-            创建用户Id
+            用户表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysRoleGrpUser.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUser.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUser.Account">
+        <member name="P:Entity.SysUser.account">
             <summary>
             帐号
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Password">
+        <member name="P:Entity.SysUser.password">
             <summary>
             密码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.SecretKey">
+        <member name="P:Entity.SysUser.secret_key">
             <summary>
             用户密钥
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.No">
+        <member name="P:Entity.SysUser.no">
             <summary>
             工号
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.RealName">
+        <member name="P:Entity.SysUser.real_name">
             <summary>
             真实姓名
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Nickname">
+        <member name="P:Entity.SysUser.nickname">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Sex">
+        <member name="P:Entity.SysUser.sex">
             <summary>
-            性别：0：保密；1：男；2：女；
+            性别：0保密 1男 2女
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Age">
+        <member name="P:Entity.SysUser.age">
             <summary>
             年龄
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Birthday">
+        <member name="P:Entity.SysUser.birthday">
             <summary>
             生日
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Telephone">
+        <member name="P:Entity.SysUser.telephone">
             <summary>
             固定电话
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Cellphone">
+        <member name="P:Entity.SysUser.cellphone">
             <summary>
             手机号码
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Email">
+        <member name="P:Entity.SysUser.email">
             <summary>
             邮箱
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.WeChat">
+        <member name="P:Entity.SysUser.wechat">
             <summary>
             微信
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Education">
+        <member name="P:Entity.SysUser.education">
             <summary>
-            学历：0：无；1：小学；2：初中；3：高中；4：大专；5：本科；6：研究生；7：博士生；8：博士后；
+            学历：0无 1小学 2初中 3高中 4大专 5本科 6研究生 7博士生 8博士后
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Icon">
+        <member name="P:Entity.SysUser.icon">
             <summary>
             头像
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Address">
+        <member name="P:Entity.SysUser.address">
             <summary>
             地址
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.EntryTime">
+        <member name="P:Entity.SysUser.entry_time">
             <summary>
             入职时间
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Salary">
+        <member name="P:Entity.SysUser.salary">
             <summary>
             薪资
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Theme">
+        <member name="P:Entity.SysUser.theme">
             <summary>
             系统样式
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Status">
+        <member name="P:Entity.SysUser.status">
             <summary>
-            状态：0：锁定；1：正常；2：未通过邮件验证；3：未通过管理员验证；4：删除；
+            状态：0锁定 1正常 2未通过邮件验证 3未通过管理员验证 4删除
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.DeptId">
+        <member name="P:Entity.SysUser.dept_id">
             <summary>
             部门Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.JobId">
+        <member name="P:Entity.SysUser.job_id">
             <summary>
             岗位Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.ManagerId">
+        <member name="P:Entity.SysUser.manager_id">
             <summary>
             主管Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.SecurityLevel">
+        <member name="P:Entity.SysUser.security_level">
             <summary>
             安全级别
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.LastLoginIP">
+        <member name="P:Entity.SysUser.last_login_ip">
             <summary>
             上次登录IP
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.LastLoginTime">
+        <member name="P:Entity.SysUser.last_login_time">
             <summary>
             上次登录时间
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Sort">
+        <member name="P:Entity.SysUser.sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Description">
+        <member name="P:Entity.SysUser.description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.Remark">
+        <member name="P:Entity.SysUser.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.IsAdministrator">
+        <member name="P:Entity.SysUser.is_admin">
             <summary>
-            是否管理员：0：否；1：是；
+            是否管理员：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.IsEnabled">
+        <member name="P:Entity.SysUser.is_enabled">
             <summary>
-            是否启用：0：否；1：是；
+            是否启用：0否 1是
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.IsDelete">
+        <member name="T:Entity.SysUserGrpUser">
             <summary>
-            是否删除：0：否；1：是；
+            用户与用户组关联表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUser.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUser.ModifyUserId">
-            <summary>
-            修改用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUser.DeleteUserId">
-            <summary>
-            删除用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUser.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUser.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUser.DeleteTime">
-            <summary>
-            删除时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUserGrpUser.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUserGrpUser.UserId">
+        <member name="P:Entity.SysUserGrpUser.user_id">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUserGrpUser.GrpUserId">
+        <member name="P:Entity.SysUserGrpUser.grp_user_id">
             <summary>
             用户组Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUserGrpUser.Remark">
+        <member name="P:Entity.SysUserGrpUser.remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUserGrpUser.CreateUserId">
+        <member name="T:Entity.SysUserRole">
             <summary>
-            创建用户Id
+            用户角色表
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUserGrpUser.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUserRole.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUserRole.UserId">
+        <member name="P:Entity.SysUserRole.user_id">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUserRole.RoleId">
+        <member name="P:Entity.SysUserRole.role_id">
             <summary>
             角色Id
             </summary>
         </member>
-        <member name="P:Entity.SysManage.SysUserRole.Remark">
+        <member name="P:Entity.SysUserRole.remark">
             <summary>
             备注
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUserRole.CreateUserId">
-            <summary>
-            创建用户Id
-            </summary>
-        </member>
-        <member name="P:Entity.SysManage.SysUserRole.CreateTime">
-            <summary>
-            创建时间
             </summary>
         </member>
     </members>

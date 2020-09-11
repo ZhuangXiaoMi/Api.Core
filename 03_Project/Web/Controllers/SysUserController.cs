@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Entity.SysManage;
+using Entity;
 using IService.Sys;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +24,7 @@ namespace Web.Controllers
         public IActionResult Index(int deptId)
         {
             ViewBag.Title = $"User Index of {deptId}";
-            var users = _sysUserService.Query(o => o.DeptId == deptId && o.IsDelete == false, p => p.RealName);
+            var users = _sysUserService.Query(o => o.dept_id == deptId && o.is_delete == 0, p => p.real_name);
 
             ViewBag.DeptId = deptId;
             return View(users);
@@ -42,7 +42,7 @@ namespace Web.Controllers
             ViewBag.Title = "Add User";
             return View(new SysUser
             {
-                DeptId = deptId
+                dept_id = deptId
             });
         }
 
@@ -58,7 +58,7 @@ namespace Web.Controllers
                     await _sysUserService.Add(user);
                 }
 
-                return RedirectToAction(nameof(Index), new { deptId = user.DeptId });//nameof利于Index重命名，匿名类deptId跟Index参数一样
+                return RedirectToAction(nameof(Index), new { deptId = user.dept_id });//nameof利于Index重命名，匿名类deptId跟Index参数一样
             }
             catch
             {

@@ -1,5 +1,5 @@
 ﻿@using Common
-@using Entity.SysManage
+@using Entity
 @model IList<SysUser>
 @inject Microsoft.Extensions.Options.IOptions<AppSettingsJson> setting
 @{
@@ -13,7 +13,7 @@
 
 @section Header {
     <header>
-        @if (Model.FirstOrDefault().Sex == Entity.Enum.Gender.Gentleman)
+        @if (Model.FirstOrDefault().sex == (int)Entity.Enum.Gender.Gentleman)
         {
 
         }
