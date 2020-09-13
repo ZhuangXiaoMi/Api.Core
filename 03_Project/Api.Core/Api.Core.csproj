@@ -30,6 +30,7 @@
     <ProjectReference Include="..\IRepository\IRepository.csproj" />
     <ProjectReference Include="..\IService\IService.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
+    <ProjectReference Include="..\Service\Service.csproj" />
     <ProjectReference Include="..\Tasks\Tasks.csproj" />
   </ItemGroup>
 

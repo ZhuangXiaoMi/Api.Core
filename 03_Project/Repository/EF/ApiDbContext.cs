@@ -1,7 +1,8 @@
-﻿using Entity;
+﻿using Common;
 using Entity;
 using IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace Repository.EF
      */
     public class ApiDbContext : DbContext, IDbContext
     {
+        private readonly IOptions<AppSettingsJson> _appSettings;
+
         #region DbSet
         public DbSet<SysArea> SysArea { get; set; }
         public DbSet<SysAttachment> SysAttachment { get; set; }
@@ -40,15 +43,18 @@ namespace Repository.EF
         public DbSet<SysUserRole> SysUserRole { get; set; }
         #endregion DbSet
 
-        public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
-        { }
+        public ApiDbContext(DbContextOptions<ApiDbContext> options, IOptions<AppSettingsJson> appSettings)
+            : base(options)
+        {
+            _appSettings = appSettings;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //也可以在Startup.cs中配置
-            //optionsBuilder.UseSqlServer(@"Persist Security Info=True;Data Source=.;User ID=sa;Password=123456;Initial Catalog=ApiCore;");
-
             base.OnConfiguring(optionsBuilder);
+
+            //也可以在Startup.cs中配置
+            optionsBuilder.UseSqlServer(_appSettings.Value.DBM.SqlServer[0].ConnectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

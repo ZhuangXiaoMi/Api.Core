@@ -74,7 +74,10 @@ namespace Repository.UnitOfWork
 
         public void Dispose()
         {
-            _dbContextTransaction.Dispose();
+            if (_dbContextTransaction != null)
+            {
+                _dbContextTransaction.Dispose();
+            }
         }
     }
 }

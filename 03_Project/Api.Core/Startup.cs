@@ -2,6 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
 using Common;
+using IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -41,9 +42,9 @@ namespace Api.Core
             services.AddSingleton(new AppSettingsHelper(Configuration));
             services.AddSingleton(new LogLockService(Env.ContentRootPath));
 
-            services.AddHostedService<JobHostService>();
-            services.AddHostedService<JobBackService>();
-            services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
+            //services.AddHostedService<JobHostService>();
+            //services.AddHostedService<JobBackService>();
+            //services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
 
             services.AddMemoryCacheService();
             //services.AddSqlSugarService();
@@ -85,7 +86,10 @@ namespace Api.Core
         // Program.cs -> CreateHostBuilder：添加 Autofac 服务工厂
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new AutofacService());
+            //builder.RegisterModule(new AutofacService());
+            builder.RegisterModule<AutofacService>();
+
+            builder.RegisterType<Repository.EF.ApiDbContext>().As<IDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
