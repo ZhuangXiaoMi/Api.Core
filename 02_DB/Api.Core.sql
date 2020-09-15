@@ -154,14 +154,14 @@ create table sys_area (
    area_code            char(6)              not null,
    area_name            nvarchar(20)         not null,
    simple_name          nvarchar(20)         not null,
-   level                tinyint              not null
+   level                int              not null
       constraint CKC_LEVEL_SYS_AREA check (level between 0 and 5),
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_AREA check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_AREA check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -546,7 +546,7 @@ create table sys_attachment (
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ATTACHMENT check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -903,16 +903,16 @@ go
 /*==============================================================*/
 create table sys_authorize (
    id                   bigint               identity,
-   item_type            tinyint              not null
+   item_type            int              not null
       constraint CKC_ITEM_TYPE_SYS_AUTHORIZE check (item_type between 1 and 5),
    item_id              bigint           not null default '0',
-   object_type          tinyint              not null
+   object_type          int              not null
       constraint CKC_OBJECT_TYPE_SYS_AUTHORIZE check (object_type between 1 and 3),
    object_id            bigint           not null default '0',
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_AUTHORIZE check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -1231,14 +1231,14 @@ go
 /*==============================================================*/
 create table sys_db_backup (
    id                   bigint               identity,
-   backup_type          tinyint              not null default 1
+   backup_type          int              not null default 1
       constraint CKC_BACKUP_TYPE_SYS_DB_BACKUP check (backup_type between 1 and 2),
    db_name              varchar(30)          not null,
    file_name            nvarchar(30)         not null,
    file_size            decimal(7,2)         not null default 0,
    file_path            varchar(100)         not null,
    description          nvarchar(300)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_DB_BACKUP check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -1537,31 +1537,31 @@ go
 /* Table: sys_dept                                              */
 /*==============================================================*/
 create table sys_dept (
-   id                   bigint               identity,
+   id                   bigint               identity(1000,1),
    parent_id            bigint           not null default '0',
    dept_code            varchar(10)          not null,
    dept_name            nvarchar(30)         not null,
    simple_name          nvarchar(30)         not null,
-   dept_type            tinyint              not null
+   dept_type            int              not null
       constraint CKC_DEPT_TYPE_SYS_DEPT check (dept_type between 1 and 3),
-   level                tinyint              not null default 1
+   level                int              not null default 1
       constraint CKC_LEVEL_SYS_DEPT check (level between 1 and 4),
-   seq                  tinyint              not null default 0,
+   seq                  int              not null default 0,
    area_id              bigint           not null default '0',
    leader_id            bigint           not null default '0',
    address              nvarchar(200)        not null,
    telephone            varchar(15)          not null,
    email                varchar(30)          not null,
-   is_allow_edit        tinyint              not null default 1
+   is_allow_edit        int              not null default 1
       constraint CKC_IS_ALLOW_EDIT_SYS_DEPT check (is_allow_edit between 0 and 1),
-   is_allow_delete      tinyint              not null default 1
+   is_allow_delete      int              not null default 1
       constraint CKC_IS_ALLOW_DELETE_SYS_DEPT check (is_allow_delete between 0 and 1),
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_DEPT check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_DEPT check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -2088,16 +2088,16 @@ go
 /* Table: sys_dict                                              */
 /*==============================================================*/
 create table sys_dict (
-   id                   bigint               identity,
+   id                   bigint               identity(5000,1),
    parent_id            bigint           not null default '0',
    name                 nvarchar(30)         not null,
    value                nvarchar(30)         not null,
    type                 varchar(10)          not null,
    sort                 int                  not null default 0,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_DICT check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_DICT check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -2423,7 +2423,7 @@ create table sys_element (
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ELEMENT check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -2741,14 +2741,14 @@ go
 /* Table: sys_grp_role                                          */
 /*==============================================================*/
 create table sys_grp_role (
-   id                   bigint               identity,
+   id                   bigint               identity(100,1),
    grp_role_name        nvarchar(30)         not null,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_GRP_ROLE check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_GRP_ROLE check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -3028,15 +3028,15 @@ go
 /* Table: sys_grp_user                                          */
 /*==============================================================*/
 create table sys_grp_user (
-   id                   bigint               identity,
+   id                   bigint               identity(100,1),
    parent_id            bigint           not null default '0',
    grp_user_name        nvarchar(30)         not null,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_GRP_USER check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_GRP_USER check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -3335,7 +3335,7 @@ go
 /* Table: sys_job                                               */
 /*==============================================================*/
 create table sys_job (
-   id                   bigint               identity,
+   id                   bigint               identity(5000,1),
    job_name             nvarchar(30)         not null,
    nickname             nvarchar(30)         not null,
    dept_id              bigint           not null default '0',
@@ -3344,9 +3344,9 @@ create table sys_job (
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_JOB check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_JOB check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -3707,7 +3707,7 @@ create table sys_job_history (
    job_id               bigint           not null default '0',
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_JOB_HISTORY check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -3969,7 +3969,7 @@ go
 /*==============================================================*/
 create table sys_log (
    id                   bigint               identity,
-   log_type             tinyint              not null default 2
+   log_type             int              not null default 2
       constraint CKC_LOG_TYPE_SYS_LOG check (log_type between 1 and 5),
    ip                   varchar(20)          not null,
    module_id            bigint           not null default '0',
@@ -3977,11 +3977,11 @@ create table sys_log (
    request_url          varchar(100)         not null,
    method               varchar(30)          not null,
    parameter            text                 not null,
-   is_success           tinyint              not null default 0
+   is_success           int              not null default 0
       constraint CKC_IS_SUCCESS_SYS_LOG check (is_success between 0 and 1),
    exception            text                 not null,
    description          nvarchar(300)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_LOG check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -4364,16 +4364,16 @@ create table sys_menu (
    url                  varchar(100)         not null,
    target               varchar(20)          not null,
    icon                 varchar(100)         not null,
-   is_menu              tinyint              not null default 0
+   is_menu              int              not null default 0
       constraint CKC_IS_MENU_SYS_MENU check (is_menu between 0 and 1),
-   is_expand            tinyint              not null default 1
+   is_expand            int              not null default 1
       constraint CKC_IS_EXPAND_SYS_MENU check (is_expand between 0 and 1),
-   sort                 tinyint              not null default 0,
+   sort                 int              not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_MENU check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_MENU check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -4812,7 +4812,7 @@ create table sys_module_form (
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_MODULE_FORM check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -5121,7 +5121,7 @@ create table sys_operate_btn (
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_OPERATE_BTN check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -5477,25 +5477,25 @@ go
 /* Table: sys_role                                              */
 /*==============================================================*/
 create table sys_role (
-   id                   bigint               identity,
+   id                   bigint               identity(1000,1),
    role_code            varchar(10)          not null,
    role_name            nvarchar(30)         not null,
-   role_type            tinyint              not null default 3
+   role_type            int              not null default 3
       constraint CKC_ROLE_TYPE_SYS_ROLE check (role_type between 0 and 3),
-   data_scope           tinyint              not null
+   data_scope           int              not null
       constraint CKC_DATA_SCOPE_SYS_ROLE check (data_scope between 0 and 9),
    dept_id              bigint           not null default '0',
    grp_role_id          bigint           not null default '0',
-   is_allow_edit        tinyint              not null default 1
+   is_allow_edit        int              not null default 1
       constraint CKC_IS_ALLOW_EDIT_SYS_ROLE check (is_allow_edit between 0 and 1),
-   is_allow_delete      tinyint              not null default 1
+   is_allow_delete      int              not null default 1
       constraint CKC_IS_ALLOW_DELETE_SYS_ROLE check (is_allow_delete between 0 and 1),
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_ROLE check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ROLE check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -5912,7 +5912,7 @@ create table sys_role_grp_user (
    role_id              bigint           not null default '0',
    grp_user_id          bigint           not null default '0',
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ROLE_GRP_USER check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -6154,45 +6154,45 @@ go
 /* Table: sys_user                                              */
 /*==============================================================*/
 create table sys_user (
-   id                   bigint               identity,
+   id                   bigint               identity(5000,1),
    account              varchar(50)          not null,
    password             varchar(100)         not null,
    secret_key           varchar(30)          not null,
    no                   varchar(10)          not null,
    real_name            nvarchar(30)         not null,
    nickname             nvarchar(30)         not null,
-   sex                  tinyint              not null default 0
+   sex                  int              not null default 0
       constraint CKC_SEX_SYS_USER check (sex between 0 and 2),
-   age                  tinyint              not null default 0
+   age                  int              not null default 0
       constraint CKC_AGE_SYS_USER check (age between 1 and 200),
    birthday             datetime             not null,
    telephone            varchar(15)          not null,
    cellphone            char(11)             not null,
    email                varchar(30)          not null,
    wechat               varchar(30)          not null,
-   education            tinyint              not null default 0
+   education            int              not null default 0
       constraint CKC_EDUCATION_SYS_USER check (education between 0 and 8),
    icon                 varchar(100)         not null,
    address              nvarchar(200)        not null,
    entry_time           datetime             not null default getdate(),
    salary               decimal(10,2)        not null default 0,
    theme                varchar(30)          not null,
-   status               tinyint              not null default 0
+   status               int              not null default 0
       constraint CKC_STATUS_SYS_USER check (status between 0 and 4),
    dept_id              bigint           not null default '0',
    job_id               bigint           not null default '0',
    manager_id           bigint           not null default '0',
-   security_level       tinyint              not null default 0,
+   security_level       int              not null default 0,
    last_login_ip        varchar(20)          not null,
    last_login_time      datetime             not null default getdate(),
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
-   is_admin             tinyint              not null default 0
+   is_admin             int              not null default 0
       constraint CKC_IS_ADMIN_SYS_USER check (is_admin between 0 and 1),
-   is_enabled           tinyint              not null default 1
+   is_enabled           int              not null default 1
       constraint CKC_IS_ENABLED_SYS_USER check (is_enabled between 0 and 1),
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_USER check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -6970,7 +6970,7 @@ create table sys_user_grp_user (
    user_id              bigint           not null default '0',
    grp_user_id          bigint           not null default '0',
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_USER_GRP_USER check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',
@@ -7216,7 +7216,7 @@ create table sys_user_role (
    user_id              bigint           not null default '0',
    role_id              bigint           not null default '0',
    remark               nvarchar(500)        not null,
-   is_delete            tinyint              not null default 0
+   is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_USER_ROLE check (is_delete between 0 and 1),
    create_user_id       bigint           not null default '0',
    modify_user_id       bigint           not null default '0',

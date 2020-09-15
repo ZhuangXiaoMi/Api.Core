@@ -21,26 +21,26 @@ namespace Repository.EF
         private readonly IOptions<AppSettingsJson> _appSettings;
 
         #region DbSet
-        public DbSet<SysArea> SysArea { get; set; }
-        public DbSet<SysAttachment> SysAttachment { get; set; }
-        public DbSet<SysAuthorize> SysAuthorize { get; set; }
-        public DbSet<SysDBBackup> SysDBBackup { get; set; }
-        public DbSet<SysDept> SysDept { get; set; }
-        public DbSet<SysDict> SysDict { get; set; }
-        public DbSet<SysElement> SysElement { get; set; }
-        public DbSet<SysGrpRole> SysGrpRole { get; set; }
-        public DbSet<SysGrpUser> SysGrpUser { get; set; }
-        public DbSet<SysJob> SysJob { get; set; }
-        public DbSet<SysJobHistory> SysJobHistory { get; set; }
-        public DbSet<SysLog> SysLog { get; set; }
-        public DbSet<SysMenu> SysMenu { get; set; }
-        public DbSet<SysModuleForm> SysModuleForm { get; set; }
-        public DbSet<SysOperateBtn> SysOperateBtn { get; set; }
-        public DbSet<SysRole> SysRole { get; set; }
-        public DbSet<SysRoleGrpUser> SysRoleGrpUser { get; set; }
-        public DbSet<SysUser> SysUser { get; set; }
-        public DbSet<SysUserGrpUser> SysUserGrpUser { get; set; }
-        public DbSet<SysUserRole> SysUserRole { get; set; }
+        public virtual DbSet<SysArea> SysAreas { get; set; }
+        public virtual DbSet<SysAttachment> SysAttachments { get; set; }
+        public virtual DbSet<SysAuthorize> SysAuthorizes { get; set; }
+        public virtual DbSet<SysDBBackup> SysDBBackups { get; set; }
+        public virtual DbSet<SysDept> SysDepts { get; set; }
+        public virtual DbSet<SysDict> SysDicts { get; set; }
+        public virtual DbSet<SysElement> SysElements { get; set; }
+        public virtual DbSet<SysGrpRole> SysGrpRoles { get; set; }
+        public virtual DbSet<SysGrpUser> SysGrpUsers { get; set; }
+        public virtual DbSet<SysJob> SysJobs { get; set; }
+        public virtual DbSet<SysJobHistory> SysJobHistories { get; set; }
+        public virtual DbSet<SysLog> SysLogs { get; set; }
+        public virtual DbSet<SysMenu> SysMenus { get; set; }
+        public virtual DbSet<SysModuleForm> SysModuleForms { get; set; }
+        public virtual DbSet<SysOperateBtn> SysOperateBtns { get; set; }
+        public virtual DbSet<SysRole> SysRoles { get; set; }
+        public virtual DbSet<SysRoleGrpUser> SysRoleGrpUsers { get; set; }
+        public virtual DbSet<SysUser> SysUsers { get; set; }
+        public virtual DbSet<SysUserGrpUser> SysUserGrpUsers { get; set; }
+        public virtual DbSet<SysUserRole> SysUserRoles { get; set; }
         #endregion DbSet
 
         public ApiDbContext(DbContextOptions<ApiDbContext> options, IOptions<AppSettingsJson> appSettings)
@@ -59,26 +59,26 @@ namespace Repository.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Fulent 配置
-            //modelBuilder.Entity<SysArea>();
-            //modelBuilder.Entity<SysAttachment>();
-            //modelBuilder.Entity<SysAuthorize>();
-            //modelBuilder.Entity<SysDBBackup>();
-            //modelBuilder.Entity<SysDept>();
-            //modelBuilder.Entity<SysDict>();
-            //modelBuilder.Entity<SysElement>();
-            //modelBuilder.Entity<SysGrpRole>();
-            //modelBuilder.Entity<SysGrpUser>();
-            //modelBuilder.Entity<SysJob>();
-            //modelBuilder.Entity<SysJobHistory>();
-            //modelBuilder.Entity<SysLog>();
-            //modelBuilder.Entity<SysMenu>();
-            //modelBuilder.Entity<SysModuleForm>();
-            //modelBuilder.Entity<SysOperateBtn>();
-            //modelBuilder.Entity<SysRole>();
-            //modelBuilder.Entity<SysRoleGrpUser>();
-            //modelBuilder.Entity<SysUser>();
-            //modelBuilder.Entity<SysUserGrpUser>();
-            //modelBuilder.Entity<SysUserRole>();
+            modelBuilder.Entity<SysArea>();
+            modelBuilder.Entity<SysAttachment>();
+            modelBuilder.Entity<SysAuthorize>();
+            modelBuilder.Entity<SysDBBackup>();
+            modelBuilder.Entity<SysDept>();
+            modelBuilder.Entity<SysDict>();
+            modelBuilder.Entity<SysElement>();
+            modelBuilder.Entity<SysGrpRole>();
+            modelBuilder.Entity<SysGrpUser>();
+            modelBuilder.Entity<SysJob>();
+            modelBuilder.Entity<SysJobHistory>();
+            modelBuilder.Entity<SysLog>();
+            modelBuilder.Entity<SysMenu>();
+            modelBuilder.Entity<SysModuleForm>();
+            modelBuilder.Entity<SysOperateBtn>();
+            modelBuilder.Entity<SysRole>();
+            modelBuilder.Entity<SysRoleGrpUser>();
+            modelBuilder.Entity<SysUser>();
+            modelBuilder.Entity<SysUserGrpUser>();
+            modelBuilder.Entity<SysUserRole>();
             #endregion Fulent 配置
 
             base.OnModelCreating(modelBuilder);

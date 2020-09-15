@@ -38,7 +38,7 @@ namespace Api.Core
             services.AddControllers();//XML .AddXmlSerializerFormatters();
 
             services.AddSingleton<IRedisCacheManage, RedisCacheManage>();
-            //services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
+            services.Configure<AppSettingsJson>(Configuration);//services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
             services.AddSingleton(new AppSettingsHelper(Configuration));
             services.AddSingleton(new LogLockService(Env.ContentRootPath));
 
