@@ -8,8 +8,6 @@ namespace Entity
     /// <summary>
     /// 聚合根
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    [NotMapped]
     public abstract class ABTAggregateRoot : ICloneable
     {
         #region 属性
