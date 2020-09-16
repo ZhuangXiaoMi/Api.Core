@@ -59,26 +59,26 @@ namespace Repository.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Fulent 配置
-            modelBuilder.Entity<SysArea>();
-            modelBuilder.Entity<SysAttachment>();
-            modelBuilder.Entity<SysAuthorize>();
-            modelBuilder.Entity<SysDBBackup>();
-            modelBuilder.Entity<SysDept>();
-            modelBuilder.Entity<SysDict>();
-            modelBuilder.Entity<SysElement>();
-            modelBuilder.Entity<SysGrpRole>();
-            modelBuilder.Entity<SysGrpUser>();
-            modelBuilder.Entity<SysJob>();
-            modelBuilder.Entity<SysJobHistory>();
-            modelBuilder.Entity<SysLog>();
-            modelBuilder.Entity<SysMenu>();
-            modelBuilder.Entity<SysModuleForm>();
-            modelBuilder.Entity<SysOperateBtn>();
-            modelBuilder.Entity<SysRole>();
-            modelBuilder.Entity<SysRoleGrpUser>();
-            modelBuilder.Entity<SysUser>();
-            modelBuilder.Entity<SysUserGrpUser>();
-            modelBuilder.Entity<SysUserRole>();
+            //modelBuilder.Entity<SysArea>();
+            //modelBuilder.Entity<SysAttachment>();
+            //modelBuilder.Entity<SysAuthorize>();
+            //modelBuilder.Entity<SysDBBackup>();
+            //modelBuilder.Entity<SysDept>();
+            //modelBuilder.Entity<SysDict>();
+            //modelBuilder.Entity<SysElement>();
+            //modelBuilder.Entity<SysGrpRole>();
+            //modelBuilder.Entity<SysGrpUser>();
+            //modelBuilder.Entity<SysJob>();
+            //modelBuilder.Entity<SysJobHistory>();
+            //modelBuilder.Entity<SysLog>();
+            //modelBuilder.Entity<SysMenu>();
+            //modelBuilder.Entity<SysModuleForm>();
+            //modelBuilder.Entity<SysOperateBtn>();
+            //modelBuilder.Entity<SysRole>();
+            //modelBuilder.Entity<SysRoleGrpUser>();
+            //modelBuilder.Entity<SysUser>();
+            //modelBuilder.Entity<SysUserGrpUser>();
+            //modelBuilder.Entity<SysUserRole>();
             #endregion Fulent 配置
 
             base.OnModelCreating(modelBuilder);
