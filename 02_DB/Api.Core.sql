@@ -149,7 +149,7 @@ go
 /*==============================================================*/
 create table sys_area (
    id                   bigint               identity,
-   parent_id            bigint           not null default '0',
+   parent_id            bigint           not null default 0,
    parent_ids           varchar(150)         not null,
    administrative_division char(9)              not null,
    area_code            char(6)              not null,
@@ -164,9 +164,9 @@ create table sys_area (
       constraint CKC_IS_ENABLED_SYS_AREA check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_AREA check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -558,7 +558,7 @@ go
 create table sys_attachment (
    id                   bigint               identity,
    atta_type            varchar(10)          not null,
-   object_id            bigint           not null default '0',
+   object_id            bigint           not null default 0,
    file_path            varchar(100)         not null,
    file_name            nvarchar(30)         not null,
    file_type            varchar(8)           not null,
@@ -568,9 +568,9 @@ create table sys_attachment (
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ATTACHMENT check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -925,18 +925,18 @@ create table sys_authorize (
    id                   bigint               identity,
    item_type            int              not null
       constraint CKC_ITEM_TYPE_SYS_AUTHORIZE check (item_type between 1 and 5),
-   item_id              bigint           not null default '0',
+   item_id              bigint           not null default 0,
    object_type          int              not null
       constraint CKC_OBJECT_TYPE_SYS_AUTHORIZE check (object_type between 1 and 3),
-   object_id            bigint           not null default '0',
+   object_id            bigint           not null default 0,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_AUTHORIZE check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -1260,9 +1260,9 @@ create table sys_db_backup (
    description          nvarchar(300)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_DB_BACKUP check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -1558,7 +1558,7 @@ go
 /*==============================================================*/
 create table sys_dept (
    id                   bigint               identity(1000,1),
-   parent_id            bigint           not null default '0',
+   parent_id            bigint           not null default 0,
    parent_ids           varchar(150)         not null,
    dept_code            varchar(10)          not null,
    dept_name            nvarchar(30)         not null,
@@ -1568,8 +1568,8 @@ create table sys_dept (
    level                int              not null default 1
       constraint CKC_LEVEL_SYS_DEPT check (level between 1 and 4),
    seq                  int              not null default 0,
-   area_id              bigint           not null default '0',
-   leader_id            bigint           not null default '0',
+   area_id              bigint           not null default 0,
+   leader_id            bigint           not null default 0,
    address              nvarchar(200)        not null,
    telephone            varchar(15)          not null,
    email                varchar(30)          not null,
@@ -1584,9 +1584,9 @@ create table sys_dept (
       constraint CKC_IS_ENABLED_SYS_DEPT check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_DEPT check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -2129,7 +2129,7 @@ go
 /*==============================================================*/
 create table sys_dict (
    id                   bigint               identity(5000,1),
-   parent_id            bigint           not null default '0',
+   parent_id            bigint           not null default 0,
    parent_ids           varchar(150)         not null,
    name                 nvarchar(30)         not null,
    value                nvarchar(30)         not null,
@@ -2140,9 +2140,9 @@ create table sys_dict (
       constraint CKC_IS_ENABLED_SYS_DICT check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_DICT check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -2476,7 +2476,7 @@ go
 /*==============================================================*/
 create table sys_element (
    id                   bigint               identity,
-   menu_id              bigint           not null default '0',
+   menu_id              bigint           not null default 0,
    elem_code            varchar(10)          not null,
    elem_name            nvarchar(30)         not null,
    location             varchar(50)          not null,
@@ -2485,9 +2485,9 @@ create table sys_element (
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ELEMENT check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -2810,9 +2810,9 @@ create table sys_grp_role (
       constraint CKC_IS_ENABLED_SYS_GRP_ROLE check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_GRP_ROLE check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -3089,7 +3089,7 @@ go
 /*==============================================================*/
 create table sys_grp_user (
    id                   bigint               identity(100,1),
-   parent_id            bigint           not null default '0',
+   parent_id            bigint           not null default 0,
    parent_ids           varchar(150)         not null,
    grp_user_name        nvarchar(30)         not null,
    sort                 int                  not null default 0,
@@ -3099,9 +3099,9 @@ create table sys_grp_user (
       constraint CKC_IS_ENABLED_SYS_GRP_USER check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_GRP_USER check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -3418,7 +3418,7 @@ create table sys_job (
    id                   bigint               identity(5000,1),
    job_name             nvarchar(30)         not null,
    nickname             nvarchar(30)         not null,
-   dept_id              bigint           not null default '0',
+   dept_id              bigint           not null default 0,
    min_salary           decimal(10,2)        not null default 0,
    max_salary           decimal(10,2)        not null default 0,
    sort                 int                  not null default 0,
@@ -3428,9 +3428,9 @@ create table sys_job (
       constraint CKC_IS_ENABLED_SYS_JOB check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_JOB check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -3783,15 +3783,15 @@ go
 /*==============================================================*/
 create table sys_job_history (
    id                   bigint               identity,
-   user_id              bigint           not null default '0',
-   job_id               bigint           not null default '0',
+   user_id              bigint           not null default 0,
+   job_id               bigint           not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_JOB_HISTORY check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -4052,7 +4052,7 @@ create table sys_log (
    log_type             int              not null default 2
       constraint CKC_LOG_TYPE_SYS_LOG check (log_type between 1 and 5),
    ip                   varchar(20)          not null,
-   module_id            bigint           not null default '0',
+   module_id            bigint           not null default 0,
    module_name          nvarchar(30)         not null,
    request_url          varchar(100)         not null,
    method               varchar(30)          not null,
@@ -4063,9 +4063,9 @@ create table sys_log (
    description          nvarchar(300)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_LOG check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -4437,7 +4437,7 @@ go
 /*==============================================================*/
 create table sys_menu (
    id                   bigint               identity,
-   parent_id            bigint           not null default '0',
+   parent_id            bigint           not null default 0,
    parent_ids           varchar(150)         not null,
    menu_code            varchar(10)          not null,
    menu_name            nvarchar(30)         not null,
@@ -4456,9 +4456,9 @@ create table sys_menu (
       constraint CKC_IS_ENABLED_SYS_MENU check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_MENU check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -4906,7 +4906,7 @@ go
 /*==============================================================*/
 create table sys_module_form (
    id                   bigint               identity,
-   menu_id              bigint           not null default '0',
+   menu_id              bigint           not null default 0,
    module_form_code     varchar(10)          not null,
    module_form_name     nvarchar(30)         not null,
    sort                 int                  not null default 0,
@@ -4914,9 +4914,9 @@ create table sys_module_form (
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_MODULE_FORM check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -5212,7 +5212,7 @@ go
 /*==============================================================*/
 create table sys_operate_btn (
    id                   bigint               identity,
-   menu_id              bigint           not null default '0',
+   menu_id              bigint           not null default 0,
    oper_btn_code        varchar(10)          not null,
    oper_btn_name        nvarchar(30)         not null,
    btn_event            varchar(30)          not null,
@@ -5223,9 +5223,9 @@ create table sys_operate_btn (
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_OPERATE_BTN check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -5584,8 +5584,8 @@ create table sys_role (
       constraint CKC_ROLE_TYPE_SYS_ROLE check (role_type between 0 and 3),
    data_scope           int              not null
       constraint CKC_DATA_SCOPE_SYS_ROLE check (data_scope between 0 and 9),
-   dept_id              bigint           not null default '0',
-   grp_role_id          bigint           not null default '0',
+   dept_id              bigint           not null default 0,
+   grp_role_id          bigint           not null default 0,
    is_allow_edit        int              not null default 1
       constraint CKC_IS_ALLOW_EDIT_SYS_ROLE check (is_allow_edit between 0 and 1),
    is_allow_delete      int              not null default 1
@@ -5597,9 +5597,9 @@ create table sys_role (
       constraint CKC_IS_ENABLED_SYS_ROLE check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ROLE check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -6009,14 +6009,14 @@ go
 /*==============================================================*/
 create table sys_role_grp_user (
    id                   bigint               identity,
-   role_id              bigint           not null default '0',
-   grp_user_id          bigint           not null default '0',
+   role_id              bigint           not null default 0,
+   grp_user_id          bigint           not null default 0,
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_ROLE_GRP_USER check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -6279,9 +6279,9 @@ create table sys_user (
    theme                varchar(30)          not null,
    status               int              not null default 0
       constraint CKC_STATUS_SYS_USER check (status between 0 and 4),
-   dept_id              bigint           not null default '0',
-   job_id               bigint           not null default '0',
-   manager_id           bigint           not null default '0',
+   dept_id              bigint           not null default 0,
+   job_id               bigint           not null default 0,
+   manager_id           bigint           not null default 0,
    security_level       int              not null default 0,
    last_login_ip        varchar(20)          not null,
    last_login_time      datetime             not null default getdate(),
@@ -6294,9 +6294,9 @@ create table sys_user (
       constraint CKC_IS_ENABLED_SYS_USER check (is_enabled between 0 and 1),
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_USER check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -7067,14 +7067,14 @@ go
 /*==============================================================*/
 create table sys_user_grp_user (
    id                   bigint               identity,
-   user_id              bigint           not null default '0',
-   grp_user_id          bigint           not null default '0',
+   user_id              bigint           not null default 0,
+   grp_user_id          bigint           not null default 0,
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_USER_GRP_USER check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
@@ -7313,14 +7313,14 @@ go
 /*==============================================================*/
 create table sys_user_role (
    id                   bigint               identity,
-   user_id              bigint           not null default '0',
-   role_id              bigint           not null default '0',
+   user_id              bigint           not null default 0,
+   role_id              bigint           not null default 0,
    remark               nvarchar(500)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_USER_ROLE check (is_delete between 0 and 1),
-   create_user_id       bigint           not null default '0',
-   modify_user_id       bigint           not null default '0',
-   delete_user_id       bigint           not null default '0',
+   create_user_id       bigint           not null default 0,
+   modify_user_id       bigint           not null default 0,
+   delete_user_id       bigint           not null default 0,
    create_time          datetime             not null default getdate(),
    modify_time          datetime             not null default getdate(),
    delete_time          datetime             not null default getdate(),
