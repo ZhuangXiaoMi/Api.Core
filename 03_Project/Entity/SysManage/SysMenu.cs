@@ -17,6 +17,12 @@ namespace Entity
         public long parent_id { get; set; }
 
         /// <summary>
+        /// 族谱ids
+        /// </summary>
+        [Description("族谱ids")]
+        public string parent_ids { get; set; }
+
+        /// <summary>
         /// 菜单编码
         /// </summary>
         [Description("菜单编码")]

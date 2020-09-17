@@ -15,6 +15,13 @@ namespace DTO
         public long? parent_id { get; set; }
 
         /// <summary>
+        /// 族谱ids
+        /// </summary>
+        [Description("族谱ids")]
+        [Display(Name = "族谱ids")]
+        public string parent_ids { get; set; }
+
+        /// <summary>
         /// 名称
         /// </summary>
         [Description("名称")]

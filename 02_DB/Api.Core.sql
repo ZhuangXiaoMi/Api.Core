@@ -150,6 +150,7 @@ go
 create table sys_area (
    id                   bigint               identity,
    parent_id            bigint           not null default '0',
+   parent_ids           varchar(150)         not null,
    administrative_division char(9)              not null,
    area_code            char(6)              not null,
    area_name            nvarchar(20)         not null,
@@ -226,6 +227,25 @@ select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '上级地区Id',
    'user', @CurrentUser, 'table', 'sys_area', 'column', 'parent_id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_area')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'parent_ids')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'parent_ids'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '族谱ids',
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'parent_ids'
 go
 
 if exists(select 1 from sys.extended_properties p where
@@ -1539,6 +1559,7 @@ go
 create table sys_dept (
    id                   bigint               identity(1000,1),
    parent_id            bigint           not null default '0',
+   parent_ids           varchar(150)         not null,
    dept_code            varchar(10)          not null,
    dept_name            nvarchar(30)         not null,
    simple_name          nvarchar(30)         not null,
@@ -1626,6 +1647,25 @@ select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '上级部门Id',
    'user', @CurrentUser, 'table', 'sys_dept', 'column', 'parent_id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_dept')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'parent_ids')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_dept', 'column', 'parent_ids'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '族谱ids',
+   'user', @CurrentUser, 'table', 'sys_dept', 'column', 'parent_ids'
 go
 
 if exists(select 1 from sys.extended_properties p where
@@ -2090,6 +2130,7 @@ go
 create table sys_dict (
    id                   bigint               identity(5000,1),
    parent_id            bigint           not null default '0',
+   parent_ids           varchar(150)         not null,
    name                 nvarchar(30)         not null,
    value                nvarchar(30)         not null,
    type                 varchar(10)          not null,
@@ -2162,6 +2203,25 @@ select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '上级Id',
    'user', @CurrentUser, 'table', 'sys_dict', 'column', 'parent_id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_dict')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'parent_ids')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_dict', 'column', 'parent_ids'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '族谱ids',
+   'user', @CurrentUser, 'table', 'sys_dict', 'column', 'parent_ids'
 go
 
 if exists(select 1 from sys.extended_properties p where
@@ -3030,6 +3090,7 @@ go
 create table sys_grp_user (
    id                   bigint               identity(100,1),
    parent_id            bigint           not null default '0',
+   parent_ids           varchar(150)         not null,
    grp_user_name        nvarchar(30)         not null,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
@@ -3101,6 +3162,25 @@ select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '上级Id',
    'user', @CurrentUser, 'table', 'sys_grp_user', 'column', 'parent_id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_grp_user')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'parent_ids')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_grp_user', 'column', 'parent_ids'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '族谱ids',
+   'user', @CurrentUser, 'table', 'sys_grp_user', 'column', 'parent_ids'
 go
 
 if exists(select 1 from sys.extended_properties p where
@@ -4358,6 +4438,7 @@ go
 create table sys_menu (
    id                   bigint               identity,
    parent_id            bigint           not null default '0',
+   parent_ids           varchar(150)         not null,
    menu_code            varchar(10)          not null,
    menu_name            nvarchar(30)         not null,
    level                int                  not null default 0,
@@ -4438,6 +4519,25 @@ select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '上级菜单Id',
    'user', @CurrentUser, 'table', 'sys_menu', 'column', 'parent_id'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_menu')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'parent_ids')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_menu', 'column', 'parent_ids'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '族谱ids',
+   'user', @CurrentUser, 'table', 'sys_menu', 'column', 'parent_ids'
 go
 
 if exists(select 1 from sys.extended_properties p where
