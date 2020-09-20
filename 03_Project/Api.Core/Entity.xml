@@ -49,6 +49,21 @@
             删除时间
             </summary>
         </member>
+        <member name="F:Entity.Gender.Secrecy">
+            <summary>
+            保密
+            </summary>
+        </member>
+        <member name="F:Entity.Gender.Gentleman">
+            <summary>
+            男
+            </summary>
+        </member>
+        <member name="F:Entity.Gender.Lady">
+            <summary>
+            女
+            </summary>
+        </member>
         <member name="T:Entity.SysArea">
             <summary>
             地区表

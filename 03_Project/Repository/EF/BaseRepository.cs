@@ -1,6 +1,6 @@
 ﻿using DTO;
 using Entity;
-using IRepository.Base;
+using IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

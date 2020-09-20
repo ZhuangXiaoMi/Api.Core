@@ -6,10 +6,10 @@ using System.Reflection;
 using System.Text;
 using Autofac;
 using AutoMapper;
-using IService.Sys;
+using IService;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using Service.Sys;
+using Service;
 
 namespace Test.Startup
 {
@@ -73,7 +73,6 @@ namespace Test.Startup
             var ApplicationContainer = builder.Build();
 
             var sysUserService = ApplicationContainer.Resolve<ISysUserService>();
-            string test = sysUserService.Print();
 
             Assert.True(ApplicationContainer.ComponentRegistry.Registrations.Count() > 0);
         }

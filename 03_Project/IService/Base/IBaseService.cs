@@ -1,27 +1,53 @@
-﻿using Entity;
+﻿using DTO;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using VO.SysManage;
 
-namespace IService.Base
+namespace IService
 {
-    public interface IBaseService<TAggregateRoot> where TAggregateRoot : ABTAggregateRoot
+    public interface IBaseService<TARoot> where TARoot : ABTAggregateRoot
     {
-        Task<bool> Add(TAggregateRoot entity);
+        bool IsExist(Expression<Func<TARoot, bool>> exp);
 
-        Task<bool> Delete(TAggregateRoot entity);
+        int GetCount(Expression<Func<TARoot, bool>> exp = null);
 
-        //Task<bool> Delete(Expression<Func<TAggregateRoot, bool>> expression);
+        TARoot FindSingle(Expression<Func<TARoot, bool>> exp = null);
 
-        Task<bool> Update(TAggregateRoot entity);
+        IQueryable<TARoot> Find(Expression<Func<TARoot, bool>> exp = null);
 
-        IQueryable<TAggregateRoot> Query<SEntity>(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true);
-        //Task<IList<TAggregateRoot>> Query(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true);
+        IQueryable<TARoot> FindPage(out int total, int pageIndex = 1, int pageSize = 20
+            , Expression<Func<TARoot, bool>> exp = null, OrderByDto[] orderParams = null);
 
-        IQueryable<TAggregateRoot> Query<SEntity>(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true);
-        //Task<IList<TAggregateRoot>> Query(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true);
+        IQueryable<TARoot> FromSql(string sql, params object[] parames);
+
+        void BeginTransaction();
+
+        void CommitTransaction();
+
+        void RollbackTransaction();
+
+        int Save();
+
+        TARoot Add(TARoot entity);
+
+        void BatchAdd(IEnumerable<TARoot> entities);
+
+        void Update(TARoot entity);
+
+        /// <summary>
+        /// 更新部分字段，如：Update(p => p.id = 1, p => new Entity { property = value });
+        /// </summary>
+        /// <typeparam name="TARoot"></typeparam>
+        /// <param name="exp"></param>
+        /// <param name="entity"></param>
+        void Update(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity);
+
+        void Delete(TARoot entity);
+
+        void Delete(Expression<Func<TARoot, bool>> exp);
+
+        int ExecuteSql(string sql, IEnumerable<TARoot> parames = null);
     }
 }

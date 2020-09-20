@@ -1,7 +1,6 @@
 ﻿using Entity;
-using IService.Base;
 
-namespace IService.Sys
+namespace IService
 {
     /// <summary>
     /// ISysUserRoleService

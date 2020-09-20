@@ -1,5 +1,5 @@
 ﻿using Entity;
-using IRepository.UnitOfWork;
+using IRepository;
 using Microsoft.EntityFrameworkCore;
 using Repository.EF;
 using System;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Z.EntityFramework.Plus;
 
-namespace Repository.UnitOfWork
+namespace Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

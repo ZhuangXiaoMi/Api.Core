@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
-using IService.Sys;
+using Entity;
+using IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,9 +26,9 @@ namespace Api.Core.Controllers
         [Route("/api/sys_area/get")]
         public ActionResult<int> GetList()
         {
-            var result = _sysAreaService.Query(p => p.id > 0, p => p.id).ToList().Count;
+            var result = _sysAreaService.Find().ToList();
 
-            return result;
+            return result.Count;
         }
 
     }

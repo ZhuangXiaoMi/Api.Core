@@ -1,10 +1,8 @@
 ﻿using Entity;
-using IRepository.Sys;
-using IRepository.UnitOfWork;
-using IService.Sys;
-using Service.Base;
+using IRepository;
+using IService;
 
-namespace Service.Sys
+namespace Service
 {
     public class SysUserService : BaseService<SysUser>, ISysUserService
     {
@@ -12,11 +10,6 @@ namespace Service.Sys
             : base(unitOfWork, sysUserRepository)
         {
 
-        }
-
-        public string Print()
-        {
-            return "888";
         }
     }
 }

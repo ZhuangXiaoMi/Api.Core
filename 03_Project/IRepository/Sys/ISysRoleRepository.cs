@@ -1,7 +1,6 @@
 ﻿using Entity;
-using IRepository.Base;
 
-namespace IRepository.Sys
+namespace IRepository
 {
     /// <summary>
     /// ISysRoleRepository

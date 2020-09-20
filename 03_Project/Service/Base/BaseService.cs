@@ -1,50 +1,75 @@
-﻿using Entity;
-using IRepository.Base;
-using IRepository.UnitOfWork;
-using IService.Base;
+﻿using DTO;
+using Entity;
+using IRepository;
+using IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using VO.SysManage;
 
-namespace Service.Base
+namespace Service
 {
-    public class BaseService<TAggregateRoot> : IBaseService<TAggregateRoot> where TAggregateRoot : ABTAggregateRoot
+    public class BaseService<TARoot> : IBaseService<TARoot> where TARoot : ABTAggregateRoot
     {
         protected readonly IUnitOfWork _unitOfWork;
-        protected readonly IBaseRepository<TAggregateRoot> _baseRepository;
+        protected readonly IBaseRepository<TARoot> _baseRepository;
 
-        public BaseService(IUnitOfWork unitOfWork, IBaseRepository<TAggregateRoot> baseRepository)
+        public BaseService(IUnitOfWork unitOfWork, IBaseRepository<TARoot> baseRepository)
         {
             _unitOfWork = unitOfWork;
             _baseRepository = baseRepository;
         }
 
-        public async Task<bool> Add(TAggregateRoot entity)
-        {
-            return await _unitOfWork.Add<TAggregateRoot>(entity);
-        }
+        public bool IsExist(Expression<Func<TARoot, bool>> exp)
+            => _baseRepository.IsExist(exp);
 
-        public async Task<bool> Delete(TAggregateRoot entity)
-        {
-            return await _unitOfWork.Delete<TAggregateRoot>(entity);
-        }
+        public int GetCount(Expression<Func<TARoot, bool>> exp = null)
+            => _baseRepository.GetCount(exp);
 
-        public async Task<bool> Update(TAggregateRoot entity)
-        {
-            return await _unitOfWork.Update<TAggregateRoot>(entity);
-        }
+        public TARoot FindSingle(Expression<Func<TARoot, bool>> exp = null)
+            => _baseRepository.FindSingle(exp);
 
-        public IQueryable<TAggregateRoot> Query<SEntity>(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true)
-        {
-            return _baseRepository.Query<SEntity>(whereExpression, orderExpression, isAsc);
-        }
+        public IQueryable<TARoot> Find(Expression<Func<TARoot, bool>> exp = null)
+            => _baseRepository.Find(exp);
 
-        public IQueryable<TAggregateRoot> Query<SEntity>(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true)
-        {
-            return _baseRepository.Query<SEntity>(paging, whereExpression, orderExpression, isAsc);
-        }
+        public IQueryable<TARoot> FindPage(out int total, int pageIndex = 1, int pageSize = 20
+            , Expression<Func<TARoot, bool>> exp = null, OrderByDto[] orderParams = null)
+            => _baseRepository.FindPage(out total, pageIndex, pageSize, exp, orderParams);
+
+        public IQueryable<TARoot> FromSql(string sql, params object[] parames)
+            => _baseRepository.FromSql(sql, parames);
+
+        public void BeginTransaction()
+            => _unitOfWork.BeginTransaction();
+
+        public void CommitTransaction()
+            => _unitOfWork.CommitTransaction();
+
+        public void RollbackTransaction()
+            => _unitOfWork.RollbackTransaction();
+
+        public int Save()
+            => _unitOfWork.Save();
+
+        public TARoot Add(TARoot entity)
+            => _unitOfWork.Add(entity);
+
+        public void BatchAdd(IEnumerable<TARoot> entities)
+            => _unitOfWork.BatchAdd(entities);
+
+        public void Update(TARoot entity)
+            => _unitOfWork.Update(entity);
+
+        public void Update(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity)
+            => _unitOfWork.Update(exp, entity);
+
+        public void Delete(TARoot entity)
+            => _unitOfWork.Delete(entity);
+
+        public void Delete(Expression<Func<TARoot, bool>> exp)
+            => _unitOfWork.Delete(exp);
+
+        public int ExecuteSql(string sql, IEnumerable<TARoot> parames = null)
+            => _unitOfWork.ExecuteSql(sql, parames);
     }
 }

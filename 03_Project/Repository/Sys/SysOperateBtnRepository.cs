@@ -1,9 +1,8 @@
 ﻿using Entity;
 using IRepository;
-using IRepository.Sys;
 using Repository.EF;
 
-namespace Repository.Sys
+namespace Repository
 {
     /// <summary>
     /// SysOperateBtnRepository

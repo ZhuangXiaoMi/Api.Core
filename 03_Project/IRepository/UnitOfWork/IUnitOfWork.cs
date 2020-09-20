@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace IRepository.UnitOfWork
+namespace IRepository
 {
     /// <summary>
     /// 写操作

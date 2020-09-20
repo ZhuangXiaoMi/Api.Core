@@ -1,10 +1,8 @@
 ﻿using Entity;
-using IRepository.Sys;
-using IRepository.UnitOfWork;
-using IService.Sys;
-using Service.Base;
+using IRepository;
+using IService;
 
-namespace Service.Sys
+namespace Service
 {
     public class SysJobService : BaseService<SysJob>, ISysJobService
     {

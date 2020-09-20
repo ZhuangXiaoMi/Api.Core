@@ -1,6 +1,6 @@
 ﻿using Api.Core.Helper;
 using Entity;
-using IService.Sys;
+using IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -121,7 +121,7 @@ namespace Api.Core.Controllers
         //public async Task<IActionResult> Get(int id, string name)
         public async Task<ActionResult<IEnumerable<SysUser>>> Get(int id, string name)
         {
-            var sysUsers = _sysUserService.Query(p => p.id == id, o => o.create_time);
+            var sysUsers = new List<SysUser>();//_sysUserService.Query(p => p.id == id, o => o.create_time);
             if (!sysUsers.Any())
             {
                 return NoContent();//推荐：ActionResult<IEnumerable<SysUser>> 兼容有、无数据情况

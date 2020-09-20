@@ -1,4 +1,4 @@
-﻿using IService.Sys;
+﻿using IService;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +21,6 @@ namespace Tasks.JobScheduler
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("");
-                _sysUserService.Print();
                 await Task.Delay(10000, stoppingToken);
             }
         }
