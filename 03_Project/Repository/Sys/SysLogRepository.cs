@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysLogRepository : BaseRepository<SysLog>, ISysLogRepository
     {
-        public SysLogRepository(IDbContext dbContext) : base(dbContext)
+        public SysLogRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

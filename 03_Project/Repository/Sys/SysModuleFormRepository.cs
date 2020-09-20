@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysModuleFormRepository : BaseRepository<SysModuleForm>, ISysModuleFormRepository
     {
-        public SysModuleFormRepository(IDbContext dbContext) : base(dbContext)
+        public SysModuleFormRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

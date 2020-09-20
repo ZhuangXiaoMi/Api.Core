@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysDBBackupRepository : BaseRepository<SysDBBackup>, ISysDBBackupRepository
     {
-        public SysDBBackupRepository(IDbContext dbContext) : base(dbContext)
+        public SysDBBackupRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

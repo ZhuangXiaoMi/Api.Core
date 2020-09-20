@@ -88,8 +88,6 @@ namespace Api.Core
         {
             //builder.RegisterModule(new AutofacService());
             builder.RegisterModule<AutofacService>();
-
-            builder.RegisterType<Repository.EF.ApiDbContext>().As<IDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysJobHistoryRepository : BaseRepository<SysJobHistory>, ISysJobHistoryRepository
     {
-        public SysJobHistoryRepository(IDbContext dbContext) : base(dbContext)
+        public SysJobHistoryRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -8,7 +8,6 @@
             <summary>
             聚合根
             </summary>
-            <typeparam name="TEntity"></typeparam>
         </member>
         <member name="P:Entity.ABTAggregateRoot.id">
             <summary>
@@ -58,6 +57,11 @@
         <member name="P:Entity.SysArea.parent_id">
             <summary>
             上级地区Id
+            </summary>
+        </member>
+        <member name="P:Entity.SysArea.parent_ids">
+            <summary>
+            族谱ids
             </summary>
         </member>
         <member name="P:Entity.SysArea.administrative_division">
@@ -245,6 +249,11 @@
             上级部门Id
             </summary>
         </member>
+        <member name="P:Entity.SysDept.parent_ids">
+            <summary>
+            族谱ids
+            </summary>
+        </member>
         <member name="P:Entity.SysDept.dept_code">
             <summary>
             部门编码
@@ -338,6 +347,11 @@
         <member name="P:Entity.SysDict.parent_id">
             <summary>
             上级Id
+            </summary>
+        </member>
+        <member name="P:Entity.SysDict.parent_ids">
+            <summary>
+            族谱ids
             </summary>
         </member>
         <member name="P:Entity.SysDict.name">
@@ -448,6 +462,11 @@
         <member name="P:Entity.SysGrpUser.parent_id">
             <summary>
             上级Id
+            </summary>
+        </member>
+        <member name="P:Entity.SysGrpUser.parent_ids">
+            <summary>
+            族谱ids
             </summary>
         </member>
         <member name="P:Entity.SysGrpUser.grp_user_name">
@@ -613,6 +632,11 @@
         <member name="P:Entity.SysMenu.parent_id">
             <summary>
             上级菜单Id
+            </summary>
+        </member>
+        <member name="P:Entity.SysMenu.parent_ids">
+            <summary>
+            族谱ids
             </summary>
         </member>
         <member name="P:Entity.SysMenu.menu_code">

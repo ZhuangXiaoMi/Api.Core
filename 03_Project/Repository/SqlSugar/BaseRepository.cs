@@ -13,15 +13,15 @@ namespace Repository.SqlSugar
 {
     public abstract class BaseRepository<TAggregateRoot> /*: IBaseRepository<TAggregateRoot>*/ where TAggregateRoot : ABTAggregateRoot
     {
-        private readonly IDbContext _dbContext;
-        public readonly IQueryable<TAggregateRoot> _entity;
+        //private readonly IDbContext _dbContext;
+        //public readonly IQueryable<TAggregateRoot> _entity;
 
-        public BaseRepository(IDbContext dbContext)
-        {
-            _dbContext = dbContext;
-            //DbContext.Init(connectionString);
-            //_entity = _dbContext.Set<TAggregateRoot>();
-        }
+        //public BaseRepository(IDbContext dbContext)
+        //{
+        //    _dbContext = dbContext;
+        //    //DbContext.Init(connectionString);
+        //    //_entity = _dbContext.Set<TAggregateRoot>();
+        //}
 
         //public async Task<IList<TAggregateRoot>> Query(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true)
         //{

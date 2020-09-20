@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysMenuRepository : BaseRepository<SysMenu>, ISysMenuRepository
     {
-        public SysMenuRepository(IDbContext dbContext) : base(dbContext)
+        public SysMenuRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

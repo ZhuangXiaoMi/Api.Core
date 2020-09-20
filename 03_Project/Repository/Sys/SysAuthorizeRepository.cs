@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysAuthorizeRepository : BaseRepository<SysAuthorize>, ISysAuthorizeRepository
     {
-        public SysAuthorizeRepository(IDbContext dbContext) : base(dbContext)
+        public SysAuthorizeRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysDeptRepository : BaseRepository<SysDept>, ISysDeptRepository
     {
-        public SysDeptRepository(IDbContext dbContext) : base(dbContext)
+        public SysDeptRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

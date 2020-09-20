@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysAreaRepository : BaseRepository<SysArea>, ISysAreaRepository
     {
-        public SysAreaRepository(IDbContext dbContext) : base(dbContext)
+        public SysAreaRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

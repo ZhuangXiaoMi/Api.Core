@@ -1,23 +1,34 @@
-﻿using Entity;
+﻿using DTO;
+using Entity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using VO.SysManage;
 
 namespace IRepository.Base
 {
     /// <summary>
     /// 读操作
     /// </summary>
-    /// <typeparam name="TAggregateRoot"></typeparam>
-    public interface IBaseRepository<TAggregateRoot> where TAggregateRoot : ABTAggregateRoot
+    /// <typeparam name="TARoot"></typeparam>
+    public interface IBaseRepository<TARoot> where TARoot : ABTAggregateRoot
     {
-        IQueryable<TAggregateRoot> Query<SEntity>(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true);
-        //Task<IList<TAggregateRoot>> Query(Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true);
+        #region 同步
+        bool IsExist(Expression<Func<TARoot, bool>> exp);
 
-        IQueryable<TAggregateRoot> Query<SEntity>(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, SEntity>> orderExpression, bool isAsc = true);
-        //Task<IList<TAggregateRoot>> Query(PagingVO paging, Expression<Func<TAggregateRoot, bool>> whereExpression, Expression<Func<TAggregateRoot, object>> orderExpression, bool isAsc = true);
+        int GetCount(Expression<Func<TARoot, bool>> exp = null);
+
+        TARoot FindSingle(Expression<Func<TARoot, bool>> exp = null);
+
+        IQueryable<TARoot> Find(Expression<Func<TARoot, bool>> exp = null);
+
+        IQueryable<TARoot> FindPage(out int total, int pageIndex = 1, int pageSize = 20
+            , Expression<Func<TARoot, bool>> exp = null, OrderByDto[] orderParams = null);
+
+        IQueryable<TARoot> FromSql(string sql, params object[] parames);
+        #endregion 同步
+
+        #region 异步
+
+        #endregion 异步
     }
 }

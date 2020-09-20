@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysOperateBtnRepository : BaseRepository<SysOperateBtn>, ISysOperateBtnRepository
     {
-        public SysOperateBtnRepository(IDbContext dbContext) : base(dbContext)
+        public SysOperateBtnRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

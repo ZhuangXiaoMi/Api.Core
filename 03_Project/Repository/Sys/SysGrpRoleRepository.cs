@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysGrpRoleRepository : BaseRepository<SysGrpRole>, ISysGrpRoleRepository
     {
-        public SysGrpRoleRepository(IDbContext dbContext) : base(dbContext)
+        public SysGrpRoleRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

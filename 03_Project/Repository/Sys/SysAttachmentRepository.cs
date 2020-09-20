@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysAttachmentRepository : BaseRepository<SysAttachment>, ISysAttachmentRepository
     {
-        public SysAttachmentRepository(IDbContext dbContext) : base(dbContext)
+        public SysAttachmentRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }

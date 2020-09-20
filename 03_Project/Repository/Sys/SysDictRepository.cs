@@ -10,7 +10,7 @@ namespace Repository.Sys
     /// </summary>
     public class SysDictRepository : BaseRepository<SysDict>, ISysDictRepository
     {
-        public SysDictRepository(IDbContext dbContext) : base(dbContext)
+        public SysDictRepository(ApiDbContext dbContext) : base(dbContext)
         {
         }
     }
