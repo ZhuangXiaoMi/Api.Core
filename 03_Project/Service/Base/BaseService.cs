@@ -13,11 +13,13 @@ namespace Service
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IBaseRepository<TARoot> _baseRepository;
+        protected readonly LoginInfo _loginInfo;
 
-        public BaseService(IUnitOfWork unitOfWork, IBaseRepository<TARoot> baseRepository)
+        public BaseService(IUnitOfWork unitOfWork, IBaseRepository<TARoot> baseRepository, LoginInfo loginInfo)
         {
             _unitOfWork = unitOfWork;
             _baseRepository = baseRepository;
+            _loginInfo = loginInfo;
         }
 
         public bool IsExist(Expression<Func<TARoot, bool>> exp)
@@ -54,19 +56,19 @@ namespace Service
         public TARoot Add(TARoot entity)
             => _unitOfWork.Add(entity);
 
-        public void BatchAdd(IEnumerable<TARoot> entities)
+        public int BatchAdd(IEnumerable<TARoot> entities)
             => _unitOfWork.BatchAdd(entities);
 
-        public void Update(TARoot entity)
+        public int Update(TARoot entity)
             => _unitOfWork.Update(entity);
 
-        public void Update(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity)
+        public int Update(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity)
             => _unitOfWork.Update(exp, entity);
 
-        public void Delete(TARoot entity)
+        public int Delete(TARoot entity)
             => _unitOfWork.Delete(entity);
 
-        public void Delete(Expression<Func<TARoot, bool>> exp)
+        public int Delete(Expression<Func<TARoot, bool>> exp)
             => _unitOfWork.Delete(exp);
 
         public int ExecuteSql(string sql, IEnumerable<TARoot> parames = null)

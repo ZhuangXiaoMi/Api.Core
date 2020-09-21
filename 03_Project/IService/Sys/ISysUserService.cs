@@ -1,4 +1,5 @@
-﻿using Entity;
+﻿using DTO;
+using Entity;
 
 namespace IService
 {
@@ -7,5 +8,6 @@ namespace IService
     /// </summary>	
     public interface ISysUserService : IBaseService<SysUser>
     {
+        ResultResDto<int> Init();
     }
 }

@@ -32,9 +32,9 @@ namespace IService
 
         TARoot Add(TARoot entity);
 
-        void BatchAdd(IEnumerable<TARoot> entities);
+        int BatchAdd(IEnumerable<TARoot> entities);
 
-        void Update(TARoot entity);
+        int Update(TARoot entity);
 
         /// <summary>
         /// 更新部分字段，如：Update(p => p.id = 1, p => new Entity { property = value });
@@ -42,11 +42,11 @@ namespace IService
         /// <typeparam name="TARoot"></typeparam>
         /// <param name="exp"></param>
         /// <param name="entity"></param>
-        void Update(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity);
+        int Update(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity);
 
-        void Delete(TARoot entity);
+        int Delete(TARoot entity);
 
-        void Delete(Expression<Func<TARoot, bool>> exp);
+        int Delete(Expression<Func<TARoot, bool>> exp);
 
         int ExecuteSql(string sql, IEnumerable<TARoot> parames = null);
     }

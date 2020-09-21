@@ -24,9 +24,9 @@ namespace IRepository
 
         TARoot Add<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
-        void BatchAdd<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot;
+        int BatchAdd<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot;
 
-        void Update<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
+        int Update<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
         /// <summary>
         /// 更新部分字段，如：Update(p => p.id = 1, p => new Entity { property = value });
@@ -34,11 +34,11 @@ namespace IRepository
         /// <typeparam name="TARoot"></typeparam>
         /// <param name="exp"></param>
         /// <param name="entity"></param>
-        void Update<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot;
+        int Update<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot;
 
-        void Delete<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
+        int Delete<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
-        void Delete<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot;
+        int Delete<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot;
 
         int ExecuteSql<TARoot>(string sql, IEnumerable<TARoot> parames = null) where TARoot : ABTAggregateRoot;
         #endregion 同步

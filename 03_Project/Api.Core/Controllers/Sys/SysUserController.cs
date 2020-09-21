@@ -6,18 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Core.Controllers
 {
     /// <summary>
-    /// 地区表
+    /// 用户表
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
     [ApiGroup(GroupNameEnum.System)]
-    public class SysAreaController : BaseController
+    public class SysUserController : BaseController
     {
-        private readonly ISysAreaService _sysAreaService;
+        private readonly ISysUserService _sysUserService;
 
-        public SysAreaController(ISysAreaService sysAreaService)
+        public SysUserController(ISysUserService sysUserService)
         {
-            _sysAreaService = sysAreaService;
+            _sysUserService = sysUserService;
         }
 
         /// <summary>
@@ -25,8 +25,8 @@ namespace Api.Core.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("/api/sys_area/init")]
+        [Route("/api/sys_user/init")]
         public ResultResDto<int> Init()
-            => _sysAreaService.Init();
+            => _sysUserService.Init();
     }
 }

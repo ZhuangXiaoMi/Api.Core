@@ -23,13 +23,8 @@ namespace DTO
         }
     }
 
-    public class ResultResDto<T> : ResultResDto where T : class, new()
+    public class ResultResDto<T> : ResultResDto
     {
         public T data { get; set; }
-
-        public ResultResDto()
-        {
-            data = new T();
-        }
     }
 }

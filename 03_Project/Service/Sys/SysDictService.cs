@@ -1,15 +1,18 @@
 ﻿using Entity;
 using IRepository;
 using IService;
+using Microsoft.Extensions.Logging;
 
 namespace Service
 {
     public class SysDictService : BaseService<SysDict>, ISysDictService
     {
-        public SysDictService(IUnitOfWork unitOfWork, ISysDictRepository sysDictRepository)
-            : base(unitOfWork, sysDictRepository)
-        {
+        private readonly ILogger<SysDictService> _logger;
 
+        public SysDictService(IUnitOfWork unitOfWork, ISysDictRepository sysDictRepository, LoginInfo loginInfo, ILogger<SysDictService> logger)
+            : base(unitOfWork, sysDictRepository, loginInfo)
+        {
+            _logger = logger;
         }
     }
 }

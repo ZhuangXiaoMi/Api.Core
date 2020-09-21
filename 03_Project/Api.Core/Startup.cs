@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,6 +42,7 @@ namespace Api.Core
             services.Configure<AppSettingsJson>(Configuration);//services.AddSingleton(new AppSettingsHelper(Env.ContentRootPath));
             services.AddSingleton(new AppSettingsHelper(Configuration));
             services.AddSingleton(new LogLockService(Env.ContentRootPath));
+            services.AddSingleton(new LoginInfo());
 
             //services.AddHostedService<JobHostService>();
             //services.AddHostedService<JobBackService>();

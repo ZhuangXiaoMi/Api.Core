@@ -10,5 +10,10 @@ namespace DTO
         /// </summary>
         [Description("总条数")]
         public int total { get; set; }
+
+        public PageResDto()
+        {
+            data = new T();
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace Repository
         #region 同步
         public int Save()
         {
-            return _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();//数据回调，增加/修改可取数据使用
         }
 
         public TARoot Add<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
@@ -51,36 +51,41 @@ namespace Repository
             return result.Entity;
         }
 
-        public void BatchAdd<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot
+        public int BatchAdd<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot
         {
             _dbContext.Set<TARoot>().AddRange(entities);
-            Save();
+            return Save();
         }
 
-        public void Update<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
+        public int Update<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
         {
             var model = _dbContext.Entry(entity);
             model.State = EntityState.Modified;
+            //_dbContext.Set<TARoot>().Attach(entity);
 
             //如果数据没有发生变化
             if (!_dbContext.ChangeTracker.HasChanges())
             {
-                return;
+                return 0;
             }
-            Save();
+            var count = Save();
             model.State = EntityState.Detached;
+            return count;
         }
 
-        public void Update<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot
+        public int Update<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot
         {
             _dbContext.Set<TARoot>().Where(exp).Update(entity);
-            Save();
+            //var model = new Entity() { id = 1, name = "XX" };
+            //_dbContext.Set<TARoot>().Attach(model);
+            //_dbContext.Entry(entity).Property(p => p.name).IsModified = true;
+            return Save();
         }
 
-        public void Delete<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
+        public int Delete<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
         {
-            _dbContext.Set<TARoot>().Remove(entity);
-            Save();
+            _dbContext.Set<TARoot>().Remove(entity);//entity删除前数据库不存在会报错
+            return Save();
         }
 
         private IQueryable<TARoot> Filter<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot
@@ -91,10 +96,10 @@ namespace Repository
             return dbSet;
         }
 
-        public void Delete<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot
+        public int Delete<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot
         {
             _dbContext.Set<TARoot>().RemoveRange(Filter(exp));
-            Save();
+            return Save();
         }
 
         public int ExecuteSql<TARoot>(string sql, IEnumerable<TARoot> parames = null) where TARoot : ABTAggregateRoot

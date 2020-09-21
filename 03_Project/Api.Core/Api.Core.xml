@@ -4,6 +4,17 @@
         <name>Api.Core</name>
     </assembly>
     <members>
+        <member name="T:Api.Core.Controllers.SysUserController">
+            <summary>
+            用户表
+            </summary>
+        </member>
+        <member name="M:Api.Core.Controllers.SysUserController.Init">
+            <summary>
+            初始化
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Api.Core.Controllers.ValuesController.GetJWTToken(System.String,System.String)">
             <summary>
             登录接口：获取 Access_Token，然后 Authorize
