@@ -4,6 +4,17 @@
         <name>Api.Core</name>
     </assembly>
     <members>
+        <member name="T:Api.Core.Controllers.SysAreaController">
+            <summary>
+            地区表
+            </summary>
+        </member>
+        <member name="M:Api.Core.Controllers.SysAreaController.Init">
+            <summary>
+            初始化
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Api.Core.Controllers.SysUserController">
             <summary>
             用户表
