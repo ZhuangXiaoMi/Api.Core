@@ -150,14 +150,18 @@ go
 create table sys_area (
    id                   bigint               identity,
    parent_id            bigint           not null default 0,
-   parent_ids           varchar(150)         not null,
-   administrative_division char(9)              not null,
-   area_code            char(6)              not null,
-   area_name            nvarchar(20)         not null,
+   parent_ids           nvarchar(150)         not null,
+   parent_division      nvarchar(12)         not null,
+   administrative_division nvarchar(12)              not null,
+   area_code            nvarchar(6)              not null,
+   simple_division      nvarchar(12)         not null,
+   area_name            nvarchar(30)         not null,
    simple_name          nvarchar(20)         not null,
    level                int              not null
       constraint CKC_LEVEL_SYS_AREA check (level between 0 and 5),
+   category             nvarchar(5)          not null,
    sort                 int                  not null default 0,
+   sub                  int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
    is_enabled           int              not null default 1
@@ -263,6 +267,25 @@ end
 
 select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
+   '上级行政区划代码',
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'parent_division'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_area')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'administrative_division')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'administrative_division'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
    '行政区划代码',
    'user', @CurrentUser, 'table', 'sys_area', 'column', 'administrative_division'
 go
@@ -284,6 +307,25 @@ select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '邮政编码',
    'user', @CurrentUser, 'table', 'sys_area', 'column', 'area_code'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_area')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'area_name')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'area_name'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '行政区划简码',
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'simple_division'
 go
 
 if exists(select 1 from sys.extended_properties p where
@@ -358,8 +400,46 @@ end
 
 select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
+   '城乡分类代码：100城镇 110城区 111主城区 112城乡结合区 120镇区 121镇中心区 122镇乡结合区 123特殊区域 200乡村 210乡中心区 220村庄',
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'category'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_area')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'sort')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'sort'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
    '排序',
    'user', @CurrentUser, 'table', 'sys_area', 'column', 'sort'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('sys_area')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'description')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'description'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '下级数量',
+   'user', @CurrentUser, 'table', 'sys_area', 'column', 'sub'
 go
 
 if exists(select 1 from sys.extended_properties p where
@@ -557,11 +637,11 @@ go
 /*==============================================================*/
 create table sys_attachment (
    id                   bigint               identity,
-   atta_type            varchar(10)          not null,
+   atta_type            nvarchar(10)          not null,
    object_id            bigint           not null default 0,
-   file_path            varchar(100)         not null,
+   file_path            nvarchar(100)         not null,
    file_name            nvarchar(30)         not null,
-   file_type            varchar(8)           not null,
+   file_type            nvarchar(8)           not null,
    file_size            decimal(7,2)         not null default 0,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
@@ -1253,10 +1333,10 @@ create table sys_db_backup (
    id                   bigint               identity,
    backup_type          int              not null default 1
       constraint CKC_BACKUP_TYPE_SYS_DB_BACKUP check (backup_type between 1 and 2),
-   db_name              varchar(30)          not null,
+   db_name              nvarchar(30)          not null,
    file_name            nvarchar(30)         not null,
    file_size            decimal(7,2)         not null default 0,
-   file_path            varchar(100)         not null,
+   file_path            nvarchar(100)         not null,
    description          nvarchar(300)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_DB_BACKUP check (is_delete between 0 and 1),
@@ -1559,8 +1639,8 @@ go
 create table sys_dept (
    id                   bigint               identity(1000,1),
    parent_id            bigint           not null default 0,
-   parent_ids           varchar(150)         not null,
-   dept_code            varchar(10)          not null,
+   parent_ids           nvarchar(150)         not null,
+   dept_code            nvarchar(10)          not null,
    dept_name            nvarchar(30)         not null,
    simple_name          nvarchar(30)         not null,
    dept_type            int              not null
@@ -1571,8 +1651,8 @@ create table sys_dept (
    area_id              bigint           not null default 0,
    leader_id            bigint           not null default 0,
    address              nvarchar(200)        not null,
-   telephone            varchar(15)          not null,
-   email                varchar(30)          not null,
+   telephone            nvarchar(15)          not null,
+   email                nvarchar(30)          not null,
    is_allow_edit        int              not null default 1
       constraint CKC_IS_ALLOW_EDIT_SYS_DEPT check (is_allow_edit between 0 and 1),
    is_allow_delete      int              not null default 1
@@ -2130,10 +2210,10 @@ go
 create table sys_dict (
    id                   bigint               identity(5000,1),
    parent_id            bigint           not null default 0,
-   parent_ids           varchar(150)         not null,
+   parent_ids           nvarchar(150)         not null,
    name                 nvarchar(30)         not null,
    value                nvarchar(30)         not null,
-   type                 varchar(10)          not null,
+   type                 nvarchar(10)          not null,
    sort                 int                  not null default 0,
    remark               nvarchar(500)        not null,
    is_enabled           int              not null default 1
@@ -2477,9 +2557,9 @@ go
 create table sys_element (
    id                   bigint               identity,
    menu_id              bigint           not null default 0,
-   elem_code            varchar(10)          not null,
+   elem_code            nvarchar(10)          not null,
    elem_name            nvarchar(30)         not null,
-   location             varchar(50)          not null,
+   location             nvarchar(50)          not null,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
@@ -3090,7 +3170,7 @@ go
 create table sys_grp_user (
    id                   bigint               identity(100,1),
    parent_id            bigint           not null default 0,
-   parent_ids           varchar(150)         not null,
+   parent_ids           nvarchar(150)         not null,
    grp_user_name        nvarchar(30)         not null,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
@@ -4051,15 +4131,15 @@ create table sys_log (
    id                   bigint               identity,
    log_type             int              not null default 2
       constraint CKC_LOG_TYPE_SYS_LOG check (log_type between 1 and 5),
-   ip                   varchar(20)          not null,
+   ip                   nvarchar(20)          not null,
    module_id            bigint           not null default 0,
    module_name          nvarchar(30)         not null,
-   request_url          varchar(100)         not null,
-   method               varchar(30)          not null,
-   parameter            text                 not null,
+   request_url          nvarchar(100)         not null,
+   method               nvarchar(30)          not null,
+   parameter            nvarchar(max)                 not null,
    is_success           int              not null default 0
       constraint CKC_IS_SUCCESS_SYS_LOG check (is_success between 0 and 1),
-   exception            text                 not null,
+   exception            nvarchar(max)                 not null,
    description          nvarchar(300)        not null,
    is_delete            int              not null default 0
       constraint CKC_IS_DELETE_SYS_LOG check (is_delete between 0 and 1),
@@ -4438,13 +4518,13 @@ go
 create table sys_menu (
    id                   bigint               identity,
    parent_id            bigint           not null default 0,
-   parent_ids           varchar(150)         not null,
-   menu_code            varchar(10)          not null,
+   parent_ids           nvarchar(150)         not null,
+   menu_code            nvarchar(10)          not null,
    menu_name            nvarchar(30)         not null,
    level                int                  not null default 0,
-   url                  varchar(100)         not null,
-   target               varchar(20)          not null,
-   icon                 varchar(100)         not null,
+   url                  nvarchar(100)         not null,
+   target               nvarchar(20)          not null,
+   icon                 nvarchar(100)         not null,
    is_menu              int              not null default 0
       constraint CKC_IS_MENU_SYS_MENU check (is_menu between 0 and 1),
    is_expand            int              not null default 1
@@ -4907,7 +4987,7 @@ go
 create table sys_module_form (
    id                   bigint               identity,
    menu_id              bigint           not null default 0,
-   module_form_code     varchar(10)          not null,
+   module_form_code     nvarchar(10)          not null,
    module_form_name     nvarchar(30)         not null,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
@@ -5213,11 +5293,11 @@ go
 create table sys_operate_btn (
    id                   bigint               identity,
    menu_id              bigint           not null default 0,
-   oper_btn_code        varchar(10)          not null,
+   oper_btn_code        nvarchar(10)          not null,
    oper_btn_name        nvarchar(30)         not null,
-   btn_event            varchar(30)          not null,
-   url                  varchar(100)         not null,
-   icon                 varchar(100)         not null,
+   btn_event            nvarchar(30)          not null,
+   url                  nvarchar(100)         not null,
+   icon                 nvarchar(100)         not null,
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
    remark               nvarchar(500)        not null,
@@ -5578,7 +5658,7 @@ go
 /*==============================================================*/
 create table sys_role (
    id                   bigint               identity(1000,1),
-   role_code            varchar(10)          not null,
+   role_code            nvarchar(10)          not null,
    role_name            nvarchar(30)         not null,
    role_type            int              not null default 3
       constraint CKC_ROLE_TYPE_SYS_ROLE check (role_type between 0 and 3),
@@ -6255,10 +6335,10 @@ go
 /*==============================================================*/
 create table sys_user (
    id                   bigint               identity(5000,1),
-   account              varchar(50)          not null,
-   password             varchar(100)         not null,
-   secret_key           varchar(30)          not null,
-   no                   varchar(10)          not null,
+   account              nvarchar(50)          not null,
+   password             nvarchar(100)         not null,
+   secret_key           nvarchar(30)          not null,
+   no                   nvarchar(10)          not null,
    real_name            nvarchar(30)         not null,
    nickname             nvarchar(30)         not null,
    sex                  int              not null default 0
@@ -6266,24 +6346,24 @@ create table sys_user (
    age                  int              not null default 0
       constraint CKC_AGE_SYS_USER check (age between 1 and 200),
    birthday             datetime             not null,
-   telephone            varchar(15)          not null,
-   cellphone            char(11)             not null,
-   email                varchar(30)          not null,
-   wechat               varchar(30)          not null,
+   telephone            nvarchar(15)          not null,
+   cellphone            nvarchar(11)             not null,
+   email                nvarchar(30)          not null,
+   wechat               nvarchar(30)          not null,
    education            int              not null default 0
       constraint CKC_EDUCATION_SYS_USER check (education between 0 and 8),
-   icon                 varchar(100)         not null,
+   icon                 nvarchar(100)         not null,
    address              nvarchar(200)        not null,
    entry_time           datetime             not null default getdate(),
    salary               decimal(10,2)        not null default 0,
-   theme                varchar(30)          not null,
+   theme                nvarchar(30)          not null,
    status               int              not null default 0
       constraint CKC_STATUS_SYS_USER check (status between 0 and 4),
    dept_id              bigint           not null default 0,
    job_id               bigint           not null default 0,
    manager_id           bigint           not null default 0,
    security_level       int              not null default 0,
-   last_login_ip        varchar(20)          not null,
+   last_login_ip        nvarchar(20)          not null,
    last_login_time      datetime             not null default getdate(),
    sort                 int                  not null default 0,
    description          nvarchar(300)        not null,
