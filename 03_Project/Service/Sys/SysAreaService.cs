@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using Common;
+using DTO;
 using Entity;
 using IRepository;
 using IService;
@@ -23,15 +24,18 @@ namespace Service
             var result = new ResultResDto<int>();
             try
             {
-                #region 实体
+                _unitOfWork.BeginTransaction();
+                //var dd = HttpHelper.HttpGet("https://jquerywidget.com/jquery-citys/")
 
-                #endregion 实体
 
-                var entities = new List<SysUser>();
-                result.data = _unitOfWork.BatchAdd(entities);
+
+
+
+                _unitOfWork.CommitTransaction();
             }
             catch (Exception ex)
             {
+                _unitOfWork.RollbackTransaction();
                 _logger.LogInformation(ex.ToString());
                 result.code = DEFINE.FAIL;
                 result.msg = ex.Message;
