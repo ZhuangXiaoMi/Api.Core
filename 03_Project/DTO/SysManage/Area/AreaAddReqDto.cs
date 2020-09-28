@@ -22,6 +22,14 @@ namespace DTO
         public string parent_ids { get; set; }
 
         /// <summary>
+        /// 上级行政区划代码
+        /// </summary>
+        [Description("上级行政区划代码")]
+        [Display(Name = "上级行政区划代码")]
+        [RegularExpression(@"[1-9]\d{8}(?!\d)", ErrorMessage = "{0}格式不正确")]
+        public string parent_division { get; set; }
+
+        /// <summary>
         /// 行政区划代码
         /// </summary>
         [Description("行政区划代码")]
@@ -38,6 +46,13 @@ namespace DTO
         [RegularExpression(@"[1-9]\d{5}(?!\d)", ErrorMessage = "{0}格式不正确")]
         [DataType(DataType.PostalCode)]
         public string area_code { get; set; }
+
+        /// <summary>
+        /// 行政区划简码
+        /// </summary>
+        [Description("行政区划简码")]
+        [Display(Name = "行政区划简码")]
+        public string simple_division { get; set; }
 
         /// <summary>
         /// 地区名称
@@ -66,11 +81,25 @@ namespace DTO
         public int level { get; set; }
 
         /// <summary>
+        /// 城乡分类代码：100城镇 110城区 111主城区 112城乡结合区 120镇区 121镇中心区 122镇乡结合区 123特殊区域 200乡村 210乡中心区 220村庄
+        /// </summary>
+        [Description("城乡分类代码")]
+        [Display(Name = "城乡分类代码", Description = "100城镇 110城区 111主城区 112城乡结合区 120镇区 121镇中心区 122镇乡结合区 123特殊区域 200乡村 210乡中心区 220村庄")]
+        public string category { get; set; }
+
+        /// <summary>
         /// 排序
         /// </summary>
         [Description("排序")]
         [Display(Name = "排序")]
         public int? sort { get; set; }
+
+        /// <summary>
+        /// 下级数量
+        /// </summary>
+        [Description("下级数量")]
+        [Display(Name = "下级数量")]
+        public int? sub { get; set; }
 
         /// <summary>
         /// 描述

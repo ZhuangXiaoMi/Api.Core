@@ -79,6 +79,11 @@
             族谱ids
             </summary>
         </member>
+        <member name="P:Entity.SysArea.parent_division">
+            <summary>
+            上级行政区划代码
+            </summary>
+        </member>
         <member name="P:Entity.SysArea.administrative_division">
             <summary>
             行政区划代码
@@ -87,6 +92,11 @@
         <member name="P:Entity.SysArea.area_code">
             <summary>
             邮政编码
+            </summary>
+        </member>
+        <member name="P:Entity.SysArea.simple_division">
+            <summary>
+            行政区划简码
             </summary>
         </member>
         <member name="P:Entity.SysArea.area_name">
@@ -104,9 +114,19 @@
             行政区划级别：0国家 1省级 2地级 3县级 4乡级 5村庄
             </summary>
         </member>
+        <member name="P:Entity.SysArea.category">
+            <summary>
+            城乡分类代码：100城镇 110城区 111主城区 112城乡结合区 120镇区 121镇中心区 122镇乡结合区 123特殊区域 200乡村 210乡中心区 220村庄
+            </summary>
+        </member>
         <member name="P:Entity.SysArea.sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="P:Entity.SysArea.sub">
+            <summary>
+            下级数量
             </summary>
         </member>
         <member name="P:Entity.SysArea.description">
