@@ -20,13 +20,13 @@ namespace Api.Core.Controllers
             _sysAreaService = sysAreaService;
         }
 
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("/api/sys_area/init")]
-        public ResultResDto<int> Init()
-            => _sysAreaService.Init();
+        ///// <summary>
+        ///// 初始化
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("/api/sys_area/init")]
+        //public ResultResDto<int> Init()
+        //    => _sysAreaService.Init();
     }
 }

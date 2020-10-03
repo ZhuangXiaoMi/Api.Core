@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Text;
 
 namespace Service
 {
@@ -32,30 +32,25 @@ namespace Service
             {
                 var areaStr = HttpHelper.HttpGet("https://passer-by.com/data_location/list.json");
                 var areaLst = JsonConvert.DeserializeObject<Dictionary<string, string>>(areaStr);
+                //string webRootPath = _webHostEnvironment.WebRootPath;//E:\00_MySource\Api.Core\03_Project\Api.Core\wwwroot
+                string contentRootPath = _webHostEnvironment.ContentRootPath;//E:\00_MySource\Api.Core\03_Project\Api.Core
+                var sqlPath = Path.Combine(contentRootPath, "SQL/Init/sys_area港澳台.sql");
+
                 foreach (var item in areaLst)
                 {
                     //港澳台
-                    if(item.Value.StartsWith("810")|| item.Value.StartsWith("820") || item.Value.StartsWith("83"))
+                    if (item.Key.StartsWith("810") || item.Key.StartsWith("820") || item.Key.StartsWith("83"))
                     {
-                        /*
-INSERT INTO sys_area (level,administrative_division,area_name,parent_division,simple_division,category,sub,parent_id,parent_ids,area_code,simple_name,sort,description,remark,is_enabled,is_delete,create_user_id,modify_user_id,delete_user_id,create_time,modify_time,delete_time) VALUES (1, '110000000000', '北京市', '', '11', '', 1,0,'','','',0,'','',1,0,1,0,0,getdate(),getdate(),getdate());
-INSERT INTO sys_area (level,administrative_division,area_name,parent_division,simple_division,category,sub,parent_id,parent_ids,area_code,simple_name,sort,description,remark,is_enabled,is_delete,create_user_id,modify_user_id,delete_user_id,create_time,modify_time,delete_time) VALUES (2, '110100000000', '市辖区', '110000000000', '1101', '', 16,0,'','','',0,'','',1,0,1,0,0,getdate(),getdate(),getdate());
-INSERT INTO sys_area (level,administrative_division,area_name,parent_division,simple_division,category,sub,parent_id,parent_ids,area_code,simple_name,sort,description,remark,is_enabled,is_delete,create_user_id,modify_user_id,delete_user_id,create_time,modify_time,delete_time) VALUES (3, '110101000000', '东城区', '110100000000', '110101', '', 17,0,'','','',0,'','',1,0,1,0,0,getdate(),getdate(),getdate());
-INSERT INTO sys_area (level,administrative_division,area_name,parent_division,simple_division,category,sub,parent_id,parent_ids,area_code,simple_name,sort,description,remark,is_enabled,is_delete,create_user_id,modify_user_id,delete_user_id,create_time,modify_time,delete_time) VALUES (4, '110101001000', '东华门街道', '110101000000', '110101001', '', 12,0,'','','',0,'','',1,0,1,0,0,getdate(),getdate(),getdate());
-INSERT INTO sys_area (level,administrative_division,area_name,parent_division,simple_division,category,sub,parent_id,parent_ids,area_code,simple_name,sort,description,remark,is_enabled,is_delete,create_user_id,modify_user_id,delete_user_id,create_time,modify_time,delete_time) VALUES (5, '110101001001', '多福巷社区居委会', '110101001000', '110101001001', '111', 0,0,'','','',0,'','',1,0,1,0,0,getdate(),getdate(),getdate());
-                        
-2020-09-28 22:25:28,261 [4] INFO  Service.SysAreaService.? [(null)] [?] - 无：830000：台湾省
-2020-09-28 22:25:28,284 [4] INFO  Service.SysAreaService.? [(null)] [?] - 无：830100：台北市
-2020-09-28 22:25:28,306 [4] INFO  Service.SysAreaService.? [(null)] [?] - 无：830101：中正区
-2020-09-28 22:25:28,327 [4] INFO  Service.SysAreaService.? [(null)] [?] - 无：830102：大同区
-                        特殊 8390开头  只属于台湾省
-                         */
-
-                        //string webRootPath = _webHostEnvironment.WebRootPath;//E:\00_MySource\Api.Core\03_Project\Api.Core\wwwroot
-                        string contentRootPath = _webHostEnvironment.ContentRootPath;//E:\00_MySource\Api.Core\03_Project\Api.Core
-                        var sqlPath = Path.Combine(contentRootPath, "SQL/Init/sys_area港澳台.sql");
-                        string sql = $"";
-
+                        int level = item.Key.TrimEnd('0').Length / 2;
+                        string sql = $@"INSERT INTO sys_area (level,administrative_division,area_name,parent_division,simple_division,category,sub,parent_id,parent_ids,area_code,simple_name,sort,description,remark,is_enabled,is_delete,create_user_id,modify_user_id,delete_user_id,create_time,modify_time,delete_time) VALUES ({level}, '{item.Key.PadRight(12, '0')}', '{item.Value}', '', '{item.Key.TrimEnd('0')}', '', 0,0,'','{item.Key}','',0,'','',1,0,1,0,0,getdate(),getdate(),getdate());";
+                        using (StreamWriter sw = new StreamWriter(sqlPath, true, Encoding.UTF8))
+                        {
+                            if (level == 1 || level == 2)
+                            {
+                                sw.WriteLine("");
+                            }
+                            sw.WriteLine(sql);
+                        }
                     }
                     else
                     {

@@ -6,6 +6,7 @@ CREATE NONCLUSTERED INDEX [idx_area] ON [dbo].[sys_area]
 (
 	[administrative_division] ASC,
 	[area_code] ASC,
+	[area_name] ASC,
 	[level] ASC,
 	[is_enabled] ASC,
 	[is_delete] ASC
