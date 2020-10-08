@@ -1,9 +1,14 @@
-﻿using Entity;
+﻿using Common;
+using Entity;
 using IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Repository.EF;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -14,6 +19,7 @@ namespace Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApiDbContext _dbContext;
+        private IDbContextTransaction _dbContextTransaction;
 
         public UnitOfWork(ApiDbContext dbContext)
         {
@@ -23,24 +29,103 @@ namespace Repository
         #region 事务
         public void BeginTransaction()
         {
-            _dbContext.Database.BeginTransaction();
+            DbConnection dbConnection = _dbContext.Database.GetDbConnection();
+            if (dbConnection.State == ConnectionState.Closed)
+            {
+                dbConnection.Open();
+            }
+            _dbContextTransaction = _dbContext.Database.BeginTransaction();
+        }
+        public async Task BeginTransactionAsync()
+        {
+            DbConnection dbConnection = _dbContext.Database.GetDbConnection();
+            if (dbConnection.State == ConnectionState.Closed)
+            {
+                await dbConnection.OpenAsync();
+            }
+            _dbContextTransaction = await _dbContext.Database.BeginTransactionAsync();
         }
 
         public void CommitTransaction()
         {
-            _dbContext.Database.CommitTransaction();
+            //_dbContext.Database.CommitTransaction();
+            if (_dbContextTransaction != null)
+            {
+                _dbContextTransaction.Commit();
+            }
+        }
+        public async Task CommitTransactionAsync()
+        {
+            if (_dbContextTransaction != null)
+            {
+                await _dbContextTransaction.CommitAsync();
+            }
         }
 
         public void RollbackTransaction()
         {
-            _dbContext.Database.RollbackTransaction();
+            //_dbContext.Database.RollbackTransaction();
+            _dbContextTransaction.Rollback();
+            _dbContextTransaction.Dispose();
+            _dbContext.Dispose();
+        }
+        public async Task RollbackTransactionAsync()
+        {
+            await _dbContextTransaction.RollbackAsync();
+            await _dbContextTransaction.DisposeAsync();
+            await _dbContext.DisposeAsync();
         }
         #endregion 事务
 
-        #region 同步
-        public int Save()
+        #region 执行 SQL 语句
+        public int ExecuteSql(string sql, params DbParameter[] parames)
         {
+            if (parames.Length > 0)
+            {
+                return _dbContext.Database.ExecuteSqlRaw(sql);
+            }
+            return _dbContext.Database.ExecuteSqlRaw(sql, parames);
+        }
+        public async Task<int> ExecuteSqlAsync(string sql, params DbParameter[] parames)
+        {
+            if (parames.Length > 0)
+            {
+                return await _dbContext.Database.ExecuteSqlRawAsync(sql);
+            }
+            return await _dbContext.Database.ExecuteSqlRawAsync(sql, parames);
+        }
+
+        public int ExecuteProc(string procName, params DbParameter[] parames)
+        {
+            if (parames.Length > 0)
+            {
+                return _dbContext.Database.ExecuteSqlRaw(ADOExt.BuilderProc(procName));
+            }
+            return _dbContext.Database.ExecuteSqlRaw(ADOExt.BuilderProc(procName, parames), parames);
+        }
+        public async Task<int> ExecuteProcAsync(string procName, params DbParameter[] parames)
+        {
+            if (parames.Length > 0)
+            {
+                return await _dbContext.Database.ExecuteSqlRawAsync(ADOExt.BuilderProc(procName));
+            }
+            return await _dbContext.Database.ExecuteSqlRawAsync(ADOExt.BuilderProc(procName, parames), parames);
+        }
+        #endregion 执行 SQL 语句
+
+        #region 同步
+        private int Save()
+        {
+            ADOExt.SetEntityDefaultValue(_dbContext);
             return _dbContext.SaveChanges();//数据回调，增加/修改可取数据使用
+        }
+
+        private IQueryable<TARoot> Filter<TARoot>(Expression<Func<TARoot, bool>> exp = null) where TARoot : ABTAggregateRoot
+        {
+            var dbSet = _dbContext.Set<TARoot>().AsNoTracking().AsQueryable();
+            if (exp != null)
+                dbSet = dbSet.Where(exp);
+            return dbSet;
         }
 
         public TARoot Add<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
@@ -76,9 +161,22 @@ namespace Repository
         public int Update<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot
         {
             _dbContext.Set<TARoot>().Where(exp).Update(entity);
+            #region 更新部分字段
             //var model = new Entity() { id = 1, name = "XX" };
             //_dbContext.Set<TARoot>().Attach(model);
             //_dbContext.Entry(entity).Property(p => p.name).IsModified = true;
+
+            //_dbContext.Set<TARoot>().Attach(entity);
+            //Hashtable props = ADOExt.GetPropertyInfo<TARoot>(entity);
+            //foreach (string item in props.Keys)
+            //{
+            //    object value = _dbContext.Entry(entity).Property(item).CurrentValue;
+            //    if (value != null)
+            //    {
+            //        _dbContext.Entry(entity).Property(item).IsModified = true;
+            //    }
+            //} 
+            #endregion 更新部分字段
             return Save();
         }
 
@@ -88,60 +186,71 @@ namespace Repository
             return Save();
         }
 
-        private IQueryable<TARoot> Filter<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot
-        {
-            var dbSet = _dbContext.Set<TARoot>().AsNoTracking().AsQueryable();
-            if (exp != null)
-                dbSet = dbSet.Where(exp);
-            return dbSet;
-        }
-
         public int Delete<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot
         {
-            _dbContext.Set<TARoot>().RemoveRange(Filter(exp));
-            return Save();
-        }
-
-        public int ExecuteSql<TARoot>(string sql, IEnumerable<TARoot> parames = null) where TARoot : ABTAggregateRoot
-        {
-            if (parames == null)
+            IEnumerable<TARoot> entities = Filter(exp);
+            if (entities.Count() > 0)
             {
-                return _dbContext.Database.ExecuteSqlRaw(sql);
+                _dbContext.Set<TARoot>().RemoveRange(entities);
+                return Save();
             }
-            return _dbContext.Database.ExecuteSqlRaw(sql, parames);
+            else
+            {
+                return 0;
+            }
         }
         #endregion 同步
 
         #region 异步
-        public async Task<TARoot> AddSync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
+        private async Task<int> SaveAsync()
+        {
+            ADOExt.SetEntityDefaultValue(_dbContext);
+            return await _dbContext.SaveChangesAsync();//数据回调，增加/修改可取数据使用
+        }
+
+        public async Task<TARoot> AddAsync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
         {
             var result = await _dbContext.Set<TARoot>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            await SaveAsync();
             return result.Entity;
         }
 
-        public async Task<int> BatchAddSync<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot
+        public async Task<int> BatchAddAsync<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot
         {
             await _dbContext.Set<TARoot>().AddRangeAsync(entities);
-            return await _dbContext.SaveChangesAsync();
+            return await SaveAsync();
         }
 
-        public async Task<int> UpdateSync<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot
+        public async Task<int> UpdateAsync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
+        {
+            await _dbContext.Set<TARoot>().SingleUpdateAsync(entity);
+            return await SaveAsync();
+        }
+
+        public async Task<int> UpdateAsync<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot
         {
             await _dbContext.Set<TARoot>().Where(exp).UpdateAsync(entity);
-            return await _dbContext.SaveChangesAsync();
+            return await SaveAsync();
         }
 
-        public async Task<int> DeleteSync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
+        public async Task<int> DeleteAsync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot
         {
             _dbContext.Set<TARoot>().Remove(entity);
-            return await _dbContext.SaveChangesAsync();
+            return await SaveAsync();
         }
 
-        public async Task<int> DeleteSync<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot
+        public async Task<int> DeleteAsync<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot
         {
-            _dbContext.Set<TARoot>().RemoveRange(Filter(exp));
-            return await _dbContext.SaveChangesAsync();
+            IEnumerable<TARoot> entities = Filter(exp);
+            if (entities.Count() > 0)
+            {
+                _dbContext.Set<TARoot>().RemoveRange(entities);
+                return await SaveAsync();
+            }
+            else
+            {
+                return 0;
+            }
         }
         #endregion 异步
     }

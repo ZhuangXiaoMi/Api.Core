@@ -100,7 +100,7 @@ namespace Common
                                     .Where(p => !string.IsNullOrEmpty(p) && p != "\n" && p != "\r\n")
                                     .Select(p => new LogInfoModel
                                     {
-                                        Time = p.Split("|")[0].ObjectToDateTime(),
+                                        Time = p.Split("|")[0].ParseToDateTime(),
                                         Content = p.Split("|")[1]?.Replace("\r\n", "<br>"),
                                         Object = "AOP",
                                     }).ToList();
@@ -121,7 +121,7 @@ namespace Common
                                     .Where(p => !string.IsNullOrEmpty(p) && p != "\n" && p != "\r\n")
                                     .Select(p => new LogInfoModel
                                     {
-                                        Time = (p.Split("|")[0]).Split(',')[0].ObjectToDateTime(),
+                                        Time = (p.Split("|")[0]).Split(',')[0].ParseToDateTime(),
                                         Content = p.Split("|")[1]?.Replace("\r\n", "<br>"),
                                         Object = "EXC",
                                     }).ToList();
@@ -142,7 +142,7 @@ namespace Common
                                     .Where(p => !string.IsNullOrEmpty(p) && p != "\n" && p != "\r\n")
                                     .Select(p => new LogInfoModel
                                     {
-                                        Time = p.Split("|")[0].ObjectToDateTime(),
+                                        Time = p.Split("|")[0].ParseToDateTime(),
                                         Content = p.Split("|")[1]?.Replace("\r\n", "<br>"),
                                         Object = "SQL",
                                     }).ToList();
@@ -157,10 +157,10 @@ namespace Common
             {
                 var logContent = JsonConvert.DeserializeObject<List<LogRequestDTO>>("[" + ReadLog(Path.Combine(_logPath, "Log", "RequestIPInfoLog.log"), Encoding.UTF8) + "]");
 
-                var logLst = logContent.Where(p => p.Time.ObjectToDateTime() >= DateTime.Today)
+                var logLst = logContent.Where(p => p.Time.ParseToDateTime() >= DateTime.Today)
                                 .Select(p => new LogInfoModel
                                 {
-                                    Time = p.Time.ObjectToDateTime(),
+                                    Time = p.Time.ParseToDateTime(),
                                     Content = $"IP:{p.IP}<br>{p.URL}",
                                     Object = "ReqRes",
                                 }).ToList();
@@ -288,8 +288,8 @@ namespace Common
                 logs = JsonConvert.DeserializeObject<List<LogRequestDTO>>("[" + ReadLog(Path.Combine(_logPath, "Log", "RequestIPInfoLog.log"), Encoding.UTF8) + "]");
 
                 logDates = (from p in logs
-                            where p.Time.ObjectToDateTime() >= DateTime.Today
-                            group p by new { hour = p.Time.ObjectToDateTime().Hour } into g
+                            where p.Time.ParseToDateTime() >= DateTime.Today
+                            group p by new { hour = p.Time.ParseToDateTime().Hour } into g
                             select new LogDateModel
                             {
                                 Date = g.Key.hour.ToString("00"),

@@ -1,6 +1,7 @@
 ﻿using Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -13,15 +14,24 @@ namespace IRepository
     {
         #region 事务
         void BeginTransaction();
+        Task BeginTransactionAsync();
 
         void CommitTransaction();
+        Task CommitTransactionAsync();
 
         void RollbackTransaction();
+        Task RollbackTransactionAsync();
         #endregion 事务
 
-        #region 同步
-        int Save();
+        #region 执行 SQL 语句
+        int ExecuteSql(string sql, params DbParameter[] parames);
+        Task<int> ExecuteSqlAsync(string sql, params DbParameter[] parames);
 
+        int ExecuteProc(string procName, params DbParameter[] parames);
+        Task<int> ExecuteProcAsync(string procName, params DbParameter[] parames);
+        #endregion 执行 SQL 语句
+
+        #region 同步
         TARoot Add<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
         int BatchAdd<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot;
@@ -39,20 +49,20 @@ namespace IRepository
         int Delete<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
         int Delete<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot;
-
-        int ExecuteSql<TARoot>(string sql, IEnumerable<TARoot> parames = null) where TARoot : ABTAggregateRoot;
         #endregion 同步
 
         #region 异步
-        Task<TARoot> AddSync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
+        Task<TARoot> AddAsync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
-        Task<int> BatchAddSync<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot;
+        Task<int> BatchAddAsync<TARoot>(IEnumerable<TARoot> entities) where TARoot : ABTAggregateRoot;
 
-        Task<int> UpdateSync<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot;
+        Task<int> UpdateAsync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
-        Task<int> DeleteSync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
+        Task<int> UpdateAsync<TARoot>(Expression<Func<TARoot, bool>> exp, Expression<Func<TARoot, TARoot>> entity) where TARoot : ABTAggregateRoot;
 
-        Task<int> DeleteSync<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot;
+        Task<int> DeleteAsync<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
+
+        Task<int> DeleteAsync<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot;
         #endregion 异步
     }
 }

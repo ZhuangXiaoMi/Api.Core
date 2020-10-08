@@ -1,9 +1,9 @@
-﻿using Entity;
+﻿using DTO;
 
 namespace Service
 {
     public class LoginInfo
     {
-        public SysUser CurrentUser { get; }
+        public UserModel CurrentUser { get; set; }
     }
 }

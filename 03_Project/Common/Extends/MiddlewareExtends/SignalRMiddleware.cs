@@ -21,7 +21,7 @@ namespace Common
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            if (AppSettingsHelper.GetElement("Middleware", "SignalR", "Enabled").ObjectToBool())
+            if (AppSettingsHelper.GetElement("Middleware", "SignalR", "Enabled").ParseToBool())
             {
                 //await _hubContext.Clients.All.SendAsync("ReceiveUpdate", LogLock.GetLogData());
             }

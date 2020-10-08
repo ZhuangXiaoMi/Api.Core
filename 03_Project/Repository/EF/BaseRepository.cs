@@ -3,6 +3,7 @@ using Entity;
 using IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -11,12 +12,12 @@ namespace Repository.EF
     public class BaseRepository<TARoot> : IBaseRepository<TARoot> where TARoot : ABTAggregateRoot
     {
         private readonly ApiDbContext _dbContext;
-        public readonly IQueryable<TARoot> _entity;
+        public readonly IQueryable<TARoot> _dbSet;
 
         public BaseRepository(ApiDbContext dbContext)
         {
             _dbContext = dbContext;
-            _entity = _dbContext.Set<TARoot>();
+            _dbSet = _dbContext.Set<TARoot>();
         }
 
         #region 同步
@@ -25,7 +26,7 @@ namespace Repository.EF
             return _dbContext.Set<TARoot>().Any(exp);
         }
 
-        private IQueryable<TARoot> Filter(Expression<Func<TARoot, bool>> exp)
+        private IQueryable<TARoot> Filter(Expression<Func<TARoot, bool>> exp = null)
         {
             var dbSet = _dbContext.Set<TARoot>().AsNoTracking().AsQueryable();
             if (exp != null)
@@ -84,9 +85,9 @@ namespace Repository.EF
             return list.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
 
-        public IQueryable<TARoot> FromSql(string sql, params object[] parames)
+        public IQueryable<T> FromSql<T>(string sql, params DbParameter[] parames) where T : class
         {
-            return _dbContext.Set<TARoot>().FromSqlRaw(sql, parames);
+            return _dbContext.Set<T>().FromSqlRaw(sql, parames);
         }
         #endregion 同步
 

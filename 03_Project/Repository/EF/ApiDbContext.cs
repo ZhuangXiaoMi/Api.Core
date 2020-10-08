@@ -1,7 +1,14 @@
 ﻿using Common;
 using Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Reflection;
 
 namespace Repository.EF
 {
@@ -12,14 +19,16 @@ namespace Repository.EF
      *      services.AddDbContext<ApiDbContext>(options => options.UseSqlServer(@"Persist Security Info=True;Data Source=.;User ID=sa;Password=123456;Initial Catalog=ApiCore;"));
      * 官网：https://docs.microsoft.com/zh-cn/ef/core/
      */
-    public class ApiDbContext : DbContext
+    public class ApiDbContext : DbContext, IDisposable
     {
         private readonly IOptions<AppSettingsJson> _appSettings;
+        private readonly ILogger<EFDbCommandAOP> _logger;
 
-        public ApiDbContext(DbContextOptions<ApiDbContext> options, IOptions<AppSettingsJson> appSettings)
+        public ApiDbContext(DbContextOptions<ApiDbContext> options, IOptions<AppSettingsJson> appSettings, ILogger<EFDbCommandAOP> logger)
             : base(options)
         {
             _appSettings = appSettings;
+            _logger = logger;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,11 +36,36 @@ namespace Repository.EF
             base.OnConfiguring(optionsBuilder);
 
             //也可以在Startup.cs中配置
-            optionsBuilder.UseSqlServer(_appSettings.Value.DBM.SqlServer[0].ConnectionString);
+            optionsBuilder.UseSqlServer(_appSettings.Value.DBM.SqlServer[0].ConnectionString, p => p.CommandTimeout(10));
+            //optionsBuilder.AddInterceptors(new EFDbCommandAOP(_logger));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            #region 反射 Fulent 配置
+            //Assembly entityAssembly = Assembly.Load(new AssemblyName("Entity"));
+            //IEnumerable<Type> typesToRegister = entityAssembly.GetTypes()
+            //    .Where(p => !string.IsNullOrEmpty(p.Namespace))
+            //    .Where(p => !string.IsNullOrEmpty(p.GetCustomAttribute<TableAttribute>()?.Name));
+            //foreach (Type type in typesToRegister)
+            //{
+            //    dynamic configurationInstance = Activator.CreateInstance(type);
+            //    modelBuilder.Model.AddEntityType(type);
+            //}
+            //foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            //{
+            //    modelBuilder.Entity(entity.Name).HasKey("id");
+            //    string currentTableName = modelBuilder.Entity(entity.Name).Metadata.GetTableName();
+            //    modelBuilder.Entity(entity.Name).ToTable(currentTableName);
+
+            //    //var properties = entity.GetProperties();
+            //    //foreach (var property in properties)
+            //    //{
+            //    //    modelBuilder.Entity(entity.Name).Property(property.Name).HasColumnName(property.Name);
+            //    //}
+            //}
+            #endregion 反射 Fulent 配置
 
             #region Fulent 配置
             //modelBuilder.Entity<SysArea>();

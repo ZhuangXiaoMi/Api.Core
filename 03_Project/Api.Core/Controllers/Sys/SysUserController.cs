@@ -2,6 +2,7 @@
 using DTO;
 using IService;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Api.Core.Controllers
 {
@@ -26,7 +27,7 @@ namespace Api.Core.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("/api/sys_user/init")]
-        public ResultResDto<int> Init()
-            => _sysUserService.Init();
+        public async Task<ResultResDto<int>> InitAsync()
+            => await _sysUserService.InitAsync();
     }
 }

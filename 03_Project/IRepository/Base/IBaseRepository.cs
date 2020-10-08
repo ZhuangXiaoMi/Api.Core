@@ -1,6 +1,7 @@
 ﻿using DTO;
 using Entity;
 using System;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -24,7 +25,7 @@ namespace IRepository
         IQueryable<TARoot> FindPage(out int total, int pageIndex = 1, int pageSize = 20
             , Expression<Func<TARoot, bool>> exp = null, OrderByDto[] orderParams = null);
 
-        IQueryable<TARoot> FromSql(string sql, params object[] parames);
+        IQueryable<T> FromSql<T>(string sql, params DbParameter[] parames) where T : class;
         #endregion 同步
 
         #region 异步

@@ -1,5 +1,6 @@
 ﻿using DTO;
 using Entity;
+using System.Threading.Tasks;
 
 namespace IService
 {
@@ -8,6 +9,8 @@ namespace IService
     /// </summary>	
     public interface ISysUserService : IBaseService<SysUser>
     {
-        ResultResDto<int> Init();
+        Task<ResultResDto<int>> InitAsync();
+
+        ResultResDto<UserModel> CheckLogin(LoginReqDto req);
     }
 }

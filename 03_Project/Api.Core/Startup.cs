@@ -6,10 +6,13 @@ using IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Service;
 using System;
 using System.Collections.Generic;
@@ -23,15 +26,20 @@ namespace Api.Core
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env
+            , ILogger<EFDbCommandAOP> logger, IOptions<AppSettingsJson> appSettings)
         {
             Configuration = configuration;
             Env = env;
+            _logger = logger;
+            _appSettings = appSettings;
         }
 
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Env { get; }
         private IServiceCollection _services;
+        private readonly ILogger<EFDbCommandAOP> _logger;
+        private readonly IOptions<AppSettingsJson> _appSettings;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -50,7 +58,12 @@ namespace Api.Core
 
             services.AddMemoryCacheService();
             //services.AddSqlSugarService();
-            services.AddDbContext<Repository.EF.ApiDbContext>();//services.AddDbService();
+            services.AddDbContext<Repository.EF.ApiDbContext>(p =>//AddDbContextPool
+            {
+                p.UseSqlServer(_appSettings.Value.DBM.SqlServer[0].ConnectionString, p => p.CommandTimeout(10))
+                    .AddInterceptors(new EFDbCommandAOP(_logger));
+            });
+            //services.AddDbService();
             services.AddAutoMapperService();
             services.AddCorsService();
             services.AddMiniProfilerService();//MemoryCache后
