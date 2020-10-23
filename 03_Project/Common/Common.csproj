@@ -32,12 +32,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\IRepository\IRepository.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AuthStrategies\DTO\" />
+    <Folder Include="Auth\DTO\" />
   </ItemGroup>
 
 </Project>

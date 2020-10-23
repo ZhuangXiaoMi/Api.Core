@@ -1,7 +1,9 @@
-﻿using Entity;
+﻿using DTO;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -49,6 +51,20 @@ namespace IRepository
         int Delete<TARoot>(TARoot entity) where TARoot : ABTAggregateRoot;
 
         int Delete<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot;
+
+
+        bool IsExist<TARoot>(Expression<Func<TARoot, bool>> exp) where TARoot : ABTAggregateRoot;
+
+        int GetCount<TARoot>(Expression<Func<TARoot, bool>> exp = null) where TARoot : ABTAggregateRoot;
+
+        TARoot FindSingle<TARoot>(Expression<Func<TARoot, bool>> exp = null) where TARoot : ABTAggregateRoot;
+
+        IQueryable<TARoot> Find<TARoot>(Expression<Func<TARoot, bool>> exp = null) where TARoot : ABTAggregateRoot;
+
+        IQueryable<TARoot> FindPage<TARoot>(out int total, int pageIndex = 1, int pageSize = 20
+            , Expression<Func<TARoot, bool>> exp = null, OrderByDto[] orderParams = null) where TARoot : ABTAggregateRoot;
+
+        IQueryable<T> FromSql<T>(string sql, params DbParameter[] parames) where T : class;
         #endregion 同步
 
         #region 异步

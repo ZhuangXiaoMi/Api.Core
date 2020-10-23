@@ -26,19 +26,15 @@ namespace Api.Core
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment env
-            , ILogger<EFDbCommandAOP> logger, IOptions<AppSettingsJson> appSettings)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             Env = env;
-            _logger = logger;
-            _appSettings = appSettings;
         }
 
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Env { get; }
         private IServiceCollection _services;
-        private readonly ILogger<EFDbCommandAOP> _logger;
         private readonly IOptions<AppSettingsJson> _appSettings;
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -60,8 +56,8 @@ namespace Api.Core
             //services.AddSqlSugarService();
             services.AddDbContext<Repository.EF.ApiDbContext>(p =>//AddDbContextPool
             {
-                p.UseSqlServer(_appSettings.Value.DBM.SqlServer[0].ConnectionString, p => p.CommandTimeout(10))
-                    .AddInterceptors(new EFDbCommandAOP(_logger));
+                p.UseSqlServer(AppSettingsHelper.GetElement(new string[] { "DBM", "SqlServer", "0", "ConnectionString" }), p => p.CommandTimeout(10));
+                    //.AddInterceptors(new EFDbCommandAOP(_logger));
             });
             //services.AddDbService();
             services.AddAutoMapperService();
