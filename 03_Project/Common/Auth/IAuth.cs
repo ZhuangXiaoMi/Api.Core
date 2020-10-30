@@ -1,18 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Common
 {
     public interface IAuth
     {
-        //int CheckLogin(string token);
+        /// <summary>
+        /// 登录验证
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        int CheckLogin(string token);
 
-        //AuthStrategyContext GetCurrentUser();
+        /// <summary>
+        /// 获取当前登录用户
+        /// </summary>
+        /// <returns></returns>
+        AuthStrategyContext GetCurrentUser();
 
-        //bool Logout();
-
-
-
+        /// <summary>
+        /// 退出
+        /// </summary>
+        /// <returns></returns>
+        bool Logout();
     }
 }

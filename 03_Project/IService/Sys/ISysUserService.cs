@@ -11,6 +11,11 @@ namespace IService
     {
         Task<ResultResDto<int>> InitAsync();
 
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         ResultResDto<UserModel> CheckLogin(LoginReqDto req);
     }
 }

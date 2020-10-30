@@ -72,6 +72,7 @@ namespace Common
                     .AsImplementedInterfaces()
                     .InstancePerDependency();
 
+                builder.RegisterType<LocalAuth>().As<IAuth>();
             }
             catch (Exception ex)
             {

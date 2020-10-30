@@ -21,13 +21,24 @@ namespace Api.Core.Controllers
             _sysUserService = sysUserService;
         }
 
+        ///// <summary>
+        ///// 初始化
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("/api/sys_user/init")]
+        //public async Task<ResultResDto<int>> InitAsync()
+        //    => await _sysUserService.InitAsync();
+
         /// <summary>
-        /// 初始化
+        /// 登录
         /// </summary>
+        /// <param name="req"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("/api/sys_user/init")]
-        public async Task<ResultResDto<int>> InitAsync()
-            => await _sysUserService.InitAsync();
+        [HttpPost]
+        [Route("/api/sys_user/login")]
+        public ResultResDto<UserModel> CheckLogin([FromBody] LoginReqDto req)
+            => _sysUserService.CheckLogin(req);
+
     }
 }

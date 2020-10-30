@@ -7,6 +7,22 @@ namespace DTO
     /// </summary>
     public class DEFINE
     {
+        #region 基础定义
+        /// <summary>
+        /// 接口请求Token
+        /// </summary>
+        [Description("接口请求Token")]
+        public const string TOKEN_NAME = "X-Token";
+
+        /// <summary>
+        /// 缓存前缀
+        /// </summary>
+        [Description("缓存前缀")]
+        public const string ACCESS_TOKEN = "token:";
+
+        #endregion 基础定义
+
+        #region 接口状态码定义
         #region 1xx：信息，服务器收到请求，需要请求者继续执行操作
 
         #endregion 1xx：信息，服务器收到请求，需要请求者继续执行操作
@@ -86,5 +102,6 @@ namespace DTO
         [Description("服务器内部错误")]
         public const int FAIL = 500;
         #endregion 5xx：服务器错误，服务器在处理请求的过程中发生了错误
+        #endregion 接口状态码定义
     }
 }

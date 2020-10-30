@@ -41,9 +41,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AuthStrategies\DTO\" />
-    <Folder Include="Auth\DTO\" />
-  </ItemGroup>
-
 </Project>
