@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -109,6 +110,7 @@ namespace Common
             //services.AddScoped<ISysUserService, SysUserService>();
             #endregion Core自带IOC容器
 
+            builder.RegisterType(typeof(HttpContextAccessor)).As(typeof(IHttpContextAccessor));
         }
     }
 }
