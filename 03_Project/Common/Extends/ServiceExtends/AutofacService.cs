@@ -28,6 +28,13 @@ namespace Common
             {
                 //注册要通过反射创建的组件
                 //方法一：builder.RegisterType<SysUserService>().As<ISysUserService>();
+                //命名注册，一个接口多个实现，后接 Startup.Configure
+                //builder.RegisterType<EF.BaseRepository>().Named<IBaseRepository>("EF");
+                //builder.RegisterType<SqlSugar.BaseRepository>().Named<IBaseRepository>("SqlSugar");
+                //属性注入
+                //builder.RegisterType<SysUserService>().As<ISysUserService>().PropertiesAutowired();
+                //子容器
+                //builder.RegisterType<SysUserService>().InstancePerMatchingLifetimeScope("myscope");
                 //方法二：var assemblyService = Assembly.Load("Service.dll");
                 var serviceDllFile = Path.Combine(basePath, "Service.dll");//获取注入项目绝对路径
                 var repositoryDllFile = Path.Combine(basePath, "Repository.dll");

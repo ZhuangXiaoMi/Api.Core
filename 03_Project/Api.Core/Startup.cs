@@ -101,9 +101,26 @@ namespace Api.Core
             builder.RegisterModule<AutofacService>();
         }
 
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // app.ApplicationServices.GetService<ISysUserService>();
+            //命名注册，一个接口多个实现的获取，接 builder.RegisterModule<AutofacService>();
+            //this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            //var noName = this.AutofacContainer.Resolve<IBaseRepository>();//获取其他没有具体命名的
+            //var sqlSugarServices = this.AutofacContainer.ResolveNamed<IBaseRepository>("SqlSugar");//获取有具体命名的
+            //子容器
+            //using (var myscope = AutofacContainer.BeginLifetimeScope("myscope"))
+            //{
+            //    var service0 = myscope.Resolve<SysUserService>();
+            //    using (var scope = myscope.BeginLifetimeScope())
+            //    {
+            //        var service1 = scope.Resolve<SysUserService>();
+            //    }
+            //}
+
             app.UseSignalRConfigure();//SignalR
 
             // 注意顺序，放在处理异常中间件后，便于捕获异常
